@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css" />
+    <link href="./src/favicon.ico" rel="icon" type="image/x-icon" />
+    <title>Crew positions</title>
+  </head>
+  <body>
+    <section id="fetchTable" class="hidden">
+      <div id="fetchMessage">&#9888; Data is not received from portal</div>
+      <button id="fetchButton" onclick="fetchAgain()">Fetch</button>
+    </section>
+    <section id="tripsTable" class="hidden">
+      <div>Select trip:</div>
+      <table>
+        <thead>
+          <tr>
+            <th id="flightNumber" class="invisible"></th>
+            <th id="flightDate" class="invisible"></th>
+            <th id="flightLegs" class="invisible"></th>
+            <th id="sectors">Duties</th>
+            <th id="brekas">ULR<br />Breaks</th>
+            <th id="aircraftRegistration" class="invisible"></th>
+            <th id="aircraftDescription" class="invisible"></th>
+            <th id="crc">CRC</th>
+            <th id="VCM">VCM</th>
+            <th id="crew">Crew</th>
+            <th id="controls" class="invisible"></th>
+          </tr>
+        </thead>
+        <tbody id="cardContainer"></tbody>
+      </table>
+    </section>
+    <section id="crewTable" class="hidden">
+      <div class="UIhood" id="crewControls">
+        <button onclick="back()">Back to trips</button>
+        <button id="buttonRestart" onclick="restart(event)">Generate again</button>
+      </div>
+      <div id="crewOutput"></div>
+    </section>
+    <section id="errorTable" class="UIhood hidden">
+      <div id="errorOutput"></div>
+      <button onclick="hideErrors()">Ok Close</button>
+    </section>
+    <div class="UIhood hidden" id="keyBind">
+      Press <span class="keyBind">Ctrl &#8963;</span><span class="keyBind">Shift &#8679;</span><span class="keyBind">H</span> to <b>h</b>ide/show controls
+    </div>
+  </body>
+</html>

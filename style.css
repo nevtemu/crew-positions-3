@@ -1,0 +1,97 @@
+/* Font */
+@font-face {
+    font-family: PT;
+    src: url(src/fonts/PT_Sans/PTSans-Regular.ttf);
+}
+* {
+    font-family: PT;
+}
+
+/* Badges */
+.badge{
+    display:inline-block;
+    color: whitesmoke;
+    fill:whitesmoke;
+    margin: 0 1px;
+    padding: 0 3px;
+    border-radius: 5px;
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.badge-ir {background-color:crimson;}
+.badge-w {background-color:indigo;}
+.badge-pcr{background-color: darkred;}
+.badge-pool{background-color: black;}
+.badge-ps{background-color:darkturquoise;}
+.badge-bp{background-color:coral;}
+.badge-ptt{background-color:darkgreen;}
+.badge-mfp{background-color:midnightblue;}
+.badge-reloc{background-color:slategray;}
+.badge-bd{background-color:royalblue}
+
+/* Error handler messages */
+.warn{
+    margin: 0.5rem 0;
+    border-radius: 5px;
+    padding: 0.1rem 0.3rem;
+}
+.message-warn{
+    color: #ffc75d;
+    background-color: #6a5b0b;
+}
+.message-error{
+    color: #ff9090;
+    background-color: #5c0000;
+}
+.message-info{
+    color: #00ef01;
+    background-color: #2e6400;
+}
+
+/* Key bind */
+.keyBind{
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0.1em 0.5em;
+    margin: 0 0.2em;
+    box-shadow: 0 1px 0px rgba(0, 0, 0, 0.2), 0 0 0 2px #fff inset;
+    background-color: #f7f7f7;
+}
+
+/* Table */
+td, th {
+    border: 1px black solid;
+    padding: 0 0.4rem;
+}
+tr:nth-child(even) {
+    background-color: #E5E7E9;}
+tr:hover {
+    background-color: #85C1E9;
+}
+.centerCell {
+    text-align: center;
+}
+
+/* Spacing */
+#crewControls{margin: 0.5rem;}
+#keyBind{margin: 1rem;}
+button{margin: 0 0.1rem;}
+
+/* Important style for hidden element. Must be last */
+.hidden{display: none;}
+.invisible{visibility:hidden}
+
+/* MFP badge button */
+.showMFPbutton{
+    position:relative;
+    text-transform: uppercase;
+}
+.showMFPbutton:hover span{
+    visibility:visible;
+}
+button, .showMFPbutton span{
+    cursor: pointer;
+}
+.buttonMFP{
+    position: absolute;
+    right: 0.2rem;
+}
