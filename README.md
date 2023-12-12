@@ -32,7 +32,7 @@ Works for any type of operation except cases, when data is incomplete/missing.
 * Breaks allocation complete overhaul. Now crew can have same break on both sectors, but first break on night flight is *good*, first break on day flight is *bad*. More importantly breaks are related to crew position now, so inflight retail  operators are not on same break, equal number of Gr2 from FWD and AFT galley (A380 Y class) on break, MFP (MR5, L5A) same break as CSV, galley operator on earlier breaks to prepare for next service etc.
 * Added option to generate only list of crew (to give positions manually). This is especially useful in case algorithm fails for any reason: you will still be able to generate crew list and give positions manually.
 * Advanced error handling. For example, more information provided in console regarding VCM etc.
-* If aircraft registration not found or not available on the portal, added option to input in manually. Minimum requirement is crew data to generate tablet (without it entire script make no sense).
+* If aircraft registration not found or not available on the portal, added option to input in manually. Minimum requirement is crew data to generate table (without it entire script make no sense).
 * Support for positions for W class
 * Added key-bind for keyboard to show/hide GUI
 
@@ -46,12 +46,12 @@ Works for any type of operation except cases, when data is incomplete/missing.
 
 * Added information about number of times flown to this destination.
 ![Destination experience](screenshots/scr3.png)
-* Crew comments now have limited number of symbols. Long comments trimmed to avoid stretching of this tablet cell. However, full comment is still available in tooltip of he cell.
+* Crew comments now have limited number of symbols. Long comments trimmed to avoid stretching of this table cell. However, full comment is still available in tooltip of he cell.
 ![Comments trim](screenshots/scr4.png)
-* In position cells “(IR)” replaced with badge. Added button “+” to add MFP badge. Unfortunately MFP information is not available on the portal, so only can add manually after flight loaded on purser's tablet.
+* In position cells “(IR)” replaced with badge. Added button “+” to add MFP badge. Unfortunately MFP information is not available on the portal, so only can add manually after flight loaded on purser's table.
 ![MFP and IR badges](screenshots/scr5.png)
 * New font [PT Sans](https://www.paratype.com/collections/pt/44157 "PT Sans")
-* Now can completely hide GUI (to print only tablet)
+* Now can completely hide GUI (to print only table)
 
 ## Limitations
 
@@ -102,3 +102,5 @@ Now, when crew portal tab is active, you can just press key binding `Ctrl`+`Shif
 Enjoy!
 
 ## Changelog
+
+>
