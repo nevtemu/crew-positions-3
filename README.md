@@ -103,4 +103,6 @@ Enjoy!
 
 ## Changelog
 
->
+20.12.2023
+> Added sections for upgrade prices and retail targets information. However, did not release those features due to requirement for constant updates from company documents and confidential business information.
+> ![Upgrade prices](screenshots/scr11.png)
