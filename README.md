@@ -48,7 +48,7 @@ Works for any type of operation except cases, when data is incomplete/missing.
 ![Destination experience](screenshots/scr3.png)
 * Crew comments now have limited number of symbols. Long comments trimmed to avoid stretching of this table cell. However, full comment is still available in tooltip of he cell.
 ![Comments trim](screenshots/scr4.png)
-* In position cells “(IR)” replaced with badge. Added button “+” to add MFP badge. Unfortunately MFP information is not available on the portal, so only can add manually after flight loaded on purser"s table.
+* In position cells “(IR)” replaced with badge. Added button “+” to add MFP badge. Unfortunately MFP information is not available on the portal, so only can add manually after flight loaded on purser's table.
 ![MFP and IR badges](screenshots/scr5.png)
 * New font [PT Sans](https://www.paratype.com/collections/pt/44157 "PT Sans")
 * Now can completely hide GUI (to print only table)
@@ -61,7 +61,7 @@ Works for any type of operation except cases, when data is incomplete/missing.
 
 ## How to use?
 
-This is the hardest part. Entire process can be automated to pressing key binding to start execution. That"s it! However, due to cybersecurity, strict policies for data protections, I"m afraid to publish it online myself. But I will give you few options to choose.
+This is the hardest part. Entire process can be automated to pressing key binding to start execution. That's it! However, due to cybersecurity, strict policies for data protections, I'm afraid to publish it online myself. But I will give you few options to choose.
 
 There are two parts to get this done:
 
@@ -106,3 +106,15 @@ Enjoy!
 20.12.2023
 > Added sections for upgrade prices and retail targets information. However, did not release those features due to requirement for constant updates from company documents and confidential business information.
 > ![Upgrade prices](screenshots/scr11.png)
+
+22.12.2023
+> Added aircraft delivery date (in service since / age). Also VCM now has conditional formatting: red if negative.
+> ![Aircraft age](screenshots/scr12.png)
+> Added settings to toggle on/off additional information.
+
+16.03.2024
+> Shortened aircraft delivery date.
+> Project has grown large. Slitted into separate modules.
+> Added settings to toggle on/off additional information.
+> Added information for ramadan services.
+> ![Ramadan information](screenshots/scr13.png)
