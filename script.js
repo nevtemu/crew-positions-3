@@ -15,7 +15,6 @@ import fleetAge from './data/fleet_age.json' assert { type: "json" };
 window.onload = function () {
   if (window.opener !== null) {
     renderer([document.querySelector("#fetchTable")]);
-    fetchAgain();
   }
 };
 
@@ -27,11 +26,6 @@ window.addEventListener("message", (receivedData) => {
   generateTripsTable();
   window.opener.postMessage("Thank you", "*");
 });
-
-function fetchAgain() {
-  window.opener.postMessage("Ready to receive", "*");
-  console.warn("Request for data sent to portal");
-}
 
 // Trips table
 function requiredCrewNumber (typesOfAircraft) {
