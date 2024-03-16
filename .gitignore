@@ -1,7 +1,13 @@
-Back_ups
-Support
-src/fonts/other
-screenshots/other
-Browser_snippets/tamper monkey readme.txt
+# System
 .DS_store
 /.vscode
+# Development folders
+Back_ups
+Support
+Browser_snippets/tamper monkey readme.txt
+# Unused sources 
+src/fonts/other
+screenshots/other
+# Confidential
+
+

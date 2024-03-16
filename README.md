@@ -108,5 +108,5 @@ Enjoy!
 > ![Upgrade prices](screenshots/scr11.png)
 
 22.12.2023
-> Added aircraft delivery date (in service since; age). Also VCM now has conditional formatting: red if negative.
+> Added aircraft delivery date (in service since / age). Also VCM now has conditional formatting: red if negative.
 > ![Aircraft age](screenshots/scr12.png)
