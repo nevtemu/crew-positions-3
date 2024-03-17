@@ -3,11 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="script.js" defer></script>
+    <script type="module">
+      import { start, showRegistrationInputField, addAircraftRegistrationManually,addMFP,hideErrors,back, restart } from "/script.js";
+      window.start = start;
+      window.showRegistrationInputField = showRegistrationInputField;
+      window.addAircraftRegistrationManually = addAircraftRegistrationManually;
+      window.addMFP = addMFP;
+      window.hideErrors = hideErrors;
+      window.back = back;
+      window.restart = restart;
+    </script>
+    <script type="module"src="script.js" defer></script>
     <link rel="stylesheet" href="style.css" />
     <link href="./src/favicon.ico" rel="icon" type="image/x-icon" />
     <title>Crew positions</title>
-  </head>
+  </head> 
   <body>
     <section id="fetchTable" class="hidden">
       <div id="fetchMessage">&#9888; Data is not received from portal</div>
@@ -22,7 +32,7 @@
             <th id="flightDate" class="invisible"></th>
             <th id="flightLegs" class="invisible"></th>
             <th id="sectors">Duties</th>
-            <th id="brekas">ULR<br />Breaks</th>
+            <th id="brekas">ULR<br/>Breaks</th>
             <th id="aircraftRegistration" class="invisible"></th>
             <th id="aircraftDescription" class="invisible"></th>
             <th id="aircraftAge">In service<br/>since</th>
@@ -45,6 +55,13 @@
     <section id="errorTable" class="UIhood hidden">
       <div id="errorOutput"></div>
       <button onclick="hideErrors()">Ok Close</button>
+    </section>
+    <section id="flightInfo" class="hidden">
+      <div class="horizontal-flex">
+        <div id="upgOutput"></div>
+        <div id="dfOutput"></div>
+        <div id="ramadanOutput"></div>
+    </div>
     </section>
     <div class="UIhood hidden" id="keyBind">
       Press <span class="keyBind">Ctrl &#8963;</span><span class="keyBind">Shift &#8679;</span><span class="keyBind">H</span> to <b>h</b>ide/show controls

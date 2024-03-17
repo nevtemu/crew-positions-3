@@ -55,7 +55,7 @@ Works for any type of operation except cases, when data is incomplete/missing.
 
 ## Limitations
 
-* __Breaks can repeat__. On rare occasions crew can get same break on all sectors. This is conscious decision as getting 1st break on one flight is considered good and on another - bad. Also breaks are now linked to positions to ensure company regulations are met.
+* __Breaks can repeat__. On rare occasions crew can get same break on all sectors. This is conscious decision as getting 1st break on one flight is considered good and on another - bad. Also breaks are now linked to positions to ensure company regulations are met. In addition for certain types of operation crew rest strategies divide crew into unequal groups (for example, A380 MD-CRC LRV has one, four and three Gr1s on different break groups), so in certain scenarios breaks will repeat.
 * __Cargo flights support__ has been completely removed. They are not rostered to crew any more. If you happened to get one, it still can be processed via “List only” option.
 * __Script would not work__ if information fetched is incomplete or missing entirely. This is common on reserve, when many duties missing crew or aircraft data. Minimum requirement for script to work is to have crew information (registration, type of operation can be manually input).
 
@@ -110,3 +110,22 @@ Enjoy!
 22.12.2023
 > Added aircraft delivery date (in service since / age). Also VCM now has conditional formatting: red if negative.
 > ![Aircraft age](screenshots/scr12.png)
+> Added settings to toggle on/off additional information.
+
+16.03.2024
+> Shortened aircraft delivery date.
+> Project has grown large. Slitted into separate modules.
+> Added settings to toggle on/off additional information.
+> Added information for ramadan services.
+> ![Ramadan information](screenshots/scr13.png)
+
+17.03.2024
+> Added UL1A for B773 LRV. Lots of work: position, break and VCM changes.
+> Moved DF position to UL3 and MFP to UR3 (Initially my thought were to align with A380 2 class where UR3 is DF, but it make more sense to keep MFP on same side as CSV for service, and even on 2 class it is changed by company now).
+> Added link to change comment on crew portal.
+> ![Comments](screenshots/scr14.png)
+> Added autocorrection of breaks, when positions changed manually.
+> ![Breaks](screenshots/scr15.gif)
+> Added highlight for duplicated positions.
+> ![Duplicates](screenshots/scr16.gif)
+> Most of features can be switched off in settings.

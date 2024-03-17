@@ -10,14 +10,14 @@
 // ==/UserScript==
 
 (function() {
-    'use strict';
+    "use strict";
 
     function run () {
     const crewApp = window.open("http://127.0.0.1:5500/index.html","_blank");
     let userStaffNumber = localStorage.getItem("CurrentStaffNo");
-    let crewDataKey = Object.keys(localStorage).filter(k => k.startsWith('Crew_') && !k.endsWith("TimeOut"));
-    let rosterKey = Object.keys(localStorage).filter(k => k.startsWith('Roster_'+userStaffNumber) && !k.endsWith("TimeOut") && !k.endsWith("Destination"));
-    let flightDataKey = Object.keys(localStorage).filter(m => m.startsWith('Position_') && !m.endsWith("TimeOut"));
+    let crewDataKey = Object.keys(localStorage).filter(k => k.startsWith("Crew_") && !k.endsWith("TimeOut"));
+    let rosterKey = Object.keys(localStorage).filter(k => k.startsWith("Roster_"+userStaffNumber) && !k.endsWith("TimeOut") && !k.endsWith("Destination"));
+    let flightDataKey = Object.keys(localStorage).filter(m => m.startsWith("Position_") && !m.endsWith("TimeOut"));
     let dataToGo = {}, roster = [];
     rosterKey.forEach((item) => roster.push(JSON.parse(localStorage.getItem(item))))
     roster.forEach(item => item.StaffRosters[0].RosterData.CrewRosterResonse.Trips.Trp.forEach(subitem => dataToGo[subitem.TripNo+"_"+subitem.StartDate.split(" ",1)] = {})) //word resonse (response) is with mistake on the portal
@@ -50,7 +50,7 @@
     function dispatcher (msg) {
         if(msg.data === "Ready to receive"){
             crewApp.postMessage(dataToGo, "*");
-            console.warn('sent')
+            console.warn("sent")
         }
     }
 }

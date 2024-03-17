@@ -15,7 +15,7 @@
     margin: 0 1px;
     padding: 0 3px;
     border-radius: 5px;
-    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 .badge-ir {background-color:crimson;}
 .badge-w {background-color:indigo;}
@@ -94,4 +94,69 @@ button, .showMFPbutton span{
 .buttonMFP{
     position: absolute;
     right: 0.2rem;
+}
+
+
+
+/* Upgrades and DF styles */
+.upg {
+    display: inline-block;
+    color: whitesmoke;
+    fill: whitesmoke;
+    margin: 0 1px;
+    padding: 0 3px;
+    border-radius: 5px;
+    font-weight: 900;
+    width: 1.3em;
+    text-align: center;
+}
+.upg-f{background-color:#c70632}
+.upg-j{background-color:#2c3ed6}
+.upg-w{background-color:#a01ee2}
+.upg-y{background-color:#1d9d66}
+.upg-table td:nth-child(2),.upg-table td:nth-child(3){
+    text-align: right;
+}
+.df-table td:nth-child(2){
+    text-align: right;
+}
+.ramadan-table td:nth-child(3){
+    text-align: center;
+}
+.upg-block{
+    font-size: smaller;
+}
+.upg-wrapper{
+    margin: 1em 1em;
+    font-size: larger;
+    padding: 0.5em;
+    /* position: relative; */
+
+   
+  }
+
+/* .upg-header{
+    position: absolute;
+    top:-1em;
+    background-color: white;
+    padding: 0.2em 1em
+} */
+/* #flightInfo{
+    
+} */
+.horizontal-flex{
+    display: flex;
+    gap: 1em;
+    flex-direction: row;
+}
+/* #dfOutput, #upgOutput{
+    border: 1px solid lightgray;
+    border-radius: 20px;
+    box-shadow: 19px 16px 26px 2px rgba(0, 0, 0, 0.1);
+
+    
+} */
+
+.repeated {
+    background-color: #ff9090;
 }
