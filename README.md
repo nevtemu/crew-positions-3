@@ -101,6 +101,8 @@ Now, when crew portal tab is active, you can just press key binding `Ctrl`+`Shif
 
 Enjoy!
 
+If you need help setting it up, reach me out 😊
+
 ## Changelog
 
 20.12.2023
@@ -114,18 +116,24 @@ Enjoy!
 
 16.03.2024
 > Shortened aircraft delivery date.
+
 > Project has grown large. Slitted into separate modules.
+
 > Added settings to toggle on/off additional information.
+
 > Added information for ramadan services.
 > ![Ramadan information](screenshots/scr13.png)
 
 17.03.2024
 > Added UL1A for B773 LRV. Lots of work: position, break and VCM changes.
+
 > Moved DF position to UL3 and MFP to UR3 (Initially my thought were to align with A380 2 class where UR3 is DF, but it make more sense to keep MFP on same side as CSV for service, and even on 2 class it is changed by company now).
+
 > Added link to change comment on crew portal.
 > ![Comments](screenshots/scr14.png)
+
 > Added autocorrection of breaks, when positions changed manually.
 > ![Breaks](screenshots/scr15.gif)
+
 > Added highlight for duplicated positions.
 > ![Duplicates](screenshots/scr16.gif)
-> Most of features can be switched off in settings.
