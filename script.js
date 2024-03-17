@@ -1,20 +1,30 @@
 import settings from './settings.json' assert { type: "json" };
 
+// Data
 import fleet from './data/fleet.json' assert { type: "json" };
 import typesOfAircraft from './data/aircraft_type.json' assert { type: "json" };
 import qualifications from './data/qualifications.json' assert { type: "json" };
+import urls from './data/urls.json' assert { type: "json" };
 import {breaks} from './data/breaks.js';
 import {positions} from './data/positions.js';
 
-let dataPool; // To store data from portal
-
+// Functions
 import {additional_info} from './functions/additional_info.js'
+import {birthday_check} from './functions/birthday_check.js'
+import {W_selector} from './functions/W_selector.js'
+import {vcmRules} from './functions/vcm_rules.js'
+import {extraRules} from './functions/extra_rules.js'
+import {badges} from './functions/badges.js'
 import fleetAge from './data/fleet_age.json' assert { type: "json" };
+
+let dataPool; // To store data from portal
 
 // Connection
 window.onload = function () {
   if (window.opener !== null) {
     renderer([document.querySelector("#fetchTable")]);
+    window.opener.postMessage("Ready to receive", "*");
+    console.warn("Request for data sent to portal");
   }
 };
 
@@ -100,26 +110,14 @@ export function start(event, n, doPositions) {
   let crewData = loadCrew(specificFlightData.crewData);
   console.warn("Crew data loaded successfully");
 
-  
-  
-  //Birthday check
-  let flightDates = [
-    new Date(convertDate(specificFlightData.flightData.FlightData[0].DepartureDate)),
-    new Date(convertDate(specificFlightData.flightData.FlightData[specificFlightData.flightData.FlightData.length - 1].DepartureDate))
-  ];
-  flightDates = [ //Adjustment one day before and after trip to catch birthdays on those days
-    new Date(flightDates[0].setDate(flightDates[0].getDate() - 1)),
-    new Date(flightDates[1].setDate(flightDates[1].getDate() + 1)),
-  ];
-  crewData.forEach((crew) => {hasBirthday(crew, flightDates) ? crew.badges.push(1) : false;});
-  //end of birthday check
+  birthday_check(crewData, specificFlightData);
 
   let registration = specificFlightData.flightData.FlightData[0].AircraftTail;
   let numberOfDuties = document.querySelector(`#sectors${n}`).value; //These values taken from page as user may change number of positions/breaks desired
   let hasBreak = document.querySelector(`#rest${n}`).checked;
 
 //Upgrades and DF targets output
-if (settings['additional-info']){
+if (settings['additional_info']){
   const dfTag = document.querySelector("#dfOutput");
   const upgTag = document.querySelector("#upgOutput");
   const ramadanTag = document.querySelector("#ramadanOutput");
@@ -133,41 +131,10 @@ if (settings['additional-info']){
   }
 }
 
-// W
-  // Priority: 1) Gr2 with W badge, 2) gr1 as gr2, 3) most senior gr2
-  if (fleet[registration] == 10){
-    // 1) 
-    let requiredWcrew = [];
-    Object.keys(positions[10].W).forEach((item) => requiredWcrew = [...requiredWcrew, ...positions[10].W[item]]);
-    let requiredWcrewLength = requiredWcrew.length;
-    let crewW = crewData.filter((crew) => crew.grade == "GR2" && crew.badges.includes(170920));
-    if (crewW.length > 0) {
-      while (requiredWcrewLength > 0) {
-        crewW[crewW.length - requiredWcrewLength].grade = "W";
-        requiredWcrewLength--;
-      } 
-    }
-    // 2)
-    if (requiredWcrewLength > 0 && crewData.filter((crew) => crew.grade == "GR2").length < 9){
-        let candidates = crewData.filter((crew) => crew.grade == "GR1");
-        let q=candidates.length;
-        for (q; q>8; q--){
-          candidates[q-1].grade = "W";
-          requiredWcrewLength--;
-      } 
-    }
-    // 3)
-    if (requiredWcrewLength > 0) {
-      let candidates = crewData.filter((crew) => crew.grade == "GR2");
-      for (let t=0; t <= requiredWcrewLength; t++){
-        candidates[t].grade = "W";
-        requiredWcrewLength--;
-      }
-    }
+if (fleet[registration] == 10){
+  W_selector(crewData, positions);
+}
 
-
-    
-  }
 
   //Temporarily A380 grade change for USA ULR trips // TEMP !!!
   if (["JFK", "BOS", "IAD", "IAH", "DFW", "ORD", "MIA", "SEA", "SFO", "LAX", "MCO"].includes(specificFlightData.flightData.FlightData[0].Destination) && specificFlightData.flightData.FlightData[0].AircraftType == "A380-800" && 
@@ -266,7 +233,11 @@ function loadCrew(inputData) {
 
 function loadPositions(crewData, registration, isULR) {
   if (isULR && crewData.filter((crew) => crew.grade == "CSV").length < 3) isULR = false; // Check for LR flights or other flights with breaks, but non-ULR (2 CSV)
-  let thisFlightPositions = JSON.parse(JSON.stringify([12, 11, 9, 8].includes(fleet[registration]) && isULR /* Check if it is A380 ULR */ ? positions[99] : positions[fleet[registration]])); 
+  let thisFlightPositions = JSON.parse(JSON.stringify(
+                            [12, 11, 9, 8].includes(fleet[registration]) && isULR /* Check if it is A380 ULR */ ? positions[99] :
+                            [1, 2, 3, 6].includes(fleet[registration]) && isULR /* Check if it is B773 ULR */ ? positions[98] : 
+                            positions[fleet[registration]]
+                            ));
   let requiredCrew = requiredCrewNumber (fleet[registration]);
   let vcm = crewData.length - requiredCrew;
   //Check VCM by grades
@@ -285,198 +256,6 @@ function loadPositions(crewData, registration, isULR) {
     thisFlightPositions = vcm < 0 ? vcmRules(vcm, thisFlightPositions, fleet[registration], isULR) : extraRules(thisFlightPositions, variations);
   }
   return thisFlightPositions;
-}
-
-function extraRules(thisFlightPositions, variations) {
-  Object.keys(variations).forEach((grade) => {
-    if (grade === "GR2") errorHandler(`You probably have ${variations[grade]} supy`, "warn")
-    while (variations[grade] > 0) {
-      if (["PUR", "CSV", "CSA"].includes(grade)) thisFlightPositions[grade].only.push(thisFlightPositions.EXTRA.only.pop());
-      else thisFlightPositions[grade].remain.push(thisFlightPositions.EXTRA.only.pop());
-      variations[grade]--;
-    }
-  });
-  return thisFlightPositions;
-}
-
-function vcmRules(vcm, p, aircraftType, isULR) {
-  switch (aircraftType) {
-    // B777-300 3 class
-    case 1:
-    case 2:
-    case 3:
-    case 6:
-      if (vcm < 0) {
-        p.GR2.remain.splice(p.GR2.remain.indexOf("L5A"), 1);
-      }
-      if (vcm < -1) {
-        p.GR1.galley.splice(p.GR1.galley.indexOf("L2A"), 1);
-        p.GR2.remain.splice(p.GR2.remain.indexOf("L4"), 1);
-        p.GR1.galley.push("L4 (L2A)");
-      } else break;
-      if (vcm < -2) {
-        p.CSV.only.splice(p.CSV.only.indexOf("R2A"), 1);
-        p.GR2.remain.splice(p.GR2.remain.indexOf("R4"), 1);
-        p.CSV.only.push("R4 (R2A)");
-      } else break;
-      if (vcm < -3) {
-        p.FG1.df.splice(p.FG1.df.indexOf("R1"),1);
-        p.GR2.df.splice(p.GR2.df.indexOf("R3"),1);
-        p.PUR.only.splice(p.PUR.only.indexOf("PUR"),1);
-        p.FG1.df.push("R3 (L1)");
-        p.PUR.only.push("L1 (PUR)");
-      } else break;
-      if (vcm < -4) {
-        console.error("Less than minimum crew requirement to operate");
-      } 
-      break;
-    // B777-200 2 class
-    case 4:
-      if (vcm < 0) {
-        p.GR2.remain.splice(p.GR2.remain.indexOf("L4A"), 1);
-      } else break;
-      if (vcm < -1) {
-        p.GR1.galley.splice(p.GR1.galley.indexOf("L1A"), 1);
-        p.GR2.df.splice(p.GR2.df.indexOf("L2"), 1);
-        p.GR1.galley.push("L2 (L1A)");
-      } else break;
-      if (vcm < -2) {
-        p.CSV.only.splice(p.CSV.only.indexOf("R1A"), 1);
-        p.GR2.remain.splice(p.GR2.main.indexOf("R2"), 1);
-        p.CSV.only.push("R2 (R1A)");
-      } else break;
-      if (vcm < -3) {
-        p.GR1.remain.splice(p.GR1.remain.indexOf("L1"),1);
-        p.GR2.remain.splice(p.GR2.remain.indexOf("R3"),1);
-        p.PUR.only.splice(p.PUR.only.indexOf("PUR"),1);
-        p.GR1.main.push("R3 (L1)");
-        p.PUR.only.push("L1 (PUR)");
-      } else break;
-      if (vcm < -4) {
-        console.error("Less than minimum crew requirement to operate");
-      }
-      break;
-    // B777-300 2 class
-    case 5:
-      if (vcm < 0) {
-        p.GR2.remain.splice(p.GR2.remain.indexOf("L5A"), 1);
-      }
-      if (vcm < -1) {
-        p.GR1.df.splice(p.GR1.df.indexOf("R1A"), 1);
-        p.GR2.remain.splice(p.GR2.remain.indexOf("R2"), 1);
-        p.GR1.df.push("R2 (R1A)", 1);
-      } else break;
-      if (vcm < -2) {
-        p.GR1.galley.splice(p.GR1.galley.indexOf("L1A"), 1);
-        p.GR2.df.splice(p.GR2.df.indexOf("L2"), 1);
-        p.GR1.galley.push("L2 (L1A)");
-      } else break;
-      if (vcm < -3) {
-        p.GR1.remain.splice(p.GR1.remain.indexOf("L1"),1);
-        p.GR2.remain.splice(p.GR2.remain.indexOf("R3"),1);
-        p.PUR.only.splice(p.PUR.only.indexOf("PUR"),1);
-        p.GR1.remain.push("R3 (L1)");
-        p.PUR.only.push("L1 (PUR)");
-      } else break;
-      if (vcm < -4) {
-        console.error("Less than minimum crew requirement to operate");
-      }
-      break;
-    // A380-800 3 class 
-    case 8:
-    case 9:
-    case 11:
-    case 12:
-    case 99:
-      if (vcm < 0) {
-        p.GR2.remain.splice(p.GR2.remain.indexOf("ML4"), 1);
-        p.GR1.df.splice(p.GR1.df.indexOf("ML4A"), 1);
-        p.GR1.df.push("ML4 (ML4A)");
-      }
-      if (vcm < -1) {
-        p.GR2.remain.splice(p.GR2.df.indexOf("MR5"), 1);
-        p.GR1.galley.splice(p.GR1.galley.indexOf("MR4A"), 1);
-        p.GR1.galley.push("MR5 (MR4A)");
-      } else break;
-      if (vcm < -2) {
-        p.GR2.remain.splice(p.GR2.remain.indexOf("ML3"), 1);
-        p.GR1.galley.splice(p.GR1.galley.indexOf("ML3A"), 1);
-        p.GR1.galley.push("ML3 (ML3A)");
-      } else break;
-      if (vcm < -3 && isULR){
-        p.CSV.only.splice(p.CSV.only.indexOf("ML1"),1)
-        p.PUR.only.splice(p.PUR.only.indexOf("PUR"),1)
-        p.GR2.remain.splice(p.GR2.remain.indexOf("MR1"),1)
-        p.PUR.only.push("ML1 (PUR)")
-        p.CSV.only.push("MR1 (ML1)")
-      } else if (vcm < -3){
-        p.PUR.only.splice(p.PUR.only.indexOf("PUR"),1)
-        p.GR2.remain.splice(p.GR2.remain.indexOf("ML1"),1)
-        p.PUR.only.push("ML1 (PUR)")
-      } else break;
-      if (vcm < -4) {
-        console.error("Less than minimum crew requirement to operate");
-      }
-      break;
-    // A380-800 2 class
-    case 7:
-      if (vcm < 0) {
-        p.GR2.remain.splice(p.GR2.remain.indexOf("ML3"), 1);
-        p.GR1.galley.splice(p.GR1.galley.indexOf("ML3A"), 1);
-        p.GR1.galley.push("ML3 (ML3A)");
-      } else break;
-      if (vcm < -1 && isULR){
-        p.CSV.only.splice(p.CSV.only.indexOf("ML1"),1)
-        p.PUR.only.splice(p.PUR.only.indexOf("PUR"),1)
-        p.GR2.remain.splice(p.GR2.remain.indexOf("MR1"),1)
-        p.PUR.only.push("ML1 (PUR)")
-        p.CSV.only.push("MR1 (ML1)")
-      } else if (vcm < -1){
-        p.PUR.only.splice(p.PUR.only.indexOf("PUR"),1)
-        p.GR2.remain.splice(p.GR2.remain.indexOf("ML1"),1)
-        p.PUR.only.push("ML1 (PUR)")
-      } else break;
-      if (vcm < -2) {
-        console.error("Less than minimum crew requirement to operate");
-      }
-      break;
-    //A380-300 4 class
-    case 10:
-      if (vcm < 0) {
-        p.W.galley.splice(p.W.galley.indexOf("MR3A"), 1);
-        p.GR2.remain.splice(p.GR2.remain.indexOf("MR2"), 1);
-        p.W.galley.push("MR2 (MR3A)");
-      }
-      if (vcm < -1) {
-        p.GR2.remain.splice(p.GR2.remain.indexOf("ML4"), 1);
-        p.GR1.df.splice(p.GR1.df.indexOf("ML4A"), 1);
-        p.GR1.df.push("ML4 (ML4A)");
-      } else break;
-      if (vcm < -2) {
-        p.GR2.remain.splice(p.GR2.remain.indexOf("MR5"), 1);
-        p.GR1.galley.splice(p.GR1.galley.indexOf("MR4A"), 1);
-        p.GR1.galley.push("MR5 (MR4A)");
-      } else break;
-      if (vcm < -3) {
-        p.GR2.remain.splice(p.GR2.remain.indexOf("ML3"), 1);
-        p.GR1.galley.splice(p.GR1.galley.indexOf("ML3A"), 1);
-        p.GR1.galley.push("ML3 (ML3A)");
-      } else break;
-      if (vcm < -4) {
-        p.CSV.only.splice(p.CSV.only.indexOf("ML1"),1)
-        p.PUR.only.splice(p.PUR.only.indexOf("PUR"),1)
-        p.GR2.remain.splice(p.GR2.remain.indexOf("MR1"),1)
-        p.PUR.only.push("ML1 (PUR)")
-        p.CSV.only.push("MR1 (ML1)")
-      } else break;
-      if (vcm < -5) {
-        console.error("Less than minimum crew requirement to operate");
-      }
-      break;
-    default:
-      console.error("Aircraft type not found!");
-  }
-  return p;
 }
 
 function generatePositions (crewData, positions, registration, numberOfDuties = 1, hasBreaks = false) {
@@ -594,7 +373,7 @@ function createOutput(crewList, numberOfSectors, hasBreak, doPositions) {
               <th>Flown</th>
               <th>Comment</th>
           </tr>`;
-  const footer = `</table><div>*Positions may be adjusted to accommodate MFP2.0 or other operational requirements</div>`;
+  const footer = `</table><div>*Positions may be adjusted to accommodate MFP2.0 or other operational requirements</div><div>⚠️ To change you comment click <a href="${urls.updateComment}">here</a> and then press "Edit"</div>`;
   let fileContent = "";
   let lastGrade = "";
   crewList.forEach(createTable);
@@ -624,13 +403,13 @@ function createOutput(crewList, numberOfSectors, hasBreak, doPositions) {
     }
     fileContent += `<tr><td class="centerCell">${item.originalGrade}</td>
                         <td>${item.nickname}</td>`;
-    for (let i = 0; i < numberOfSectors; i++) {fileContent += `<td class="centerCell showMFPbutton" contenteditable>${doPositions ? item[`position${i}`] : ""}
+    for (let i = 0; i < numberOfSectors; i++) {fileContent += `<td class="centerCell showMFPbutton ${settings.break_auto_correction && hasBreak ? "autoBreaks" : ""} ${settings.repeated_positions_highlight ? "repeatHighlight" : ""}" contenteditable>${doPositions ? item[`position${i}`] : ""}
             ${item.doingDF && doPositions ? ` <span class="badge badge-ir" title="Retail operator">IR</span>` : ""}
             <span style="diplay:none" contenteditable="false"> </span><span class="invisible buttonMFP" onclick="addMFP(event)">+</span></td>`; /* Перший це заглушка */ 
         if (hasBreak)fileContent += `<td class="centerCell" contenteditable>${doPositions ? item[`break${i}`] : ""}</td>`}
     fileContent += `<td>${item.fullname}</td>
                     <td class="centerCell">${item.staffNumber}</td>
-                    <td><img src="https://emiratesgroup.sharepoint.com/sites/ccp/Shared Documents/ACI/country/${item.flag}.png"> ${item.nationality}</td>
+                    <td><img src="${urls.flag+item.flag}.png"> ${item.nationality}</td>
                     <td>${item.languages.join(", ")}</td>
                     <td class="centerCell" style="font-size:smaller;">${item.timeInGrade}</td>
                     <td class="centerCell">${item.ratingIR < 21 ? item.ratingIR < 10 ? `<span class="badge badge-ir" title="Duty free rating" style="padding: 0 0.4rem">${item.ratingIR}</span>` : `<span class="badge badge-ir" title="Duty free rating">${item.ratingIR}</span>` : ""} ${badges(item.badges)}</td>
@@ -639,6 +418,15 @@ function createOutput(crewList, numberOfSectors, hasBreak, doPositions) {
     lastGrade = item.grade;
   }  //end of createTable
   document.querySelector("#crewOutput").innerHTML = header + fileContent + footer;
+
+  if (settings.break_auto_correction && hasBreak){
+    const positions_cells = document.querySelectorAll(".autoBreaks")
+    positions_cells.forEach((cell) => cell.addEventListener("focusout", (event) => autoCorrectBreaks (event)))
+  }
+  if (settings.repeated_positions_highlight){
+    const positions_cells = document.querySelectorAll(".repeatHighlight")
+    positions_cells.forEach((cell) => cell.addEventListener("focusout", (event) => repeatHighlight (event)))
+  }
 }
 
 // Supporting functions
@@ -664,26 +452,6 @@ function errorHandler(message, style) {
 
 export function hideErrors() {
   renderer([], [document.querySelector("#errorTable")]);
-}
-
-function badges(badges) {
-  const cakeSVG = `<svg height="1em" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.584 6.036c1.952 0 2.591-1.381 1.839-2.843-.871-1.693 1.895-3.155.521-3.155-1.301 0-3.736 1.418-4.19 3.183-.339 1.324.296 2.815 1.83 2.815zm5.212 8.951l-.444-.383a1.355 1.355 0 0 0-1.735 0l-.442.382a3.326 3.326 0 0 1-2.174.801 3.325 3.325 0 0 1-2.173-.8l-.444-.384a1.353 1.353 0 0 0-1.734.001l-.444.383c-1.193 1.028-2.967 1.056-4.204.1V19a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-3.912c-1.237.954-3.011.929-4.206-.101zM10 7c-7.574 0-9 3.361-9 5v.469l1.164 1.003a1.355 1.355 0 0 0 1.735 0l.444-.383a3.353 3.353 0 0 1 4.345 0l.444.384c.484.417 1.245.42 1.735-.001l.442-.382a3.352 3.352 0 0 1 4.346-.001l.444.383c.487.421 1.25.417 1.735 0L19 12.469V12c0-1.639-1.426-5-9-5z"/></svg>`;
-  const pttSVG = `<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M320 32c-8.1 0-16.1 1.4-23.7 4.1L15.8 137.4C6.3 140.9 0 149.9 0 160s6.3 19.1 15.8 22.6l57.9 20.9C57.3 229.3 48 259.8 48 291.9v28.1c0 28.4-10.8 57.7-22.3 80.8c-6.5 13-13.9 25.8-22.5 37.6C0 442.7-.9 448.3 .9 453.4s6 8.9 11.2 10.2l64 16c4.2 1.1 8.7 .3 12.4-2s6.3-6.1 7.1-10.4c8.6-42.8 4.3-81.2-2.1-108.7C90.3 344.3 86 329.8 80 316.5V291.9c0-30.2 10.2-58.7 27.9-81.5c12.9-15.5 29.6-28 49.2-35.7l157-61.7c8.2-3.2 17.5 .8 20.7 9s-.8 17.5-9 20.7l-157 61.7c-12.4 4.9-23.3 12.4-32.2 21.6l159.6 57.6c7.6 2.7 15.6 4.1 23.7 4.1s16.1-1.4 23.7-4.1L624.2 182.6c9.5-3.4 15.8-12.5 15.8-22.6s-6.3-19.1-15.8-22.6L343.7 36.1C336.1 33.4 328.1 32 320 32zM128 408c0 35.3 86 72 192 72s192-36.7 192-72L496.7 262.6 354.5 314c-11.1 4-22.8 6-34.5 6s-23.5-2-34.5-6L143.3 262.6 128 408z"/></svg>`;
-  const bpSVG = `<svg version="1.1"xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="1em" viewBox="0 0 32 32" xml:space="preserve"><path d="M27,8h-3.4l-1.2-2.3c-0.5-1-1.5-1.7-2.7-1.7h-7.5c-1.1,0-2.2,0.6-2.7,1.7L8.4,8H5c-1.7,0-3,1.3-3,3v14c0,1.7,1.3,3,3,3h22c1.7,0,3-1.3,3-3V11C30,9.3,28.7,8,27,8z M8,13H6c-0.6,0-1-0.4-1-1s0.4-1,1-1h2c0.6,0,1,0.4,1,1S8.6,13,8,13z M16,24c-3.9,0-7-3.1-7-7s3.1-7,7-7s7,3.1,7,7S19.9,24,16,24z"/></svg>`;
-  let output = "";
-  badges.forEach((badge) => {
-    switch (badge) {
-      case 170920: output += `<span class="badge badge-w" title="Premium economy">W</span>`; break;
-      case 24: case 25: output += `<span class="badge badge-pool" title="Pool">&#8679</span>`; break; 
-      case 102: output += `<span class="badge badge-ps" title="Peer support">&#9825</span>`; break;
-      case 20: case 21: output += `<span class="badge badge-bp" title="Business promotion">${bpSVG}</span>`; break;
-      case 12: case 14: case 16: case 17: case 18: case 23: case 27: case 30: output += `<span class="badge badge-ptt" title="Trainer">${pttSVG}</span>`;
-      case 24514: output += `<span class="badge badge-reloc" title="Relocated ID">&#8634;</span>`; break;
-      case 1: output += `<span class="badge badge-bd" title="Birthday">${cakeSVG}</span>`; break;
-      default: break;
-    }
-  });
-  return output;
 }
 
 document.addEventListener("keydown", function (event) {
@@ -726,24 +494,35 @@ function timeInGradeNumber (string) {
   return m + y * 12;
 }
 
-function convertDate(stringDate) {
-  let day, month, year;
-  [day, month, year] = stringDate.split(" ", 1)[0].split("/");
-  return parseInt(month) + "/" + day + "/" + year;
-}
-
-function hasBirthday(crew, dates) {
-  let bd1 = new Date(crew.birthday.setFullYear(dates[0].getFullYear()));
-  if (dates[0].getTime() <= bd1.getTime() && bd1.getTime() <= dates[1].getTime()) return true;
-  if (dates[0].getFullYear() !== dates[1].getFullYear()) {
-    let bd2 = new Date(crew.birthday.setFullYear(dates[1].getFullYear()));
-    if (dates[0].getTime() <= bd2.getTime() && bd2.getTime() <= dates[1].getTime()) return true;
-  }
-  return false;
-}
-
 export function addMFP (event){
   const tagMFP = ` <span class="badge badge-mfp" title="MFP">MFP</span>`;
   const location = event.target.parentElement;
   location.innerHTML += tagMFP;
+}
+
+
+function autoCorrectBreaks (e) {
+  const registration = localStorage.getItem("registration")
+  const thisPosition = e.target.innerText.trim().split(" ")[0]
+  const relatedBreak = e.target.nextSibling;
+  relatedBreak.innerText = breaks[fleet[registration]].hasOwnProperty(thisPosition) ? breaks[fleet[registration]][thisPosition] : ""
+}
+
+function repeatHighlight (e) {
+  const thisPosition = e.target.innerText.trim().split(" ")[0]
+  const thisCell = e.target;
+  const columnIndex = e.target.cellIndex;
+  let allRows = e.target.parentElement.parentElement.childNodes; // Go two levels up to <tbody> and grab its children
+  let positionsInColumn = []
+  allRows = Array.from(allRows).filter(row => row.children[columnIndex] !== undefined && row.children[columnIndex].innerText !== "Position")
+  allRows.forEach(row => positionsInColumn.push(row.children[columnIndex].innerText.trim().split(" ")[0]))
+  allRows.forEach(row => row.children[columnIndex].classList.remove("repeated"))
+  // console.log(positionsInColumn)
+  const repeatingPositions = positionsInColumn.filter((item, index) => positionsInColumn.indexOf(item) !== index);
+
+  if (repeatingPositions.length){
+    const repeatingRows = allRows.filter(row => repeatingPositions.includes(row.children[columnIndex].innerText.trim().split(" ")[0]))
+    console.log(repeatingRows)
+    repeatingRows.forEach(row => row.children[columnIndex].classList.add("repeated"))
+  }
 }

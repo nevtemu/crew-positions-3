@@ -1,6 +1,8 @@
 export const positions = {
-    //B777-300 3 class ULR/nonULR
-    ...Object.fromEntries([1, 2, 3, 6].map((x) => [x, {PUR: {only: ["PUR"]}, CSV: {only: ["L5", "R2A"]}, FG1: {galley: ["L1"], df: ["R1"], remain: []}, GR1: {galley: ["L2A"], df: ["L2"], remain: ["R2"]}, GR2: {galley: ["R5", "L3"], df: ["R3"], remain: ["L4", "R4", "L5A"]}, EXTRA: {only: ["R5A", "R5C"]}}])), 
+    //B777-300 3 class nonULR
+    ...Object.fromEntries([1, 2, 3, 6].map((x) => [x, {PUR: {only: ["PUR"]}, CSV: {only: ["L5", "R2A"]}, FG1: {galley: ["L1"], df: ["R1"], remain: []}, GR1: {galley: ["L2A"], df: ["L2"], remain: ["R2"]}, GR2: {galley: ["R5", "L3"], df: ["R3"], remain: ["L4", "R4", "L5A"]}, EXTRA: {only: ["R5A", "R5C"]}}])),
+    //B777-300 3 class ULR 
+    98: {PUR: {only: ["PUR"]}, CSV: {only: ["L5", "R2A"]}, FG1: {galley: ["L1"], df: ["R1"], remain: ["L1A"]}, GR1: {galley: ["L2A"], df: ["L2"], remain: ["R2"]}, GR2: {galley: ["R5", "L3"], df: ["R3"], remain: ["L4", "R4", "L5A"]}, EXTRA: {only: ["R5A", "R5C"]}},
     //B777-200 2 class ULR/nonULR
     4: {PUR: {only: ["PUR"]}, CSV: {only: ["L4", "R1A"]}, GR1: {galley: ["L1A"], df: ["R1"], remain: ["L1"]}, /*L1A seated at L4C */ GR2: {galley: ["R4", "L3"], df: ["L2"], remain: ["R2", "R3", "L4A"]}, EXTRA: {only: ["R4A", "R4C"]}}, 
     //B777-300 2 class ULR/nonULR

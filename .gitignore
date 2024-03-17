@@ -12,7 +12,6 @@ src/fonts/other
 screenshots/other
 
 # Confidential
-functions/additional_info.js
 data/*
 !data/fleet_age.json
 !data/fleet.json
