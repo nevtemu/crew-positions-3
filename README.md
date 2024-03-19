@@ -101,12 +101,12 @@ Now, when crew portal tab is active, you can just press key binding `Ctrl`+`Shif
 
 Enjoy!
 
-If you need help setting it up, reach me out 😊
+If you need help setting it up, reach me out 😊. Or let me know your feedback, desired features.
 
 ## Changelog
 
 20.12.2023
-> Added sections for upgrade prices and retail targets information. However, did not release those features due to requirement for constant updates from company documents and confidential business information.
+> Added sections for upgrade prices and retail targets information. 
 > ![Upgrade prices](screenshots/scr11.png)
 
 22.12.2023
@@ -127,8 +127,6 @@ If you need help setting it up, reach me out 😊
 17.03.2024
 > Added UL1A for B773 LRV. Lots of work: position, break and VCM changes.
 
-> Moved DF position to UL3 and MFP to UR3 (Initially my thought were to align with A380 2 class where UR3 is DF, but it make more sense to keep MFP on same side as CSV for service, and even on 2 class it is changed by company now).
-
 > Added link to change comment on crew portal.
 > ![Comments](screenshots/scr14.png)
 
@@ -137,3 +135,6 @@ If you need help setting it up, reach me out 😊
 
 > Added highlight for duplicated positions.
 > ![Duplicates](screenshots/scr16.gif)
+
+19.03.2024
+> Moved DF position to UL3 and MFP to UR3 (Initially my thought were to align with A380 2 class where UR3 is DF, but it make more sense to keep MFP on same side as CSV for service, and even on 2 class it is changed by company now).
