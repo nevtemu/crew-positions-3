@@ -138,3 +138,12 @@ If you need help setting it up, reach me out 😊. Or let me know your feedback,
 
 19.03.2024
 > Moved DF position to UL3 and MFP to UR3 (Initially my thought were to align with A380 2 class where UR3 is DF, but it make more sense to keep MFP on same side as CSV for service, and even on 2 class it is changed by company now).
+
+09.04.2024
+> Moved most functions into separate modules.
+
+> Updated upgrade prices and retail targets.
+
+> Added links to station information.
+
+> Fixed bug in breaks autocorrection and repeat highlights related to unbreakable spaces.
