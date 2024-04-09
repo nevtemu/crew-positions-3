@@ -1,6 +1,6 @@
 {
     "additional_info": true,
-    "ramadan": true,
+    "ramadan": false,
     "break_auto_correction": true,
     "repeated_positions_highlight": true
 }

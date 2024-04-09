@@ -8,6 +8,11 @@ export function additional_info(info) {
     let targetsDF = {}
     let ramadanService = []
 
+    //Get list of unique stations without DXB
+    let stations = new Set(info.flightLegs)
+    stations.delete("DXB")
+    stations = Array.from(stations)
+
     const numberOfDifferentUpgradePrices = info.sectors % 2 === 0 ? Math.ceil(info.sectors) / 2 : info.sectors
     for (let i = 0; i < numberOfDifferentUpgradePrices; i++) {
         let pair = `${info.flightLegs[i]}-${info.flightLegs[i + 1]}`;
@@ -21,7 +26,7 @@ export function additional_info(info) {
 
     function dfOutput(targetsDF) {
         if (Object.keys(targetsDF).length < 1) {
-            return `<div><div class="upg-wrapper">No retails target set for the flight.<div class="upg-block">May not have retail service on the sector.</div></div></div> `
+            return `<div><div class="upg-wrapper">🛍 Inflight retail targets:<div class="upg-block">No retails target set for the flight. <br>May not have retail service on the sector.</div></div></div> `
         }
         let output = `<div class="upg-wrapper"><span>🛍 Inflight retail targets:</span><table class="df-table upg-block"><tr><th class="invisible"></th><th>AED</th></tr>`;
         for (let target in targetsDF) {
@@ -52,6 +57,17 @@ export function additional_info(info) {
             output += `<tr><td>${flight.sector}: </td><td>${flight.info}</td><td><a href="${urls.ramadan+(flight.scenario + 11)}">${flight.scenario}</a></td></tr>`
         })
         return output += "</table></div>";
+    }
+
+    function stationInfoOutput(stations) {
+        if (stations.length < 1) {
+            return `<div><div class="upg-wrapper">🛬 Station information:<div class="upg-block">Not available</div></div></div> `
+        }
+        let output = `<div class="upg-wrapper"><span>🛬 Station information:</span>`;
+        stations.forEach(station => {
+            output += `<div class="upg-block"><a href="${urls.stationInfo.concat(station,".aspx")}">${station}</a></div>`
+        })
+        return output += "</div>";
     }
 
     function upgSubOutput(upg) {
@@ -90,5 +106,5 @@ export function additional_info(info) {
         }
         return styled;
     }
-    return {targetsDF: dfOutput(targetsDF), upgrades: upgOutput(upgrades), ramadan: ramadanOutput(ramadanService)}
+    return {targetsDF: dfOutput(targetsDF), upgrades: upgOutput(upgrades), ramadan: ramadanOutput(ramadanService), stationInfo: stationInfoOutput(stations)}
 }

@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script type="module">
-      import { start, showRegistrationInputField, addAircraftRegistrationManually,addMFP,hideErrors,back, restart } from "/script.js";
+      import { start, addAircraftRegistrationManually, addMFP, restart } from "/script.js";
+      import { showRegistrationInputField ,hideErrors, back} from "/functions/renderer.js";
       window.start = start;
       window.showRegistrationInputField = showRegistrationInputField;
       window.addAircraftRegistrationManually = addAircraftRegistrationManually;
@@ -60,6 +61,7 @@
       <div class="horizontal-flex">
         <div id="upgOutput"></div>
         <div id="dfOutput"></div>
+        <div id="stationInfoOutput"></div>
         <div id="ramadanOutput"></div>
     </div>
     </section>
