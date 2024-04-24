@@ -65,7 +65,7 @@ export function additional_info(info) {
         }
         let output = `<div class="upg-wrapper"><span>🛬 Station information:</span>`;
         stations.forEach(station => {
-            output += `<div class="upg-block"><a href="${urls.stationInfo.concat(station,".aspx")}">${station}</a></div>`
+            output += `<div class="upg-block"><a href="${urls.stationInfo.concat(station,".aspx")}" target="_blank">${station}</a></div>`
         })
         return output += "</div>";
     }

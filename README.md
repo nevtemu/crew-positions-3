@@ -145,5 +145,15 @@ If you need help setting it up, reach me out 😊. Or let me know your feedback,
 > Updated upgrade prices and retail targets.
 
 > Added links to station information.
+> ![Station info](screenshots/scr17.png)
 
 > Fixed bug in breaks autocorrection and repeat highlights related to unbreakable spaces.
+
+24.04.2024
+> Added MR4A for A380-800 2 class
+
+> Station information link now opens in new tab
+
+> Added registration EPP. Registration EUE, EUH, EUJ, EUK, EUL refitted into 4 class.
+
+> Fixed bug in load_positions function

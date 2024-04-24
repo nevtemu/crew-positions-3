@@ -132,22 +132,27 @@ export function vcmRules(vcm, p, aircraftType, isULR) {
         // A380-800 2 class
         case 7:
             if (vcm < 0) {
+                p.GR2.df.splice(p.GR2.df.indexOf("MR5"), 1);
+                p.GR1.galley.splice(p.GR1.galley.indexOf("MR4A"), 1);
+                p.GR1.galley.push("MR5 (MR4A)");
+            } else break;
+            if (vcm < -1) {
                 p.GR2.remain.splice(p.GR2.remain.indexOf("ML3"), 1);
                 p.GR1.galley.splice(p.GR1.galley.indexOf("ML3A"), 1);
                 p.GR1.galley.push("ML3 (ML3A)");
             } else break;
-            if (vcm < -1 && isULR) {
+            if (vcm < -2 && isULR) {
                 p.CSV.only.splice(p.CSV.only.indexOf("ML1"), 1)
                 p.PUR.only.splice(p.PUR.only.indexOf("PUR"), 1)
                 p.GR2.remain.splice(p.GR2.remain.indexOf("MR1"), 1)
                 p.PUR.only.push("ML1 (PUR)")
                 p.CSV.only.push("MR1 (ML1)")
-            } else if (vcm < -1) {
+            } else if (vcm < -2) {
                 p.PUR.only.splice(p.PUR.only.indexOf("PUR"), 1)
                 p.GR2.remain.splice(p.GR2.remain.indexOf("ML1"), 1)
                 p.PUR.only.push("ML1 (PUR)")
             } else break;
-            if (vcm < -2) {
+            if (vcm < -3) {
                 console.error("Less than minimum crew requirement to operate");
             }
             break;
