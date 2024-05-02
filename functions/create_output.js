@@ -72,7 +72,7 @@ export function createOutput(crewList, numberOfSectors, hasBreak, doPositions) {
         }
         fileContent += `<td>${item.fullname}</td>
                         <td class="centerCell">${item.staffNumber}</td>
-                        <td><img src="${urls.flag + item.flag}.png"> ${item.nationality}</td>
+                        <td><img src="../src/flags/${item.flag}.png"> ${item.nationality}</td>
                         <td>${item.languages.join(", ")}</td>
                         <td class="centerCell" style="font-size:smaller;">${item.timeInGrade}</td>
                         <td class="centerCell">${item.ratingIR < 21 ? item.ratingIR < 10 ? `<span class="badge badge-ir" title="Duty free rating" style="padding: 0 0.4rem">${item.ratingIR}</span>` : `<span class="badge badge-ir" title="Duty free rating">${item.ratingIR}</span>` : ""} ${badges(item.badges)}</td>

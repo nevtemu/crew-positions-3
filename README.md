@@ -150,10 +150,17 @@ If you need help setting it up, reach me out 😊. Or let me know your feedback,
 > Fixed bug in breaks autocorrection and repeat highlights related to unbreakable spaces.
 
 24.04.2024
-> Added MR4A for A380-800 2 class
+> Added MR4A for A380-800 2 class (Serve better changes)
 
 > Station information link now opens in new tab
 
 > Added registration EPP. Registration EUE, EUH, EUJ, EUK, EUL refitted into 4 class.
 
 > Fixed bug in load_positions function
+
+29.04.2024
+> Fixed bug in positions for B777-300 (missing R2)
+
+> Changed source for flag icons. Added flag for Kosovo (missing on company's portal)
+
+> Changed inflight retail positions: B772 to R1, A380 to UL3 (Serve better changes)
