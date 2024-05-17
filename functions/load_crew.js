@@ -23,13 +23,13 @@ export function loadCrew(inputData) {
             badges,
             grade: crew.OperationGrade,
             originalGrade: crew.OperationGrade,
-            outOfGrade: crew.OperationGrade !== crew.HRGrade, //RosterGrade
+            outOfGrade: crew.OperationGrade !== crew.HRGrade, //there is another parameter RosterGrade in case if entire roster is out of grade
             flag: crew.NationalityCode,
             staffNumber: crew.StaffID,
             timeInGrade: crew.GradeExp,
             doingDF: false,
             birthday: new Date(crew.DOB),
-            timeInGradeNumber: crew.OperationGrade !== crew.RosterGrade ? 0 : timeInGradeNumber(crew.GradeExp),
+            timeInGradeNumber: crew.OperationGrade !== crew.HRGrade ? 0 : timeInGradeNumber(crew.GradeExp),
             lastPosition: ["PUR", "CSA"].includes(crew.OperationGrade) ? [] : ["GR1", "FG1", "CSV"].includes(crew.OperationGrade) ? [""] : ["", ""],
             comment: "SocialStatus" in crew && crew.SocialStatus !== null ? crew.SocialStatus.replaceAll("'", "&apos;").replaceAll("\"", "&quot;") : "",
             nickname: "NickName" in crew && crew.NickName !== "" ? crew.NickName : crew.FirstName.split(" ")[0],
@@ -55,5 +55,5 @@ function timeInGradeNumber (string) {
     let elements = string.split(" ");
     let y = parseInt(elements[0]);
     let m = parseInt(elements[2]);
-    return m + y * 12;
+    return m + (y * 12);
 }

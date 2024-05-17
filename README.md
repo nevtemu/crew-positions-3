@@ -164,3 +164,8 @@ If you need help setting it up, reach me out 😊. Or let me know your feedback,
 > Changed source for flag icons. Added flag for Kosovo (missing on company's portal)
 
 > Changed inflight retail positions: B772 to R1, A380 to UL3 (Serve better changes)
+
+02.05.2024
+> Minor change to timeInGrade check: fore rare scenario when crew rostered out of grade but operates in his current grade
+
+> Added temporary rule for J galley operator to be most senior crew and remain galley on all sectors
