@@ -1,7 +1,5 @@
-import urls from '../data/urls.json' assert { type: "json" };
-import settings from '../settings.json' assert { type: "json" };
-
-
+import {urls} from '../data/urls.js';
+import {settings} from '../settings.js';
 import {autoCorrectBreaks} from '../functions/auto_correct_breaks.js'
 import {repeatHighlight} from '../functions/repeat_highlights.js'
 import {badges} from '../functions/badges.js'

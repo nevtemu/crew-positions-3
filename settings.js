@@ -1,4 +1,4 @@
-{
+export const settings = {
     "additional_info": true,
     "ramadan": false,
     "break_auto_correction": true,

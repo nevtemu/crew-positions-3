@@ -1,7 +1,6 @@
-import fleetAge from '../data/fleet_age.json' assert { type: "json" };
-import typesOfAircraft from '../data/aircraft_type.json' assert { type: "json" };
-import fleet from '../data/fleet.json' assert { type: "json" };
-
+import {fleetAge} from '../data/fleet_age.js';
+import {typesOfAircraft} from '../data/aircraft_type.js';
+import {fleet} from '../data/fleet.js';
 
 import {requiredCrewNumber} from '../functions/required_crew_number.js'
 import {errorHandler} from '../functions/error_handler.js'

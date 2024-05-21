@@ -1,4 +1,3 @@
-const crewApp = window.open("http://127.0.0.1:5500/index.html","_blank");
 let userStaffNumber = localStorage.getItem("CurrentStaffNo");
 let crewDataKey = Object.keys(localStorage).filter(k => k.startsWith("Crew_") && !k.endsWith("TimeOut"));
 let rosterKey = Object.keys(localStorage).filter(k => k.startsWith("Roster_"+userStaffNumber) && !k.endsWith("TimeOut") && !k.endsWith("Destination"));
@@ -29,19 +28,7 @@ roster.forEach(item => item.StaffRosters[0].RosterData.CrewRosterResonse.Trips.T
 dataToGo = Object.entries(dataToGo)
 .sort(([,a],[,b]) => a.shortInfo.flightDate-b.shortInfo.flightDate)
 .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
-console.log(dataToGo)
-window.addEventListener("message", dispatcher);
 
-function dispatcher (msg) {
-    if(msg.data === "Ready to receive"){
-        crewApp.postMessage(dataToGo, "*"); 
-        console.warn("sent")
-    }
-    else if(msg.data === "Thank you"){
-        console.warn("deactivated")
-        window.removeEventListener("message", dispatcher);
-    }
-}
 
 function transformFormat (str){
     let fltNumber = str.split("_")[1]
@@ -58,3 +45,19 @@ function convertDate(stringDate) {
     let rest = stringDate.split(" ")[1]
     return parseInt(month) + "/" + day + "/" + year + " " + rest;
 }
+
+
+const crewApp = window.open("http://127.0.0.1:5500/index.html","_blank");
+window.addEventListener("message", dispatcher);
+function dispatcher (msg) {
+    if(msg.data === "Ready to receive"){
+        crewApp.postMessage(dataToGo, "*"); 
+        console.warn("sent")
+    }
+    else if(msg.data === "Thank you"){
+        console.warn("deactivated")
+        window.removeEventListener("message", dispatcher);
+    }
+}
+
+completion();

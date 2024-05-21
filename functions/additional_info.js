@@ -1,7 +1,7 @@
-import targets from '../data/duty_free_targets.json' assert { type: "json" }; // Few errors due to duplicates in company files
-import prices from '../data/upgrade_prices.json' assert { type: "json" };
-import urls from '../data/urls.json' assert { type: "json" };
-import ramadan from '../data/ramadan.json' assert { type: "json" }; // Few errors due to duplicates in company files
+import {targets} from '../data/duty_free_targets.js'; // Few errors due to duplicates in company files
+import {prices} from '../data/upgrade_prices.js';
+import {urls} from '../data/urls.js';
+import {ramadan} from '../data/ramadan.js'; // Few errors due to duplicates in company files
 
 export function additional_info(info) {
     let upgrades = {}

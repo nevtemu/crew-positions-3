@@ -1,4 +1,4 @@
-import fleet from '../data/fleet.json' assert { type: "json" };
+import {fleet} from '../data/fleet.js';
 
     /* 
     Priority: 

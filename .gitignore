@@ -14,9 +14,9 @@ screenshots/other
 
 # Confidential
 data/*
-!data/fleet_age.json
-!data/fleet.json
-!data/aircraft_type.json
+!data/fleet_age.js
+!data/fleet.js
+!data/aircraft_type.js
 !data/breaks.js
 !data/positions.js
-!data/qualifications.json
+!data/qualifications.js

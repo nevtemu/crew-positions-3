@@ -1,4 +1,4 @@
-{
+export const fleet = {
     "A6EBQ": 1,
     "A6EBR": 1,
     "A6EBU": 1,

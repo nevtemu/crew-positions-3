@@ -1,4 +1,4 @@
-import qualifications from '../data/qualifications.json' assert { type: "json" };
+import {qualifications} from '../data/qualifications.js';
 import {errorHandler} from '../functions/error_handler.js'
 
 export function loadCrew(inputData) {

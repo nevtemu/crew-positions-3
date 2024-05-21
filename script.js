@@ -1,7 +1,7 @@
-import settings from './settings.json' assert { type: "json" };
+import {settings} from './settings.js';
 
 // Data
-import fleet from './data/fleet.json' assert { type: "json" };
+import {fleet} from './data/fleet.js';
 import {positions} from './data/positions.js';
 
 // Functions

@@ -1,5 +1,5 @@
-import typesOfAircraft from '../data/aircraft_type.json' assert { type: "json" };
-import fleet from '../data/fleet.json' assert { type: "json" };
+import {typesOfAircraft} from '../data/aircraft_type.js';
+import {fleet} from '../data/fleet.js';
 import {errorHandler} from '../functions/error_handler.js'
 import {breaks} from '../data/breaks.js';
 

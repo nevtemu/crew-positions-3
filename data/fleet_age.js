@@ -1,4 +1,4 @@
-{
+export const fleetAge = {
   "A6EDE": "04/24/2009",
   "A6EDM": "09/28/2010",
   "A6EDO": "11/30/2010",

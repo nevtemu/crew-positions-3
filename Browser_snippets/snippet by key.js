@@ -7,7 +7,7 @@ function run () {
     let dataToGo = {}, roster = [];
     rosterKey.forEach((item) => roster.push(JSON.parse(localStorage.getItem(item))))
     roster.forEach(item => item.StaffRosters[0].RosterData.CrewRosterResonse.Trips.Trp.forEach(subitem => dataToGo[subitem.TripNo+"_"+subitem.StartDate.split(" ",1)] = {})) //word resonse (response) is with mistake on the portal
-    crewDataKey.forEach((item) => dataToGo[transfromFormat(item)].crewData = JSON.parse(localStorage.getItem(item)))
+    crewDataKey.forEach((item) => dataToGo[transformFormat(item)].crewData = JSON.parse(localStorage.getItem(item)))
     flightDataKey.forEach((item) => dataToGo[item.split(" ",1)[0].split("_").slice(-2).join("_")].flightData = JSON.parse(localStorage.getItem(item)))
     roster.forEach(item => item.StaffRosters[0].RosterData.CrewRosterResonse.Trips.Trp.forEach(subitem => {
         let key = subitem.TripNo+"_"+subitem.StartDate.split(" ",1)[0];
@@ -45,7 +45,7 @@ function run () {
     }
 }
 
-function transfromFormat (str){
+function transformFormat (str){
     let fltNumber = str.split("_")[1]
     let temp = str.split("_")[2].split("-", 3)
     temp[1]=(parseInt(temp[1])+1).toString();

@@ -3,7 +3,7 @@ import {extraRules} from '../functions/extra_rules.js'
 import {requiredCrewNumber} from '../functions/required_crew_number.js'
 import {positions} from '../data/positions.js';
 import {errorHandler} from '../functions/error_handler.js'
-import fleet from '../data/fleet.json' assert { type: "json" };
+import {fleet} from '../data/fleet.js';
 
 
 export function loadPositions(crewData, registration, isULR) {

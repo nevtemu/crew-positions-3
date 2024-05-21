@@ -6,6 +6,10 @@ Here is a quick look:
 
 ![Preview](screenshots/scr10.gif)
 
+## Disclaimer
+
+Just to remind you that most of information on crew portal is confidential and should not be shared with third parties. This project is purely for educational purposes. 
+
 ## Algorithm
 
 __Data that influence__ position allocation:
@@ -57,49 +61,34 @@ Works for any type of operation except cases, when data is incomplete/missing.
 
 * __Breaks can repeat__. On rare occasions crew can get same break on all sectors. This is conscious decision as getting 1st break on one flight is considered good and on another - bad. Also breaks are now linked to positions to ensure company regulations are met. In addition for certain types of operation crew rest strategies divide crew into unequal groups (for example, A380 MD-CRC LRV has one, four and three Gr1s on different break groups), so in certain scenarios breaks will repeat.
 * __Cargo flights support__ has been completely removed. They are not rostered to crew any more. If you happened to get one, it still can be processed via “List only” option.
-* __Script would not work__ if information fetched is incomplete or missing entirely. This is common on reserve, when many duties missing crew or aircraft data. Minimum requirement for script to work is to have crew information (registration, type of operation can be manually input).
+* __Script would not work__ if information fetched is incomplete or missing entirely. This is common on reserve, when many duties missing crew or aircraft data. Minimum requirement for script to work is to have crew information (registration, type of operation can be manually input). Also commonly known that script will fail if crew complement altered at higher grades: FG1 pulled out as GR2 and PUR pulled out as CSV etc. For this cases I suggest to use "List only" option.
 
 ## How to use?
 
-This is the hardest part. Entire process can be automated to pressing key binding to start execution. That's it! However, due to cybersecurity, strict policies for data protections, I'm afraid to publish it online myself. But I will give you few options to choose.
+#### For ![Windows](src/icons/windows.svg) Windows and  ![Chrome](src/icons/chrome.svg) Chrome users:
+1. In Google Chrome open DevTools: press F12 on the keyboard or Ctrl+Shift+I keys. Go to `Sources` tab, then to `Snippets`. Press `+ New snippet`. Copy `snippet.js` from folder `Browser_snippets` of this project to your new snippet. This need to be done only once (next time script will be saved/available in snippets).
+![Chrome set up](screenshots/sc4.png)
+2. Now all you need to do is to open portal and then run this snippet (right click the snippet and select `Run`). 
+![Run snippet](screenshots/sc5.png)
 
-There are two parts to get this done:
+>
+> [!TIP]
+> Previous version of installation guide including automatization with TamperMonkey is [here](./src/readme_old.md "Crew positions 2").
 
-* The app need to be run on a server (local or web)
-* Run script itself
-
-### Server for the app
-
-#### Option 1.1
-
-The easiest way will be to host the app on any webhosting (paid or free). This way the app will be constantly running online (accessed from any computer). Advantage of this method: set up once and forever (no need to run the app every time). Downside: the data will be transferred to the web (can be potentially stolen or misused). For free hosting can use [BIZ](https://www.biz.nf "biz.nf") or choose any other.
-
-#### Option 1.2
-
-Run local server. This is more safe way as the app will be run on local host (your machine) and not available on the web, but it is more annoying since you will need to keep it running on your PC or run it every time you want to use the app. There are extensions like [Live server](https://chromewebstore.google.com/detail/live-server-web-extension/fiegdmejfepffgpnejdinekhfieaogmj "Live Server") or [Web server](https://chromewebstore.google.com/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb "Web Server") for Google Chrome that allows to do this. There are other options as well. Unfortunately, app files cannot be open locally.
-I personally run it directly from [VS Code](https://code.visualstudio.com "Visual Studio Code") with [Live server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer "Live Server") extension.
-
-### Run the script
-
-Here are also few options available.
-
-#### Option 2.1
-
-Manually run script from Google Chrome DevTools. In Google Chrome open DevTools: press F12 on the keyboard or Ctrl+Shift+I keys. Go to `Sources` tab, then to `Snippets`. Copy `snippet.js` from folder `Browser_snippets` of this project to `Snippets`. This need to be done only once (next time script will be saved/available in snippets). Now all you need to do is to open portal and then run this snippet (right click and select `Run`). If the app is running, you will see trip info page (it will open in new browser tab).
-![Snippet](screenshots/scr6.png)
-If running app on local host (live server like option 1.2), no changes required. If hosted app online, then need to update url in snippet to your app web address.
-
-#### Option 2.2
-
-To automate more, you can install extension for Google Chrome like [Tamper Monkey](https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo "Tamper Monkey") or `User Scripts`. Once installed, add new script (copy from file `tamperMonkey.js` from folder `Browser_snippets` of this project). It is important to add portal web address into empty header line.
-![New script](screenshots/scr7.png)
-When saved, it will look like this in your scripts list. It will automatically run on portal when launched (no need to open DevTools).
-![Script list](screenshots/scr8.png)
-Now, when crew portal tab is active, you can just press key binding `Ctrl`+`Shift`+`G` (Go) to run the app. This option 2.2 in combination with option 1.1 are most automated way to use this app: set up only once and then run any time needed by just using key-binding on keyboard (without opening DevTools or running Live server). This is how it will look in the browser.
-
-![Tamper Monkey](screenshots/scr9.png)
+#### For ![Apple](src/icons/apple.svg) macOS/iOS and ![Safari](src/icons/safari.svg) Safari users:
+Added support for macOS/iOS. It is implemented via ![Shortcuts](src/icons/shortcuts.svg) Shortcuts app. 
+1. Intall [this shortcut](https://www.icloud.com/shortcuts/8ad2ce296e1e4c478b1831a3fd354741 "CrewApp Shortcut") on your device.
+![Add shortcut](screenshots/sc1.png)
+2. Allow shortcuts to [run JavaScript](https://support.apple.com/en-ca/guide/shortcuts/apdb71a01d93/ios "Run JS  on browser tab") in [settings](https://support.apple.com/en-ca/guide/shortcuts/apdfeb05586f/7.0/ios/17.0 "Apple security settings") 
+![Add security permissions](screenshots/sc2.png)
+3. On crew portal click `Share` icon, find `CrewApp` shortcut and run it
+![Run shortcut](screenshots/sc3.png)
 
 Enjoy!
+
+>
+> [!IMPORTANT]
+> All snippets/shortcuts have url of the local host: you require to run local service on this port or host app online and change the url
 
 If you need help setting it up, reach me out 😊. Or let me know your feedback, desired features.
 
@@ -166,6 +155,9 @@ If you need help setting it up, reach me out 😊. Or let me know your feedback,
 > Changed inflight retail positions: B772 to R1, A380 to UL3 (Serve better changes)
 
 02.05.2024
-> Minor change to timeInGrade check: fore rare scenario when crew rostered out of grade but operates in his current grade
+> Minor change to timeInGrade check: for rare scenario when crew rostered out of grade but operates in his current grade
 
 > Added temporary rule for J galley operator to be most senior crew and remain galley on all sectors
+
+21.05.2024
+> Added macOS/iOS version via Shortcuts. Had to change all data files and settings into .js format (from .json) as Safari does not support [import assertions](https://caniuse.com/mdn-javascript_statements_import_import_assertions "Import assertion browser support"). 

@@ -1,5 +1,5 @@
 import {breaks} from '../data/breaks.js';
-import fleet from '../data/fleet.json' assert { type: "json" };
+import {fleet} from '../data/fleet.js';
 
 export function autoCorrectBreaks (e) {
     const registration = localStorage.getItem("registration")
