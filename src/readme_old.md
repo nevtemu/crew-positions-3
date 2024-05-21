@@ -25,15 +25,15 @@ Here are also few options available.
 #### Option 2.1
 
 Manually run script from Google Chrome DevTools. In Google Chrome open DevTools: press F12 on the keyboard or Ctrl+Shift+I keys. Go to `Sources` tab, then to `Snippets`. Press `+ New snippet`. Copy `snippet.js` from folder `Browser_snippets` of this project to your new snippet. This need to be done only once (next time script will be saved/available in snippets). Now all you need to do is to open portal and then run this snippet (right click and select `Run` or whatever you called your snippet). If the app is running, you will see trip info page (it will open in new browser tab).
-![Snippet](./screenshots/scr6.png)
+![Snippet](../screenshots/scr6.png)
 If running app on local host (live server like option 1.2), no changes required. If hosted app online, then need to update url in snippet to your app web address.
 
 #### Option 2.2
 
 To automate more, you can install extension for Google Chrome like [Tamper Monkey](https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo "Tamper Monkey") or `User Scripts`. Once installed, add new script (copy from file `tamperMonkey.js` from folder `Browser_snippets` of this project). It is important to add portal web address into empty header line.
-![New script](./screenshots/scr7.png)
+![New script](../screenshots/scr7.png)
 When saved, it will look like this in your scripts list. It will automatically run on portal when launched (no need to open DevTools).
-![Script list](./screenshots/scr8.png)
+![Script list](../screenshots/scr8.png)
 Now, when crew portal tab is active, you can just press key binding `Ctrl`+`Shift`+`G` (Go) to run the app. This option 2.2 in combination with option 1.1 are most automated way to use this app: set up only once and then run any time needed by just using key-binding on keyboard (without opening DevTools or running Live server). This is how it will look in the browser.
 
-![Tamper Monkey](./screenshots/scr9.png)
+![Tamper Monkey](../screenshots/scr9.png)
