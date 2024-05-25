@@ -1,11 +1,11 @@
 import {urls} from '../data/urls.js';
-import {settings} from '../settings.js';
 import {autoCorrectBreaks} from '../functions/auto_correct_breaks.js'
 import {repeatHighlight} from '../functions/repeat_highlights.js'
 import {badges} from '../functions/badges.js'
 
-
 export function createOutput(crewList, numberOfSectors, hasBreak, doPositions) {
+    const settings = JSON.parse(localStorage.getItem('settings'));
+
     const header = `
         <table style="border-collapse:collapse;">  
             <tr>
@@ -65,7 +65,8 @@ export function createOutput(crewList, numberOfSectors, hasBreak, doPositions) {
         for (let i = 0; i < numberOfSectors; i++) {
             fileContent += `<td class="centerCell showMFPbutton ${settings.break_auto_correction && hasBreak ? "autoBreaks" : ""} ${settings.repeated_positions_highlight ? "repeatHighlight" : ""}" contenteditable>${doPositions ? item[`position${i}`] : ""}
                 ${item.doingDF && doPositions ? ` <span class="badge badge-ir" title="Retail operator">IR</span>` : ""}
-                <span style="diplay:none" contenteditable="false"> </span><span class="invisible buttonMFP" onclick="addMFP(event)">+</span></td>`; /* Перший це заглушка */
+                ${settings.MFP_buttons ? `<span style="diplay:none" contenteditable="false"> </span><span class="invisible buttonMFP" onclick="addMFP(event)">+</span>` : ""}
+                </td>`; /* Перший це заглушка */
             if (hasBreak) fileContent += `<td class="centerCell" contenteditable>${doPositions ? item[`break${i}`] : ""}</td>`
         }
         fileContent += `<td>${item.fullname}</td>
@@ -74,7 +75,7 @@ export function createOutput(crewList, numberOfSectors, hasBreak, doPositions) {
                         <td>${item.languages.join(", ")}</td>
                         <td class="centerCell" style="font-size:smaller;">${item.timeInGrade}</td>
                         <td class="centerCell">${item.ratingIR < 21 ? item.ratingIR < 10 ? `<span class="badge badge-ir" title="Duty free rating" style="padding: 0 0.4rem">${item.ratingIR}</span>` : `<span class="badge badge-ir" title="Duty free rating">${item.ratingIR}</span>` : ""} ${badges(item.badges)}</td>
-                        <td class="centerCell">${item.destinationExperience.join(" ")}</td>
+                        <td class="centerCell">${Object.keys(item.destinationExperience).length > 1 ? JSON.stringify(item.destinationExperience).replaceAll(/[{}"]/g,"").replaceAll(","," ") : item.destinationExperience[Object.keys(item.destinationExperience)[0]]}</td>
                         <td title="${item.comment}">${item.comment.length <= 40 ? item.comment : item.comment.slice(0, 39) + "..."}</td></tr>`;
         lastGrade = item.grade;
     }  

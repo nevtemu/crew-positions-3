@@ -4,7 +4,7 @@ import {errorHandler} from '../functions/error_handler.js'
 export function loadCrew(inputData) {
     let crewData = [];
     inputData.forEach((crew, index) => {
-        let badges = [], languages = [], ratingIR = 21;
+        let badges = [], languages = [], ratingIR = 21, destinationExperience = {};
         crew.Profile.split(",").forEach((badge) => {
             badge.split(" - ", 1).forEach((code) => {
                 if (Object.keys(qualifications.languages).includes(code))
@@ -16,6 +16,7 @@ export function loadCrew(inputData) {
             });
         });
         if (crew.OperationGrade !== crew.HRGrade) errorHandler(["PUR", "CSV"].includes(crew.OperationGrade) ? `${crew.FirstName} on the pool` : `${crew.FirstName} operates out of grade`, "info");
+        crew.destinationExperiences.map((destination) => {if(destination.Destination !== "DXB") destinationExperience[destination.Destination] = destination.VisitedCount})
         crewData.push({
             index,
             ratingIR,
@@ -24,7 +25,7 @@ export function loadCrew(inputData) {
             grade: crew.OperationGrade,
             originalGrade: crew.OperationGrade,
             outOfGrade: crew.OperationGrade !== crew.HRGrade, //there is another parameter RosterGrade in case if entire roster is out of grade
-            flag: crew.NationalityCode,
+            flag: crew.NationalityCode.toLowerCase(), 
             staffNumber: crew.StaffID,
             timeInGrade: crew.GradeExp,
             doingDF: false,
@@ -34,7 +35,7 @@ export function loadCrew(inputData) {
             comment: "SocialStatus" in crew && crew.SocialStatus !== null ? crew.SocialStatus.replaceAll("'", "&apos;").replaceAll("\"", "&quot;") : "",
             nickname: "NickName" in crew && crew.NickName !== "" ? crew.NickName : crew.FirstName.split(" ")[0],
             fullname: crew.FirstName + " " + crew.LastName,
-            destinationExperience: crew.destinationExperiences.map((item) => item.VisitedCount).slice(0, -1), //Slice to remove DXB experience
+            destinationExperience,
             nationality: crew.Nationality.replace("Korea, Republic Of", "Korea") //Replace few official countries names for easy reading
                 .replace("Moldova, Republic Of", "Moldova")
                 .replace("Czech Republic", "Czech")

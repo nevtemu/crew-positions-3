@@ -65,19 +65,19 @@ Works for any type of operation except cases, when data is incomplete/missing.
 
 ## How to use?
 
-#### For ![Windows](src/icons/windows.svg) Windows and  ![Chrome](src/icons/chrome.svg) Chrome users:
-1. In Google Chrome open DevTools: press F12 on the keyboard or Ctrl+Shift+I keys. Go to `Sources` tab, then to `Snippets`. Press `+ New snippet`. Copy `snippet.js` from folder `Browser_snippets` of this project to your new snippet. This need to be done only once (next time script will be saved/available in snippets).
+#### For ![Windows](src/readme-icons/windows.svg) Windows and  ![Chrome](src/readme-icons/chrome.svg) Chrome users:
+1. In Google Chrome open DevTools: press F12 on the keyboard or Ctrl+Shift+I keys. Go to `Sources` tab, then to `Snippets`. Press `+ New snippet`. Copy `snippet.js` from folder `install/WinOS` of this project to your new snippet. This need to be done only once (next time script will be saved/available in snippets).
 ![Chrome set up](screenshots/sc4.png)
 2. Now all you need to do is to open portal and then run this snippet (right click the snippet and select `Run`). 
 ![Run snippet](screenshots/sc5.png)
 
 >
 > [!TIP]
-> Previous version of installation guide including automatization with TamperMonkey is [here](./src/readme_old.md "Crew positions 2").
+> Previous version of installation guide including automatization with TamperMonkey is [here](./install/readme_old.md "Crew positions 2").
 
-#### For ![Apple](src/icons/apple.svg) macOS/iOS and ![Safari](src/icons/safari.svg) Safari users:
-Added support for macOS/iOS. It is implemented via ![Shortcuts](src/icons/shortcuts.svg) Shortcuts app. 
-1. Intall [this shortcut](https://www.icloud.com/shortcuts/8ad2ce296e1e4c478b1831a3fd354741 "CrewApp Shortcut") on your device.
+#### For ![Apple](src/readme-icons/apple.svg) macOS/iOS and ![Safari](src/readme-icons/safari.svg) Safari users:
+Added support for macOS/iOS. It is implemented via ![Shortcuts](src/readme-icons/shortcuts.svg) Shortcuts app. 
+1. Intall [this shortcut](https://www.icloud.com/shortcuts/8ad2ce296e1e4c478b1831a3fd354741 "CrewApp Shortcut") on your device. In folder `install/MacOS` same shortcut available as downloadable file. 
 ![Add shortcut](screenshots/sc1.png)
 2. Allow shortcuts to [run JavaScript](https://support.apple.com/en-ca/guide/shortcuts/apdb71a01d93/ios "Run JS  on browser tab") in [settings](https://support.apple.com/en-ca/guide/shortcuts/apdfeb05586f/7.0/ios/17.0 "Apple security settings") 
 ![Add security permissions](screenshots/sc2.png)
@@ -161,3 +161,16 @@ If you need help setting it up, reach me out 😊. Or let me know your feedback,
 
 21.05.2024
 > Added macOS/iOS version via Shortcuts. Had to change all data files and settings into .js format (from .json) as Safari does not support [import assertions](https://caniuse.com/mdn-javascript_statements_import_import_assertions "Import assertion browser support"). 
+
+25.05.2024
+> Added settings to the app: now you are able to turn on/off features. Settings are now renamed to default settings.
+> ![Destination experience](screenshots/sc8.png)
+
+> Moved more functions into separate modules.
+
+> Changed handler for destination experience: now for multisector trips destinations shown in list of experiences. Same destination experience is not repeated any more
+> ![Destination experience](screenshots/sc6.png)
+
+> Fixed bug in extra rules function: forgot to import error handler.
+
+> Added shortcut file for MacOS version.

@@ -4,15 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script type="module">
-      import { start, addAircraftRegistrationManually, addMFP, restart } from "/script.js";
+      import { start } from "./script.js";
       import { showRegistrationInputField ,hideErrors, back} from "/functions/renderer.js";
+      import { changeSettings } from "/functions/change_settings.js";
+      import { showSettings } from "/functions/show_settings.js";
+      import { addMFP } from "/functions/add_MFP.js";
+      import { addAircraftRegistrationManually } from "/functions/add_aircraft_registration_manually.js";
+      import { restart } from "/functions/create_output_restart.js";
       window.start = start;
+      window.restart = restart;
       window.showRegistrationInputField = showRegistrationInputField;
       window.addAircraftRegistrationManually = addAircraftRegistrationManually;
       window.addMFP = addMFP;
       window.hideErrors = hideErrors;
       window.back = back;
-      window.restart = restart;
+      window.showSettings = showSettings;
+      window.changeSettings = changeSettings;
     </script>
     <script type="module"src="script.js" defer></script>
     <link rel="stylesheet" href="style.css" />
@@ -22,7 +29,6 @@
   <body>
     <section id="fetchTable" class="hidden">
       <div id="fetchMessage">&#9888; Data is not received from portal</div>
-      <button id="fetchButton" onclick="fetchAgain()">Fetch</button>
     </section>
     <section id="tripsTable" class="hidden">
       <div>Select trip:</div>
@@ -46,6 +52,16 @@
         <tbody id="cardContainer"></tbody>
       </table>
     </section>
+
+    <section id="settings-wrapper">
+    <button class="settings" onclick="showSettings(event)"></button>
+    <settings id="settings" class="hidden">
+      <div>Settings</div>
+      <table id="settings-output">
+      </table>
+    </settings>
+  </section>
+
     <section id="crewTable" class="hidden">
       <div class="UIhood" id="crewControls">
         <button onclick="back()">Back to trips</button>

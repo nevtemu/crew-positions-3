@@ -1,4 +1,4 @@
-import {settings} from './settings.js';
+import {defaultSettings} from './default_settings.js';
 
 // Data
 import {fleet} from './data/fleet.js';
@@ -15,8 +15,11 @@ import {createTrips} from './functions/create_trips.js'
 import {errorHandler} from './functions/error_handler.js'
 import {renderer} from './functions/renderer.js'
 import {createOutput} from './functions/create_output.js'
+import {createSettings} from './functions/create_settings.js'
+
 
 let dataPool; // To store data from portal
+
 
 // Connection
 window.onload = function () {
@@ -33,12 +36,14 @@ window.addEventListener("message", (receivedData) => {
   console.log(dataPool);
   renderer([document.querySelector("#tripsTable")],[document.querySelector("#fetchTable")]);
   createTrips(dataPool);
+  createSettings(defaultSettings);
+  localStorage.setItem("settings", JSON.stringify(defaultSettings));
   window.opener.postMessage("Thank you", "*");
 });
 
 // Crew table
 export function start(event, n, doPositions) {
-  renderer([document.querySelector("#crewTable"), document.querySelector("#flightInfo"), document.querySelector("#keyBind")],[document.querySelector("#tripsTable"),document.querySelector("#errorTable"),],true);
+  renderer([document.querySelector("#crewTable"), document.querySelector("#flightInfo"), document.querySelector("#keyBind")],[document.querySelector("#tripsTable"),document.querySelector("#errorTable"),document.querySelector("#settings-wrapper")],true);
   let flights = Object.keys(dataPool);
   let specificFlightData = dataPool[flights[n]];
   let crewData = loadCrew(specificFlightData.crewData);
@@ -50,21 +55,26 @@ export function start(event, n, doPositions) {
   let numberOfDuties = document.querySelector(`#sectors${n}`).value; //These values taken from page as user may change number of positions/breaks desired
   let hasBreak = document.querySelector(`#rest${n}`).checked;
 
+  let settings = JSON.parse(localStorage.getItem("settings"))
 //Upgrades and DF targets output
-if (settings['additional_info']){
-  const dfTag = document.querySelector("#dfOutput");
-  const upgTag = document.querySelector("#upgOutput");
-  const stationTag = document.querySelector("#stationInfoOutput");
-  const ramadanTag = document.querySelector("#ramadanOutput");
-  
+const dfTag = document.querySelector("#dfOutput");
+const upgTag = document.querySelector("#upgOutput");
+const stationTag = document.querySelector("#stationInfoOutput");
+const ramadanTag = document.querySelector("#ramadanOutput");
+if (settings.additional_info){
   const extra_info = additional_info(specificFlightData.shortInfo);
-  
   dfTag.innerHTML = extra_info.targetsDF;
   upgTag.innerHTML = extra_info.upgrades;
   stationTag.innerHTML = extra_info.stationInfo;
   if(settings.ramadan){
     ramadanTag.innerHTML = extra_info.ramadan;
+  } else {
+    ramadanTag.innerHTML = ""
   }
+} else {
+  dfTag.innerHTML = "";
+  upgTag.innerHTML = "";
+  stationTag.innerHTML = "";
 }
 
 if (fleet[registration] == 10){
@@ -98,18 +108,6 @@ if (fleet[registration] == 10){
   createOutput(crewData, numberOfDuties, hasBreak, doPositions);
 }
 
-export function restart(event) {
-  renderer([], [], true);
-  let crewData = JSON.parse(localStorage.getItem("crewData"));
-  let thisTripPositions = JSON.parse(localStorage.getItem("thisTripPositions"));
-  let registration = localStorage.getItem("registration");
-  let numberOfDuties = parseInt(localStorage.getItem("numberOfDuties"));
-  let hasBreak = /true/i.test(localStorage.getItem("hasBreak"));
-  let doPositions = /true/i.test(localStorage.getItem("doPositions"));
-  if (doPositions) generatePositions(crewData, thisTripPositions, registration, numberOfDuties, hasBreak);
-  createOutput(crewData, numberOfDuties, hasBreak, doPositions);
-}
-
 document.addEventListener("keydown", function (event) {
   if (event.ctrlKey && event.shiftKey && event.code === "KeyH") {
     if (document.querySelector("#crewTable").classList.contains("hidden")) {
@@ -127,20 +125,3 @@ document.addEventListener("keydown", function (event) {
     document.querySelectorAll(".UIhood").forEach((element) => element.classList.remove("hidden"));
   }
 });
-
-export function addAircraftRegistrationManually (n) {
-  let registration = document.querySelector(`#registrInput${n}`).value.toUpperCase();
-  if (fleet.hasOwnProperty(registration)) {
-    dataPool[Object.keys(dataPool)[n]].flightData.FlightData[0].AircraftTail = registration;
-    document.querySelector("#cardContainer").innerHTML = "";
-    createTrips(dataPool);
-  } else {
-    errorHandler(`Registration you entered ${registration} is not found`,"error");
-  }
-}
-
-export function addMFP (event){
-  const tagMFP = ` <span class="badge badge-mfp" title="MFP">MFP</span>`;
-  const location = event.target.parentElement;
-  location.innerHTML += tagMFP;
-}

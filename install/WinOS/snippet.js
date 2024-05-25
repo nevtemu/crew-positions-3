@@ -16,15 +16,18 @@ roster.forEach(item => item.StaffRosters[0].RosterData.CrewRosterResonse.Trips.T
     dataToGo[key].shortInfo.flightDate = new Date(convertDate(subitem.Dty[0].Flt[0].DepDate)); 
     let flightLegs = ["DXB"];
     let layovers = ["00:00"];
+    let durations = [];
     subitem.Dty.forEach(duty => 
         duty.Flt.forEach(flightLeg => { 
             !("longest" in dataToGo[key].shortInfo) || flightLeg.Duration > dataToGo[key].shortInfo.longest ? dataToGo[key].shortInfo.longest = flightLeg.Duration : false;
             flightLegs.push(flightLeg.ArrStn);
             layovers.push(flightLeg.LayOverTime)
+            durations.push(flightLeg.Duration)
         })
     )
     dataToGo[key].shortInfo.flightLegs = flightLegs;
     dataToGo[key].shortInfo.layovers = layovers;
+    dataToGo[key].shortInfo.durations = durations;
     }))
 dataToGo = Object.entries(dataToGo)
 .sort(([,a],[,b]) => a.shortInfo.flightDate-b.shortInfo.flightDate)

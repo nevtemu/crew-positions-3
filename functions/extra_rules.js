@@ -1,3 +1,5 @@
+import {errorHandler} from './error_handler.js'
+
 export function extraRules(thisFlightPositions, variations) {
     Object.keys(variations).forEach((grade) => {
         if (grade === "GR2") errorHandler(`You probably have ${variations[grade]} supy`, "warn")
