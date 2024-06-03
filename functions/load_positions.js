@@ -8,6 +8,7 @@ import {fleet} from '../data/fleet.js';
 
 export function loadPositions(crewData, registration, isULR) {
     if (isULR && crewData.filter((crew) => crew.grade == "CSV").length < 3) isULR = false; // Check for LR flights or other flights with breaks, but non-ULR (2 CSV)
+    let grades = ["PUR", "CSV", "FG1", "GR1", "GR2", "CSA"]
     let thisFlightPositions = JSON.parse(JSON.stringify(
                               [12, 11, 9, 8].includes(fleet[registration]) && isULR /* Check if it is A380 ULR */ ? positions[99] :
                               [1, 2, 3, 6].includes(fleet[registration]) && isULR /* Check if it is B773 ULR */ ? positions[98] : 
@@ -17,13 +18,13 @@ export function loadPositions(crewData, registration, isULR) {
     let vcm = crewData.length - requiredCrew;
     //Check VCM by grades
     let variations = {};
-    Object.keys(thisFlightPositions).forEach((grade) => {
-      if (grade !== "EXTRA") {
+    grades.forEach((grade) => {
         let thisFlightPositionsByGrade = [];
-        Object.keys(thisFlightPositions[grade]).forEach((item) => thisFlightPositionsByGrade = [...thisFlightPositionsByGrade, ...thisFlightPositions[grade][item]]);
+        if (thisFlightPositions.hasOwnProperty(grade)){
+          Object.keys(thisFlightPositions[grade]).forEach((item) => thisFlightPositionsByGrade = [...thisFlightPositionsByGrade, ...thisFlightPositions[grade][item]]);
+        }
         let difference = crewData.filter((crew) => crew.grade === grade).length - thisFlightPositionsByGrade.length;
         if (difference !== 0) variations[grade] = difference;
-      }
     });
     //End of VCM check by grades
     if (Object.keys(variations).length !== 0) {

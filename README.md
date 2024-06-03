@@ -63,6 +63,11 @@ Works for any type of operation except cases, when data is incomplete/missing.
 * __Cargo flights support__ has been completely removed. They are not rostered to crew any more. If you happened to get one, it still can be processed via “List only” option.
 * __Script would not work__ if information fetched is incomplete or missing entirely. This is common on reserve, when many duties missing crew or aircraft data. Minimum requirement for script to work is to have crew information (registration, type of operation can be manually input). Also commonly known that script will fail if crew complement altered at higher grades: FG1 pulled out as GR2 and PUR pulled out as CSV etc. For this cases I suggest to use "List only" option.
 
+## Known issues
+
+* __Supy__. App will most probably identify that you have supy and alert you. However, from available data there is no reliable way to say that someone is supy: it is not always most junior crew (supy have their own grade, but shown in Gr2 list with experience 2 months). I suggest to check via their roster or crew with pre-allocated position on KIS and then change their position manually.
+*__Aircraft mismatch__. If you have 3 class crew and different aircraft (2 class aircraft one way, 3 class aircraft return). Even if move Fg1s to Y, still 2 class B773 has no CSV in J, so it is very confusing for algorithm. I'm planing to look into the issue, but for now suggest just to use "List only" feature and do what you like.
+
 ## How to use?
 
 #### For ![Windows](src/readme-icons/windows.svg) Windows and  ![Chrome](src/readme-icons/chrome.svg) Chrome users:
@@ -91,6 +96,11 @@ Enjoy!
 > All snippets/shortcuts have url of the local host: you require to run local service on this port or host app online and change the url
 
 If you need help setting it up, reach me out 😊. Or let me know your feedback, desired features.
+
+>
+> [!CAUTION]
+> The app opens new tab in browser. Most browsers by default block pop-up windows. If app does not run, check that pop-up blocker is disabled.
+> ![Pop-up blocker](screenshots/sc9.png)
 
 ## Changelog
 
@@ -174,3 +184,27 @@ If you need help setting it up, reach me out 😊. Or let me know your feedback,
 > Fixed bug in extra rules function: forgot to import error handler.
 
 > Added shortcut file for MacOS version.
+
+03.06.2024
+> Added link to app's source code
+> ![App's source code](screenshots/sc10.png)
+
+> Fixed bag in add_registration_manually function
+
+> Added option to allocate breaks on selected sectors only. Required for trips mixed of short sectors/ shuttles and long sectors. Tooltip for checkboxes now shows individual sector duration.
+
+> Changed styles for trips table: VCM moved to the end of row (seems more logical), shortened headers and removed "In service since" header, added bold borders between sections of the table, destinations do not show DXB any more, table headers styled like folder tabs, changed duty date format.
+> ![App's source code](screenshots/sc11.png)
+
+> Small refactoring to snippet and generate_positions function. The app will require at least [this version](https://caniuse.com/mdn-api_structuredclone "Structured clone browser support") of browser.
+
+> Now your own settings will save into cookie and will be loaded automatically next time. You do not need to select settings every time.
+
+> Updated upgrade prices (added Bogota and Phnom Penh) and inflight retail targets (removed duplicates).
+
+> Added option to select W crew manually for 4 class flights.
+> ![App's source code](screenshots/sc12.png)
+
+>
+> [!CAUTION]
+> This is major update affecting the script itself, so shortcut/script require re-install.

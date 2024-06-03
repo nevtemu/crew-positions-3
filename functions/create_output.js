@@ -6,12 +6,18 @@ import {badges} from '../functions/badges.js'
 export function createOutput(crewList, numberOfSectors, hasBreak, doPositions) {
     const settings = JSON.parse(localStorage.getItem('settings'));
 
+    let positionsHeaders = '';
+    for (let k=0; k< numberOfSectors; k++){
+        positionsHeaders +="<th>Position</th>";
+        if (hasBreak[k]) positionsHeaders += "<th>Break</th>"
+    }
     const header = `
+        <div style="margin-bottom: 0.8em"> 👍 If you like this app, find the source code <a href="${urls.sourceCode}" target="_blank">here</a></div>
         <table style="border-collapse:collapse;">  
             <tr>
                 <th>Grade</th>
                 <th>Nickname</th>
-                ${("<th>Position</th>" + (hasBreak ? "<th>Break</th>" : "")).repeat(numberOfSectors)}
+                ${positionsHeaders}
                 <th>Full name</th>
                 <th style="font-size:smaller;">Staff number</th>
                 <th>Nationality</th>
@@ -24,11 +30,12 @@ export function createOutput(crewList, numberOfSectors, hasBreak, doPositions) {
     const footer = `</table><div>*Positions may be adjusted to accommodate MFP2.0 or other operational requirements</div><div>⚠️ To change you comment click <a href="${urls.updateComment}">here</a> and then press "Edit"</div>`;
     let lastGrade = "";
     let fileContent = "";
+    crewList.sort((a, b) => a.index - b.index) // Ascending. Required due to manual selection of W so crew can shuffle around their grades
     crewList.forEach(createTable);
 
     document.querySelector("#crewOutput").innerHTML = header + fileContent + footer;
 
-    if (settings.break_auto_correction && hasBreak) {
+    if (settings.break_auto_correction && hasBreak.some(element => element === true)) {
         const positions_cells = document.querySelectorAll(".autoBreaks")
         positions_cells.forEach((cell) => cell.addEventListener("focusout", (event) => autoCorrectBreaks(event)))
     }
@@ -63,11 +70,11 @@ export function createOutput(crewList, numberOfSectors, hasBreak, doPositions) {
         fileContent += `<tr><td class="centerCell">${item.originalGrade}</td>
                             <td>${item.nickname}</td>`;
         for (let i = 0; i < numberOfSectors; i++) {
-            fileContent += `<td class="centerCell showMFPbutton ${settings.break_auto_correction && hasBreak ? "autoBreaks" : ""} ${settings.repeated_positions_highlight ? "repeatHighlight" : ""}" contenteditable>${doPositions ? item[`position${i}`] : ""}
+            fileContent += `<td class="centerCell showMFPbutton ${settings.break_auto_correction && hasBreak[i] ? "autoBreaks" : ""} ${settings.repeated_positions_highlight ? "repeatHighlight" : ""}" contenteditable>${doPositions ? item[`position${i}`] : ""}
                 ${item.doingDF && doPositions ? ` <span class="badge badge-ir" title="Retail operator">IR</span>` : ""}
                 ${settings.MFP_buttons ? `<span style="diplay:none" contenteditable="false"> </span><span class="invisible buttonMFP" onclick="addMFP(event)">+</span>` : ""}
                 </td>`; /* Перший це заглушка */
-            if (hasBreak) fileContent += `<td class="centerCell" contenteditable>${doPositions ? item[`break${i}`] : ""}</td>`
+            if (hasBreak[i]) fileContent += `<td class="centerCell" contenteditable>${doPositions ? item[`break${i}`] : ""}</td>`
         }
         fileContent += `<td>${item.fullname}</td>
                         <td class="centerCell">${item.staffNumber}</td>

@@ -14,20 +14,19 @@ roster.forEach(item => item.StaffRosters[0].RosterData.CrewRosterResonse.Trips.T
     dataToGo[key].shortInfo.sectors = subitem.Dty.length;
     dataToGo[key].shortInfo.flightNumber = subitem.Dty[0].Flt[0].FltNo;
     dataToGo[key].shortInfo.flightDate = new Date(convertDate(subitem.Dty[0].Flt[0].DepDate)); 
-    let flightLegs = ["DXB"];
-    let layovers = ["00:00"];
-    let durations = [];
-    subitem.Dty.forEach(duty => 
+    let flightLegs = ["DXB"], layovers = [], durations = [], sectorsPerDuty = [];
+    subitem.Dty.forEach(duty => {
+        sectorsPerDuty.push(duty.Flt.length)
         duty.Flt.forEach(flightLeg => { 
-            !("longest" in dataToGo[key].shortInfo) || flightLeg.Duration > dataToGo[key].shortInfo.longest ? dataToGo[key].shortInfo.longest = flightLeg.Duration : false;
-            flightLegs.push(flightLeg.ArrStn);
-            layovers.push(flightLeg.LayOverTime)
+            if (flightLeg.ArrStn !== "DXB") {flightLegs.push(flightLeg.ArrStn); layovers.push(flightLeg.LayOverTime)};
             durations.push(flightLeg.Duration)
         })
-    )
+    })
     dataToGo[key].shortInfo.flightLegs = flightLegs;
     dataToGo[key].shortInfo.layovers = layovers;
     dataToGo[key].shortInfo.durations = durations;
+    dataToGo[key].shortInfo.sectorsPerDuty = sectorsPerDuty;
+    dataToGo[key].shortInfo.staff = userStaffNumber;
     }))
 dataToGo = Object.entries(dataToGo)
 .sort(([,a],[,b]) => a.shortInfo.flightDate-b.shortInfo.flightDate)
@@ -51,13 +50,12 @@ function transformFormat (str){
     let temp = str.split("_")[2].split("-", 3)
     temp[1]=(parseInt(temp[1])+1).toString();
     temp[2]=(parseInt(temp[2])+2000).toString();
-    let final=[];
-    temp.forEach(number => final.push(number.length === 1? "0"+number : number))
-    let date = final.join("/")
-    return fltNumber +"_"+ date
+    temp.forEach((number,index) => temp[index] = number.padStart(2,'0'))
+    let date = temp.join("/")
+    return fltNumber + "_" + date
 }
 function convertDate(stringDate) {
     [day, month, year] = stringDate.split(" ", 1)[0].split("/");
     let rest = stringDate.split(" ")[1]
-    return parseInt(month) + "/" + day + "/" + year + " " + rest;
+    return [parseInt(month), day, year].join("/") + " " + rest;
 }

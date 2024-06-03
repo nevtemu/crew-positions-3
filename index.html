@@ -8,13 +8,17 @@
       import { showRegistrationInputField ,hideErrors, back} from "/functions/renderer.js";
       import { changeSettings } from "/functions/change_settings.js";
       import { showSettings } from "/functions/show_settings.js";
-      import { addMFP } from "/functions/add_MFP.js";
       import { addAircraftRegistrationManually } from "/functions/add_aircraft_registration_manually.js";
+      import { addMFP } from "/functions/add_MFP.js";
+      import { selectWManually } from "/functions/W_selector_manually.js";
+      import { changeNumberOfDuties } from "/functions/change_number_of_duties.js";
       import { restart } from "/functions/create_output_restart.js";
       window.start = start;
       window.restart = restart;
       window.showRegistrationInputField = showRegistrationInputField;
       window.addAircraftRegistrationManually = addAircraftRegistrationManually;
+      window.selectWManually = selectWManually;
+      window.changeNumberOfDuties = changeNumberOfDuties;
       window.addMFP = addMFP;
       window.hideErrors = hideErrors;
       window.back = back;
@@ -35,18 +39,20 @@
       <table>
         <thead>
           <tr>
-            <th id="flightNumber" class="invisible"></th>
-            <th id="flightDate" class="invisible"></th>
-            <th id="flightLegs" class="invisible"></th>
-            <th id="sectors">Duties</th>
-            <th id="brekas">ULR<br/>Breaks</th>
-            <th id="aircraftRegistration" class="invisible"></th>
-            <th id="aircraftDescription" class="invisible"></th>
-            <th id="aircraftAge">In service<br/>since</th>
-            <th id="crc">CRC</th>
-            <th id="VCM">VCM</th>
-            <th id="crew">Crew</th>
-            <th id="controls" class="invisible"></th>
+            <th id="flightNumber" class="invisible tableTab"></th>
+            <th id="flightDate" class="invisible tableTab"></th>
+            <th id="flightLegs" class="invisible tableTab"></th>
+            <th id="sectors" class="tableTab">Duties</th>
+            <!-- <th id="brekas">ULR<br/>Breaks</th>  -->
+            <th id="breaks" class="tableTab">Breaks</th>
+            <th id="aircraftRegistration" class="invisible tableTab"></th>
+            <th id="aircraftDescription" class="invisible tableTab"></th>
+            <!-- <th id="aircraftAge">In service<br/>since</th> -->
+            <th id="aircraftAge" class="invisible tabelTab">Year</th>
+            <th id="crc" class="tableTab">CRC</th>
+            <th id="crew" class="tableTab">Crew</th>
+            <th id="VCM" class="tableTab">VCM</th>
+            <th id="controls" class="invisible tableTab"></th>
           </tr>
         </thead>
         <tbody id="cardContainer"></tbody>
@@ -85,4 +91,14 @@
       Press <span class="keyBind">Ctrl &#8963;</span><span class="keyBind">Shift &#8679;</span><span class="keyBind">H</span> to <b>h</b>ide/show controls
     </div>
   </body>
+  <dialog>
+    <section>
+      <div>Select your W crew (maximum 2):</div>
+      <ul id="crewList"></ul>
+    </section>
+    <section>
+      <button id="dialogClose">Cancel</button>
+      <button id="dialogSubmit">OK</button>
+    </section>
+  </dialog>
 </html>

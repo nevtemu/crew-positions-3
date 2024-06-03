@@ -17,9 +17,7 @@ import {renderer} from './functions/renderer.js'
 import {createOutput} from './functions/create_output.js'
 import {createSettings} from './functions/create_settings.js'
 
-
 let dataPool; // To store data from portal
-
 
 // Connection
 window.onload = function () {
@@ -32,12 +30,22 @@ window.onload = function () {
 
 window.addEventListener("message", (receivedData) => {
   dataPool = receivedData.data;
+  window.dataPool = dataPool; // Global variable required for some functions (add registration manually etc.)
   console.warn("Data received from portal");
   console.log(dataPool);
+
+  //Settings
+  let settings;
+  if (document.cookie && document.cookie.match(/^(?=.*\S).*settings=.*/)) {
+    settings = JSON.parse(document.cookie.split("; ").find((part) => part.startsWith("settings="))?.split("=")[1])
+    if (Object.keys(settings).length !== Object.keys(defaultSettings).length /* && Object.keys(settings).every((element, index) => element !== Object.keys(defaultSettings)[index]) */ ) settings = defaultSettings 
+  }
+  else settings = defaultSettings;
+  localStorage.setItem("settings", JSON.stringify(settings));
+  createSettings(settings);
+
   renderer([document.querySelector("#tripsTable")],[document.querySelector("#fetchTable")]);
   createTrips(dataPool);
-  createSettings(defaultSettings);
-  localStorage.setItem("settings", JSON.stringify(defaultSettings));
   window.opener.postMessage("Thank you", "*");
 });
 
@@ -47,13 +55,17 @@ export function start(event, n, doPositions) {
   let flights = Object.keys(dataPool);
   let specificFlightData = dataPool[flights[n]];
   let crewData = loadCrew(specificFlightData.crewData);
+  let isULR = Math.max(...specificFlightData.shortInfo.durations) > 9.5
   console.warn("Crew data loaded successfully");
 
   birthday_check(crewData, specificFlightData);
 
   let registration = specificFlightData.flightData.FlightData[0].AircraftTail;
   let numberOfDuties = document.querySelector(`#sectors${n}`).value; //These values taken from page as user may change number of positions/breaks desired
-  let hasBreak = document.querySelector(`#rest${n}`).checked;
+  
+  let hasBreak = []
+  let breakNodes = document.querySelector(`#rest${n}`).childNodes;
+  breakNodes.forEach(node => hasBreak.push(node.checked))
 
   let settings = JSON.parse(localStorage.getItem("settings"))
 //Upgrades and DF targets output
@@ -96,7 +108,7 @@ if (fleet[registration] == 10){
   localStorage.setItem("crewData", JSON.stringify(crewData));
   let thisTripPositions = []
   if (doPositions) { // Runs only if generating positions (does not run for "List only" option)
-    thisTripPositions = loadPositions(crewData, registration, hasBreak);
+    thisTripPositions = loadPositions(crewData, registration, isULR);
     console.warn("Positions loaded successfully");
     generatePositions(crewData, thisTripPositions, registration, numberOfDuties, hasBreak);
   } 

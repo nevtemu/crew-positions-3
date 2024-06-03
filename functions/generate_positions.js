@@ -4,9 +4,9 @@ import {errorHandler} from '../functions/error_handler.js'
 import {breaks} from '../data/breaks.js';
 
 
-export function generatePositions(crewData, positions, registration, numberOfDuties = 1, hasBreaks = false) {
+export function generatePositions(crewData, positions, registration, numberOfDuties = 1, hasBreaks) {
     for (let i = 0; i < numberOfDuties; i++) {
-        let p = JSON.parse(JSON.stringify(positions));
+        let p = structuredClone(positions);
 
         //Select DF
         let numberOfRetailOperators = typesOfAircraft[fleet[registration]].aircraftModel === "A380" ? 2 : 1;
@@ -115,7 +115,7 @@ export function generatePositions(crewData, positions, registration, numberOfDut
         });
 
         //Select breaks
-        if (hasBreaks) {
+        if (hasBreaks[i]) {
             crewData.forEach((crew) => (crew[`break${i}`] = breaks[fleet[registration]].hasOwnProperty(crew[`position${i}`]) ?
                 breaks[fleet[registration]][crew[`position${i}`]] : "")
             );
