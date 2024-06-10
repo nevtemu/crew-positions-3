@@ -63,11 +63,6 @@ Works for any type of operation except cases, when data is incomplete/missing.
 * __Cargo flights support__ has been completely removed. They are not rostered to crew any more. If you happened to get one, it still can be processed via “List only” option.
 * __Script would not work__ if information fetched is incomplete or missing entirely. This is common on reserve, when many duties missing crew or aircraft data. Minimum requirement for script to work is to have crew information (registration, type of operation can be manually input). Also commonly known that script will fail if crew complement altered at higher grades: FG1 pulled out as GR2 and PUR pulled out as CSV etc. For this cases I suggest to use "List only" option.
 
-## Known issues
-
-* __Supy__. App will most probably identify that you have supy and alert you. However, from available data there is no reliable way to say that someone is supy: it is not always most junior crew (supy have their own grade, but shown in Gr2 list with experience 2 months). I suggest to check via their roster or crew with pre-allocated position on KIS and then change their position manually.
-*__Aircraft mismatch__. If you have 3 class crew and different aircraft (2 class aircraft one way, 3 class aircraft return). Even if move Fg1s to Y, still 2 class B773 has no CSV in J, so it is very confusing for algorithm. I'm planing to look into the issue, but for now suggest just to use "List only" feature and do what you like.
-
 ## How to use?
 
 #### For ![Windows](src/readme-icons/windows.svg) Windows and  ![Chrome](src/readme-icons/chrome.svg) Chrome users:
@@ -89,6 +84,11 @@ Added support for macOS/iOS. It is implemented via ![Shortcuts](src/readme-icons
 3. On crew portal click `Share` icon, find `CrewApp` shortcut and run it
 ![Run shortcut](screenshots/sc3.png)
 
+>
+> [!CAUTION]
+> The app opens new tab in browser. Most browsers by default block pop-up windows. If app does not run, check that pop-up blocker is disabled.
+> ![Pop-up blocker](screenshots/sc9.png)
+
 Enjoy!
 
 >
@@ -96,11 +96,6 @@ Enjoy!
 > All snippets/shortcuts have url of the local host: you require to run local service on this port or host app online and change the url
 
 If you need help setting it up, reach me out 😊. Or let me know your feedback, desired features.
-
->
-> [!CAUTION]
-> The app opens new tab in browser. Most browsers by default block pop-up windows. If app does not run, check that pop-up blocker is disabled.
-> ![Pop-up blocker](screenshots/sc9.png)
 
 ## Changelog
 
@@ -202,9 +197,21 @@ If you need help setting it up, reach me out 😊. Or let me know your feedback,
 
 > Updated upgrade prices (added Bogota and Phnom Penh) and inflight retail targets (removed duplicates).
 
-> Added option to select W crew manually for 4 class flights.
+> Added option to select W crew manually for 4 class flights. This feature requested by Ayman. This is arguable as current policy states: allocate W to “experienced” crew. However, I still implemented it, just to have more flexibility.
 > ![App's source code](screenshots/sc12.png)
 
 >
 > [!CAUTION]
 > This is major update affecting the script itself, so shortcut/script require re-install.
+
+10.06.2024
+> Restriction to keep same galley operator in J related to new service was lifted as of 06.06. I removed temporary rules for US flights and for J galley operator. Now positions allocated randomly with rotation again.
+
+> Updated fleet: EUI is refitted to 4 class now even it is not updated in fleet chart on portal.
+
+
+## Known issues
+
+* __Supy__. App will most probably identify that you have supy and alert you. However, from available data there is no reliable way to confirm that someone is supy: it is not always most junior crew (supy have their own grade in HR, but shown in Gr2 list with experience 2 months in rostering). I suggest to check via their roster or crew with pre-allocated position on KIS and then change their position manually.
+
+* __Aircraft mismatch__. If you have 3 class crew and different aircraft (2 class aircraft one way, 3 class aircraft return). Even if move Fg1s to Y, still 2 class B773 has no CSV in J, so it is very confusing for algorithm. I'm planing to look into the issue, but for now suggest just to use "List only" feature and do what you like manually.

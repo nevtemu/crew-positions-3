@@ -61,25 +61,6 @@ export function generatePositions(crewData, positions, registration, numberOfDut
             }
             else if (["FG1", "GR1", "GR2", "W"].includes(grade)) {
                 p[grade].galley.forEach((position) => { // Galley position to crew over 6 month
-                    
-
-                    // =====================================================
-                    //Temporary J galley operator for new service (May 2024)
-                    if (grade === "GR1"){
-                        let candidateCrew = crewData.filter((crew) => crew.grade === grade && !crew.hasOwnProperty(`position${i}`)).sort((a, b) => b.timeInGradeNumber - a.timeInGradeNumber);;
-                        let k;
-                        if (candidateCrew.length > 1) {
-                            k = crewData.findIndex((staff) => staff.staffNumber === candidateCrew[0].staffNumber);
-                            crewData[k][`position${i}`] = position;
-                            crewData[k].lastPosition.shift();
-                            crewData[k].lastPosition.push(position);
-                        }
-                    } else {
-                    //End of temporary rule for J galley operator + delete one bracket lower (for else)
-                    //=========================================================
-
-
-
                         let candidateCrew = crewData.filter((crew) => crew.grade === grade && !crew.hasOwnProperty(`position${i}`) && crew.timeInGradeNumber > 6);
                         if (candidateCrew.length > 1) {
                             let candidateCrewNewPosition = candidateCrew.filter((crew) => !crew.lastPosition.includes(position));
@@ -97,9 +78,6 @@ export function generatePositions(crewData, positions, registration, numberOfDut
                         crewData[x][`position${i}`] = position;
                         crewData[x].lastPosition.shift();
                         crewData[x].lastPosition.push(position);
-
-                    } // Delete this bracket if temporary rule for J galley operator removed
-
                 });                 
                 p[grade].remain.forEach((position) => {
                     let candidateCrew = crewData.filter((crew) => crew.grade === grade && !crew.hasOwnProperty(`position${i}`));

@@ -93,18 +93,6 @@ if (fleet[registration] == 10){
   W_selector(crewData, positions);
 }
 
-  //Temporarily A380 grade change for USA ULR trips // TEMP !!!
-  if (["JFK", "BOS", "IAD", "IAH", "DFW", "ORD", "MIA", "SEA", "SFO", "LAX", "MCO"].includes(specificFlightData.flightData.FlightData[0].Destination) && specificFlightData.flightData.FlightData[0].AircraftType == "A380-800" && 
-  crewData.filter((crew) => crew.grade == "GR2").length < 8 && crewData.filter((crew) => crew.grade == "GR1").length > 8){
-    businessClassCrew = crewData.filter((crew) => crew.grade == "GR1")
-    for (let i=0; i < 2; i++){
-      businessClassCrew[businessClassCrew.length-i-1].grade = "GR2";
-      businessClassCrew[businessClassCrew.length-i-1].timeInGradeNumber = 0;
-      errorHandler(`${businessClassCrew[businessClassCrew.length-i-1].nickname} moved to Gr2`, "info");
-    }
-  }
-  //End of USA grade change
-
   localStorage.setItem("crewData", JSON.stringify(crewData));
   let thisTripPositions = []
   if (doPositions) { // Runs only if generating positions (does not run for "List only" option)
