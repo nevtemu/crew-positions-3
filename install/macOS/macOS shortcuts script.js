@@ -14,14 +14,12 @@ roster.forEach(item => item.StaffRosters[0].RosterData.CrewRosterResonse.Trips.T
     dataToGo[key].shortInfo.sectors = subitem.Dty.length;
     dataToGo[key].shortInfo.flightNumber = subitem.Dty[0].Flt[0].FltNo;
     dataToGo[key].shortInfo.flightDate = new Date(convertDate(subitem.Dty[0].Flt[0].DepDate)); 
-    let flightLegs = [], layovers = [], durations = [], sectorsPerDuty = [];
+    let flightLegs = ["DXB"], layovers = [], durations = [], sectorsPerDuty = [];
     subitem.Dty.forEach(duty => {
-        let counter = 1;
+        sectorsPerDuty.push(duty.Flt.length)
         duty.Flt.forEach(flightLeg => { 
             if (flightLeg.ArrStn !== "DXB") {flightLegs.push(flightLeg.ArrStn); layovers.push(flightLeg.LayOverTime)};
             durations.push(flightLeg.Duration)
-            if (flightLeg.LayOverTime === "00:00") counter++
-            else {sectorsPerDuty.push(counter); counter = 1}
         })
     })
     dataToGo[key].shortInfo.flightLegs = flightLegs;

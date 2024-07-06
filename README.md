@@ -209,9 +209,15 @@ If you need help setting it up, reach me out 😊. Or let me know your feedback,
 
 > Updated fleet: EUI is refitted to 4 class now even it is not updated in fleet chart on portal.
 
+06.07.2024
+> Added Antananarivo, Edinburgh, Adelaide. Updated data (upgrade prices, DF targets). Added new data for language requirements for destinations.
+
+> MacOS shortcuts updated to new version (separate legs duration added)
 
 ## Known issues
 
 * __Supy__. App will most probably identify that you have supy and alert you. However, from available data there is no reliable way to confirm that someone is supy: it is not always most junior crew (supy have their own grade in HR, but shown in Gr2 list with experience 2 months in rostering). I suggest to check via their roster or crew with pre-allocated position on KIS and then change their position manually.
 
 * __Aircraft mismatch__. If you have 3 class crew and different aircraft (2 class aircraft one way, 3 class aircraft return). Even if move Fg1s to Y, still 2 class B773 has no CSV in J, so it is very confusing for algorithm. I'm planing to look into the issue, but for now suggest just to use "List only" feature and do what you like manually.
+
+* __A350__. I'm waiting for more information on how the flight will be operated, registration and requirements.

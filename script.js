@@ -13,7 +13,7 @@ import {loadPositions} from './functions/load_positions.js'
 import {generatePositions} from './functions/generate_positions.js'
 import {createTrips} from './functions/create_trips.js'
 import {errorHandler} from './functions/error_handler.js'
-import {renderer} from './functions/renderer.js'
+import {renderer, hideGUI} from './functions/renderer.js'
 import {createOutput} from './functions/create_output.js'
 import {createSettings} from './functions/create_settings.js'
 
@@ -110,6 +110,9 @@ if (fleet[registration] == 10){
 
 document.addEventListener("keydown", function (event) {
   if (event.ctrlKey && event.shiftKey && event.code === "KeyH") {
+
+    // hideGUI()
+
     if (document.querySelector("#crewTable").classList.contains("hidden")) {
       document.querySelector("#errorTable").classList.toggle("hidden");
       return;

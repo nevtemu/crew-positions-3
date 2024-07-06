@@ -22,3 +22,7 @@ export function showRegistrationInputField(event, n) {
 export function back() {
     renderer([document.querySelector("#tripsTable"), document.querySelector("#settings-wrapper")],[document.querySelector("#crewTable"),document.querySelector("#flightInfo"),document.querySelector("#errorTable"),document.querySelector("#keyBind"),],true);
 }
+
+export function hideGUI() {
+
+}
