@@ -214,6 +214,30 @@ If you need help setting it up, reach me out 😊. Or let me know your feedback,
 
 > MacOS shortcuts updated to new version (separate legs duration added)
 
+16.07.2024
+> Added pricelist version and effective date. Always double check official company pricelist before processing upgrades in case any delayed updates.
+> ![Pricelist version](screenshots/scr22.png)
+
+> Added highlight for Arabic and third languages. Added table with language requirements in additional info.
+> ![PA highlight](screenshots/scr21.png)
+
+> Moved app source code link to the bottom of the table.
+> ![Source code link new location](screenshots/scr20.png)
+
+> Fixed a bug when loading settings from cookie file with default settings updated.
+
+> MFP button now changed to badge button (including: W, PA, MFP, IR). Badges in position cells are now clickable themselves and have options to change, replace or remove the badge.
+> ![Badge buttons](screenshots/scr23.gif)
+
+> Added automatic allocation of PAs.
+> ![PA badges](screenshots/scr19.png)
+
+> Added button to copy table to clipboard if you want to paste it into email directly (not as separate file). Be mindful that appearance of the table will be affected by size of app's window where email will be open (some text may wrap onto next row and look not so pretty etc.)
+
+> Added button to hide GUI. I noticed increasing number of people using the app on iPad where key bind is not always available, so added button to hide controls. I decided to make them disappear completely (no button to show them again) as I trust you will use it only as last step before saving to file. Note: it is still possible to make controls reappear via key bind.
+> ![New control buttons](screenshots/scr18.png)
+
+
 ## Known issues
 
 * __Supy__. App will most probably identify that you have supy and alert you. However, from available data there is no reliable way to confirm that someone is supy: it is not always most junior crew (supy have their own grade in HR, but shown in Gr2 list with experience 2 months in rostering). I suggest to check via their roster or crew with pre-allocated position on KIS and then change their position manually.

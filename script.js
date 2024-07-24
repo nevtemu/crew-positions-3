@@ -12,10 +12,10 @@ import {loadCrew} from './functions/load_crew.js'
 import {loadPositions} from './functions/load_positions.js'
 import {generatePositions} from './functions/generate_positions.js'
 import {createTrips} from './functions/create_trips.js'
-import {errorHandler} from './functions/error_handler.js'
 import {renderer, hideGUI} from './functions/renderer.js'
 import {createOutput} from './functions/create_output.js'
 import {createSettings} from './functions/create_settings.js'
+import {filterLanguages, languagesCount} from './functions/languages.js'
 
 let dataPool; // To store data from portal
 
@@ -38,7 +38,7 @@ window.addEventListener("message", (receivedData) => {
   let settings;
   if (document.cookie && document.cookie.match(/^(?=.*\S).*settings=.*/)) {
     settings = JSON.parse(document.cookie.split("; ").find((part) => part.startsWith("settings="))?.split("=")[1])
-    if (Object.keys(settings).length !== Object.keys(defaultSettings).length /* && Object.keys(settings).every((element, index) => element !== Object.keys(defaultSettings)[index]) */ ) settings = defaultSettings 
+    if (Object.keys(settings).length !== Object.keys(defaultSettings).length || Object.keys(settings).join("") !== Object.keys(defaultSettings).join("") ) settings = defaultSettings 
   }
   else settings = defaultSettings;
   localStorage.setItem("settings", JSON.stringify(settings));
@@ -72,12 +72,15 @@ export function start(event, n, doPositions) {
 const dfTag = document.querySelector("#dfOutput");
 const upgTag = document.querySelector("#upgOutput");
 const stationTag = document.querySelector("#stationInfoOutput");
+const langTag = document.querySelector("#langOutput");
 const ramadanTag = document.querySelector("#ramadanOutput");
 if (settings.additional_info){
   const extra_info = additional_info(specificFlightData.shortInfo);
   dfTag.innerHTML = extra_info.targetsDF;
   upgTag.innerHTML = extra_info.upgrades;
   stationTag.innerHTML = extra_info.stationInfo;
+  if(settings.languages_and_PAs) langTag.innerHTML = languagesCount(crewData, specificFlightData.shortInfo.flightLegs.slice(1));
+  else langTag.innerHTML = "";
   if(settings.ramadan){
     ramadanTag.innerHTML = extra_info.ramadan;
   } else {
@@ -105,26 +108,12 @@ if (fleet[registration] == 10){
   localStorage.setItem("numberOfDuties", numberOfDuties);
   localStorage.setItem("hasBreak", hasBreak);
   localStorage.setItem("doPositions", doPositions);
+  if (settings.languages_and_PAs) filterLanguages(specificFlightData.shortInfo.flightLegs.slice(1))  // Additional info languages below positions table
   createOutput(crewData, numberOfDuties, hasBreak, doPositions);
 }
 
 document.addEventListener("keydown", function (event) {
   if (event.ctrlKey && event.shiftKey && event.code === "KeyH") {
-
-    // hideGUI()
-
-    if (document.querySelector("#crewTable").classList.contains("hidden")) {
-      document.querySelector("#errorTable").classList.toggle("hidden");
-      return;
-    }
-    if (document.querySelector("#errorTable").classList.contains("hidden") && !document.querySelector("#crewControls").classList.contains("hidden")) {
-      document.querySelector("#errorTable").classList.remove("hidden");
-      return;
-    }
-    if (!document.querySelector("#errorTable").classList.contains("hidden")) {
-      document.querySelectorAll(".UIhood").forEach((element) => element.classList.add("hidden"));
-      return;
-    }
-    document.querySelectorAll(".UIhood").forEach((element) => element.classList.remove("hidden"));
+    hideGUI()
   }
 });

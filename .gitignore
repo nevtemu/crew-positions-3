@@ -11,6 +11,7 @@ functions/temp.js
 # Unused sources 
 src/fonts/other
 src/flags
+src/app-icons/unused
 screenshots/other
 
 # Confidential

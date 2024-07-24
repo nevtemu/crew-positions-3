@@ -1,5 +1,5 @@
 import {targets} from '../data/duty_free_targets.js'; // Few errors due to duplicates in company files
-import {prices} from '../data/upgrade_prices.js';
+import {prices, version, effectiveDate} from '../data/upgrade_prices.js';
 import {urls} from '../data/urls.js';
 import {ramadan} from '../data/ramadan.js'; // Few errors due to duplicates in company files
 
@@ -44,7 +44,9 @@ export function additional_info(info) {
         for (let sector in upgrades) {
             output += `<tr><td rowspan="7">${sector}:</td>${upgSubOutput(upgrades[sector])}</tr>`
         }
-        return output += "</table></div>";
+        return output += `</table>
+                            <div class="upg-block">Pricelist version ${version} (${effectiveDate})</div>
+                            </div>`;
     }
 
     function ramadanOutput(ramadanService) {

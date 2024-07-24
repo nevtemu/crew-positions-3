@@ -2,6 +2,7 @@ import {urls} from '../data/urls.js';
 import {autoCorrectBreaks} from '../functions/auto_correct_breaks.js'
 import {repeatHighlight} from '../functions/repeat_highlights.js'
 import {badges} from '../functions/badges.js'
+import {languageHighlight} from '../functions/languages.js'
 
 export function createOutput(crewList, numberOfSectors, hasBreak, doPositions) {
     const settings = JSON.parse(localStorage.getItem('settings'));
@@ -12,7 +13,6 @@ export function createOutput(crewList, numberOfSectors, hasBreak, doPositions) {
         if (hasBreak[k]) positionsHeaders += "<th>Break</th>"
     }
     const header = `
-        <div style="margin-bottom: 0.8em"> 👍 If you like this app, find the source code <a href="${urls.sourceCode}" target="_blank">here</a></div>
         <table style="border-collapse:collapse;">  
             <tr>
                 <th>Grade</th>
@@ -27,7 +27,9 @@ export function createOutput(crewList, numberOfSectors, hasBreak, doPositions) {
                 <th>Flown</th>
                 <th>Comment</th>
             </tr>`;
-    const footer = `</table><div>*Positions may be adjusted to accommodate MFP2.0 or other operational requirements</div><div>⚠️ To change you comment click <a href="${urls.updateComment}">here</a> and then press "Edit"</div>`;
+    const footer = `</table><div>*Positions may be adjusted to accommodate MFP2.0 or other operational requirements</div>
+    <div>⚠️ To change you comment click <a href="${urls.updateComment}">here</a> and then press "Edit"</div>
+    <div> 👍 If you like this app, find the source code <a href="${urls.sourceCode}" target="_blank">here</a></div>`;
     let lastGrade = "";
     let fileContent = "";
     crewList.sort((a, b) => a.index - b.index) // Ascending. Required due to manual selection of W so crew can shuffle around their grades
@@ -70,16 +72,17 @@ export function createOutput(crewList, numberOfSectors, hasBreak, doPositions) {
         fileContent += `<tr><td class="centerCell">${item.originalGrade}</td>
                             <td>${item.nickname}</td>`;
         for (let i = 0; i < numberOfSectors; i++) {
-            fileContent += `<td class="centerCell showMFPbutton ${settings.break_auto_correction && hasBreak[i] ? "autoBreaks" : ""} ${settings.repeated_positions_highlight ? "repeatHighlight" : ""}" contenteditable>${doPositions ? item[`position${i}`] : ""}
-                ${item.doingDF && doPositions ? ` <span class="badge badge-ir" title="Retail operator">IR</span>` : ""}
-                ${settings.MFP_buttons ? `<span style="diplay:none" contenteditable="false"> </span><span class="invisible buttonMFP" onclick="addMFP(event)">+</span>` : ""}
+            fileContent += `<td class="centerCell showBadgeButton ${settings.break_auto_correction && hasBreak[i] ? "autoBreaks" : ""} ${settings.repeated_positions_highlight ? "repeatHighlight" : ""}" contenteditable>${doPositions ? item[`position${i}`] : ""}
+                ${item.doingDF && doPositions ? ` <span class="badge badge-ir" title="Retail operator" onclick="badgeMenu(event)">IR</span>` : ""}
+                ${settings.languages_and_PAs && item.doingPA[i] ? `<span class="badge badge-pa" title="`+item.doingPA[i].join(", ")+`" onclick="badgeMenu(event)">PA</span>` : ""}
+                ${settings.positions_badges ? `<span style="diplay:none" contenteditable="false"> </span><span class="invisible badgeButton" onclick="badgeMenu(event, false)">+</span>` : ""}
                 </td>`; /* Перший це заглушка */
             if (hasBreak[i]) fileContent += `<td class="centerCell" contenteditable>${doPositions ? item[`break${i}`] : ""}</td>`
         }
         fileContent += `<td>${item.fullname}</td>
                         <td class="centerCell">${item.staffNumber}</td>
                         <td><img src="../src/flags/${item.flag}.png"> ${item.nationality}</td>
-                        <td>${item.languages.join(", ")}</td>
+                        <td>${languageHighlight(item.languages)}</td>
                         <td class="centerCell" style="font-size:smaller;">${item.timeInGrade}</td>
                         <td class="centerCell">${item.ratingIR < 21 ? item.ratingIR < 10 ? `<span class="badge badge-ir" title="Duty free rating" style="padding: 0 0.4rem">${item.ratingIR}</span>` : `<span class="badge badge-ir" title="Duty free rating">${item.ratingIR}</span>` : ""} ${badges(item.badges)}</td>
                         <td class="centerCell">${Object.keys(item.destinationExperience).length > 1 ? JSON.stringify(item.destinationExperience).replaceAll(/[{}"]/g,"").replaceAll(","," ") : item.destinationExperience[Object.keys(item.destinationExperience)[0]]}</td>
@@ -87,4 +90,3 @@ export function createOutput(crewList, numberOfSectors, hasBreak, doPositions) {
         lastGrade = item.grade;
     }  
 }
-

@@ -29,6 +29,7 @@ export function loadCrew(inputData) {
             flag: crew.NationalityCode.toLowerCase(), 
             timeInGrade: crew.GradeExp,
             doingDF: false,
+            doingPA: {},
             birthday: new Date(crew.DOB),
             timeInGradeNumber: crew.OperationGrade !== crew.HRGrade ? 0 : timeInGradeNumber(crew.GradeExp),
             lastPosition: ["PUR", "CSA"].includes(crew.OperationGrade) ? [] : ["GR1", "FG1", "CSV"].includes(crew.OperationGrade) ? [""] : ["", ""],

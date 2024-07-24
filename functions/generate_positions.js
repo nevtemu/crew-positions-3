@@ -2,9 +2,12 @@ import {typesOfAircraft} from '../data/aircraft_type.js';
 import {fleet} from '../data/fleet.js';
 import {errorHandler} from '../functions/error_handler.js'
 import {breaks} from '../data/breaks.js';
+import {createLanguageQueues} from '../functions/languages.js';
 
 
 export function generatePositions(crewData, positions, registration, numberOfDuties = 1, hasBreaks) {
+    let languageQueues = createLanguageQueues(crewData)
+
     for (let i = 0; i < numberOfDuties; i++) {
         let p = structuredClone(positions);
 
@@ -40,7 +43,19 @@ export function generatePositions(crewData, positions, registration, numberOfDut
                 p[grade].df = [];
             }
         });
-        //End of DF Selector
+        //End of DF selector
+
+
+        //Select PAs
+        Object.keys(languageQueues).forEach(lang => {
+            let crew = crewData.find(crew => crew.staffNumber === languageQueues[lang][0])
+            crew.doingPA[i] ? crew.doingPA[i].push(lang) : crew.doingPA[i] = [lang]
+        })
+        //Move the queue
+        Object.keys(languageQueues).forEach(lang => {
+            languageQueues[lang].push(languageQueues[lang].shift())
+        })
+        //End of PA selector
 
         //Select positions
         Object.keys(p).forEach((grade) => {
