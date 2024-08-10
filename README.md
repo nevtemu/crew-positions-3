@@ -237,6 +237,15 @@ If you need help setting it up, reach me out 😊. Or let me know your feedback,
 > Added button to hide GUI. I noticed increasing number of people using the app on iPad where key bind is not always available, so added button to hide controls. I decided to make them disappear completely (no button to show them again) as I trust you will use it only as last step before saving to file. Note: it is still possible to make controls reappear via key bind.
 > ![New control buttons](screenshots/scr18.png)
 
+10.08.2024
+> Added effective dates for all additional information
+> ![Effective dates](screenshots/scr23.png)
+
+> Added support for B773 4 class aircraft. For A350 still waiting for more information. This incuded updates to: fleet, aircraft types, VCM rules, breaks, positions.
+
+> Updated upgrade pricelist.
+
+> Renamed "premium economy" to "premium". I think, it's a recent trend.
 
 ## Known issues
 

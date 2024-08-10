@@ -43,7 +43,6 @@ export const fleet = {
     "A6EQE": 2,
     "A6EQF": 2,
     "A6EQG": 2,
-    "A6EQH": 3,
     "A6EQI": 3,
     "A6EQJ": 3,
     "A6EQK": 3,
@@ -252,7 +251,11 @@ export const fleet = {
     "A6EUF": 11,
     "A6EUG": 11,
     "A6EUR": 11,
-    "A6EUT": 11
+    "A6EUT": 11,
+    "A6EQH": 12
 }
 
+/*
+12 - B773 4 class
+*/
 // Moved EUI to 4 class according to crewPulse, but in manual still 3 class

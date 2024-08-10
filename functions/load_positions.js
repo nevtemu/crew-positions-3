@@ -10,8 +10,9 @@ export function loadPositions(crewData, registration, isULR) {
     if (isULR && crewData.filter((crew) => crew.grade == "CSV").length < 3) isULR = false; // Check for LR flights or other flights with breaks, but non-ULR (2 CSV)
     let grades = ["PUR", "CSV", "FG1", "GR1", "GR2", "CSA"]
     let thisFlightPositions = JSON.parse(JSON.stringify(
-                              [12, 11, 9, 8].includes(fleet[registration]) && isULR /* Check if it is A380 ULR */ ? positions[99] :
-                              [1, 2, 3, 6].includes(fleet[registration]) && isULR /* Check if it is B773 ULR */ ? positions[98] : 
+                              [11, 9, 8].includes(fleet[registration]) && isULR /* Check if it is A380 ULR */ ? positions[99] :
+                              [1, 2, 3, 6].includes(fleet[registration]) && isULR /* Check if it is B773 3 class ULR */ ? positions[98] : 
+                              [12].includes(fleet[registration]) && isULR /* Check if it is B773 4 class ULR */ ? positions[97] : 
                               positions[fleet[registration]]
                               ));
     let requiredCrew = requiredCrewNumber (fleet[registration]);

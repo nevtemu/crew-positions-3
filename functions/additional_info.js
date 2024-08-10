@@ -1,4 +1,4 @@
-import {targets} from '../data/duty_free_targets.js'; // Few errors due to duplicates in company files
+import {targets, effectiveDate as DFEffectiveDate} from '../data/duty_free_targets.js'; // Few errors due to duplicates in company files
 import {prices, version, effectiveDate} from '../data/upgrade_prices.js';
 import {urls} from '../data/urls.js';
 import {ramadan} from '../data/ramadan.js'; // Few errors due to duplicates in company files
@@ -32,7 +32,9 @@ export function additional_info(info) {
         for (let target in targetsDF) {
             output += `<tr><td>${target}: </td><td>${targetsDF[target]}</td></tr>`
         }
-        return output += "</table></div>";
+        return output += `</table>
+                        <div class="upg-block">Updated ${DFEffectiveDate}</div>
+                        </div>`;
     }
 
     function upgOutput(upgrades) {

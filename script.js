@@ -92,7 +92,7 @@ if (settings.additional_info){
   stationTag.innerHTML = "";
 }
 
-if (fleet[registration] == 10){
+if ([10,12,13].includes(fleet[registration])){
   W_selector(crewData, positions);
 }
 

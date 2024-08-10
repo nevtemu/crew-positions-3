@@ -14,6 +14,13 @@ export const positions = {
     //A380-800 3 class ULR
     99: {/* On ULR 2 CSV in YC */ PUR: {only: ["PUR"]}, CSV: {only: ["ML5", "UL1A", "ML1"]}, FG1: {galley: ["MR2A"], df: ["UR1"], remain: ["UL1"]}, GR1: {galley: ["ML3A", "MR4A"], df: ["UL3"], remain: ["ML4A" /* Back up DF position */, "UR2", "UR3", "UL2", "UR1A"]}, GR2: {galley: ["ML2", "MR4"], df: ["MR5"], remain: ["MR1" /* Back up DF position */, "ML3", "ML4", "MR3", "MR2"]}, CSA: {only: ["CSA"]}, /* sits at ML2A */ EXTRA: {only: ["MR3A"]}}, 
     //A380-800 4 class ULR/nonULR
-    10: {PUR: {only: ["PUR"]}, CSV: {only: ["ML5", "UL1A", "ML1"]}, FG1: {galley: ["MR2A"], df: ["UR1"], remain: ["UL1"]}, GR1: {galley: ["ML3A", "MR4A"], df: ["UL3"], remain: ["ML4A" /* Back up DF position */, "UR2", "UR3", "UL2", "UR1A"]}, GR2: {galley: ["ML2", "MR4"], df: ["MR5"], remain: ["MR2" /* Back up DF position */, "ML4", "MR3", "ML3"]}, W: {galley: ["MR3A"], df: [], remain: ["MR1"]}, CSA: {only: ["CSA"]}, /* sits at ML2A */ EXTRA: {only: []}}};
+    10: {PUR: {only: ["PUR"]}, CSV: {only: ["ML5", "UL1A", "ML1"]}, FG1: {galley: ["MR2A"], df: ["UR1"], remain: ["UL1"]}, GR1: {galley: ["ML3A", "MR4A"], df: ["UL3"], remain: ["ML4A" /* Back up DF position */, "UR2", "UR3", "UL2", "UR1A"]}, GR2: {galley: ["ML2", "MR4"], df: ["MR5"], remain: ["MR2" /* Back up DF position */, "ML4", "MR3", "ML3"]}, W: {galley: ["MR3A"], df: [], remain: ["MR1"]}, CSA: {only: ["CSA"]}, /* sits at ML2A */ EXTRA: {only: []}},
+    //B773 4 class nonULR
+    12: {PUR: {only: ["PUR"]}, CSV: {only: ["L5", "R2A"]}, FG1: {galley: ["L1"], df: ["R1"], remain: []}, GR1: {galley: ["L2A"], df: ["L2"], remain: ["R2"]}, W: {galley: ["L3"], df: ["R3"], remain: []}, GR2: {galley: ["R5"], df: ["R5A"], remain: ["L4", "R4", "L5A"]}, EXTRA: {only: ["R5C"]}},
+    // //B773 4 class ULR
+    97: {PUR: {only: ["PUR"]}, CSV: {only: ["L5", "R2A"]}, FG1: {galley: ["L1"], df: ["R1"], remain: ["l1A"] /* Seated at R5C? */ }, GR1: {galley: ["L2A"], df: ["L2"], remain: ["R2"]}, W: {galley: ["L3"], df: ["R3"], remain: []}, GR2: {galley: ["R5"], df: ["R5A"], remain: ["L4", "R4", "L5A"]}, EXTRA: {only: []}},
+    // //A350
+    // 13: {PUR: {only: ["PUR"]}, CSV: {only: ["L5", "R2A"]}, FG1: {galley: ["L1"], df: ["R1"], remain: []}, GR1: {galley: ["L2A"], df: ["L2"], remain: ["R2"]}, W: {galley: [], df: [], remain: []}, GR2: {galley: ["R5", "L3"], df: ["R3"], remain: ["L4", "R4", "L5A"]}, EXTRA: {only: ["R5A", "R5C"]}}
+};
 
 //U2 do inboard seats, U3 do window seats

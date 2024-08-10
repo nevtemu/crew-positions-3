@@ -13,7 +13,7 @@ export function generatePositions(crewData, positions, registration, numberOfDut
 
         //Select DF
         let numberOfRetailOperators = typesOfAircraft[fleet[registration]].aircraftModel === "A380" ? 2 : 1;
-        let crewsWithRating = crewData.filter((crew) => crew.ratingIR <= 20 && ["FG1", "GR1", "GR2"].includes(crew.grade)).sort((a, b) => a.ratingIR - b.ratingIR);
+        let crewsWithRating = crewData.filter((crew) => crew.ratingIR <= 20 && ["FG1", "GR1", "W", "GR2"].includes(crew.grade)).sort((a, b) => a.ratingIR - b.ratingIR);
         if (crewsWithRating.length < numberOfRetailOperators) { // If not enough DF rating crew, add most junior Gr1
             let candidates = crewData.filter((crew) => crew.grade === "GR1" && crew.outOfGrade === false && crew.ratingIR > 20).sort((a, b) => a.timeInGradeNumber - b.timeInGradeNumber);
             while (crewsWithRating.length < numberOfRetailOperators) {
@@ -37,7 +37,7 @@ export function generatePositions(crewData, positions, registration, numberOfDut
             crewData[x].doingDF = true;
             crewData[x][`position${i}`] = p[crew.grade].df.shift();
         });
-        ["FG1", "GR1", "GR2"].forEach((grade) => {// Add unused DF positions to remain so they can be used by non-DF crew
+        ["FG1", "GR1", "W", "GR2"].forEach((grade) => {// Add unused DF positions to remain so they can be used by non-DF crew
             if (grade in p) {
                 p[grade].remain = [...p[grade].remain, ...p[grade].df];
                 p[grade].df = [];

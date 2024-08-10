@@ -97,7 +97,6 @@ export function vcmRules(vcm, p, aircraftType, isULR) {
         case 8:
         case 9:
         case 11:
-        case 12:
         case 99:
             if (vcm < 0) {
                 p.GR2.remain.splice(p.GR2.remain.indexOf("ML4"), 1);
@@ -186,6 +185,49 @@ export function vcmRules(vcm, p, aircraftType, isULR) {
                 p.CSV.only.push("MR1 (ML1)")
             } else break;
             if (vcm < -5) {
+                console.error("Less than minimum crew requirement to operate");
+            }
+            break;
+        // B773 4 class
+        case 12:
+        case 97:
+            if (vcm < 0) {
+                p.GR2.remain.splice(p.GR2.remain.indexOf("L5A"), 1);
+            }
+            if (vcm < -1) {
+                p.GR2.df.splice(p.GR2.remain.indexOf("R5A"), 1);
+                p.GR2.remain.splice(p.GR2.remain.indexOf("R4"), 1);
+                p.GR2.df.push("R4");
+            } else break;
+            if (vcm < -2) {
+                p.GR1.galley.splice(p.GR1.galley.indexOf("L2A"), 1);
+                p.GR2.remain.splice(p.GR2.remain.indexOf("L4"), 1);
+                p.GR1.galley.push("L4 (L2A)");
+            } else break;
+            if (vcm < -3) {
+                p.CSV.only.splice(p.CSV.only.indexOf("R2A"), 1);
+                p.GR2.df.splice(p.GR2.df.indexOf("R4"), 1);
+                p.CSV.only.push("R4 (R2A)");
+            } else break;
+            if (vcm < -4 && isULR) {
+                p.FG1.remain.splice(p.FG1.remain.indexOf("L1A"), 1);
+                p.W.df.splice(p.W.df.indexOf("R3"), 1);
+                p.FG1.remain.push("R3 (L1A)");
+            } else if (vcm < -4) {
+                p.FG1.df.splice(p.FG1.df.indexOf("R1"), 1);
+                p.W.df.splice(p.W.df.indexOf("R3"), 1);
+                p.PUR.only.splice(p.PUR.only.indexOf("PUR"), 1);
+                p.FG1.df.push("R3 (R1)");
+                p.PUR.only.push("L1 (PUR)");
+            } else break;
+            if (vcm < -5 && isULR) {
+                p.FG1.df.splice(p.FG1.df.indexOf("R1"), 1);
+                p.W.galley.splice(p.W.galley.indexOf("L3"), 1);
+                p.PUR.only.splice(p.PUR.only.indexOf("PUR"), 1);
+                p.FG1.df.push("L3 (R1)");
+                p.PUR.only.push("L1 (PUR)");
+            } else break;
+            if (vcm < -6 && isULR || vcm < -5) {
                 console.error("Less than minimum crew requirement to operate");
             }
             break;

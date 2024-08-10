@@ -1,4 +1,4 @@
-import {languages, languagesPA} from '../data/language_requirements.js'
+import {languages, languagesPA, effectiveDate} from '../data/language_requirements.js'
 
 let thirdLanguages = [];
 let requiredLanguages = [];
@@ -30,7 +30,9 @@ export function languagesCount (crew, dest) {
     for (let d of dest) {
             output += `<tr><td rowspan="${Object.keys(languages[d]).length + 1}">${d}:</td>${langSubOutput(crew, d)}</tr>`
     }
-    return output += "</table></div>";
+    return output += `</table>
+                    <div class="upg-block">Updated ${effectiveDate}</div>
+                    </div>`;
 }
 
 function langSubOutput (crew, d) {

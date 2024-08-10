@@ -60,7 +60,7 @@ export function createOutput(crewList, numberOfSectors, hasBreak, doPositions) {
                     fileContent += `<tr><td class="centerCell" colspan="30" style="background-color:#5DADE2"><b>Business class</b></td></tr>`;
                     break;
                 case "W":
-                    fileContent += `<tr><td class="centerCell" colspan="30" style="background-color:#c584e6"><b>Premium economy class</b></td></tr>`;
+                    fileContent += `<tr><td class="centerCell" colspan="30" style="background-color:#c584e6"><b>Premium class</b></td></tr>`;
                     break;
                 case "GR2":
                     fileContent += `<tr><td class="centerCell" colspan="30" style="background-color:#52BE80"><b>Economy class</b></td></tr>`;
