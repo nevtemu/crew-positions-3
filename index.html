@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script type="module">
       import { start } from "./script.js";
-      import { showRegistrationInputField ,hideErrors, back, copyTable, hideGUI} from "/functions/renderer.js";
+      import { showRegistrationInputField ,hideErrors, back, copyTable, hideGUI, showHiddenCells, hideColumn} from "/functions/renderer.js";
       import { changeSettings } from "/functions/change_settings.js";
       import { showSettings } from "/functions/show_settings.js";
       import { addAircraftRegistrationManually } from "/functions/add_aircraft_registration_manually.js";
@@ -30,6 +30,8 @@
       window.copyTable = copyTable;
       window.showSettings = showSettings;
       window.changeSettings = changeSettings;
+      window.showHiddenCells = showHiddenCells;
+      window.hideColumn = hideColumn;
     </script>
     <script type="module"src="script.js" defer></script>
     <link rel="stylesheet" href="style.css" />
@@ -80,6 +82,7 @@
         <button id="buttonRestart" onclick="restart(event)">Generate again</button>
         <button id="buttonCopy" onclick="copyTable()">Copy table</button>
         <button id="buttonHide" onclick="hideGUI()">Hide controls</button>
+        <button id="buttonShowHiddenCells" onclick="showHiddenCells()" class="hidden">Show hidden columns</button>
       </div>
       <div id="crewOutput"></div>
     </section>

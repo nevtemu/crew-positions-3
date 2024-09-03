@@ -5,5 +5,6 @@ export let defaultSettings = {
     "break_auto_correction": true,
     "repeated_positions_highlight": true,
     "positions_badges": true,
-    "select_W_manually": false
+    "select_W_manually": false,
+    "clickable_headers": true
 }

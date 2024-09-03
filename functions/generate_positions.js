@@ -48,8 +48,12 @@ export function generatePositions(crewData, positions, registration, numberOfDut
 
         //Select PAs
         Object.keys(languageQueues).forEach(lang => {
-            let crew = crewData.find(crew => crew.staffNumber === languageQueues[lang][0])
-            crew.doingPA[i] ? crew.doingPA[i].push(lang) : crew.doingPA[i] = [lang]
+            let crew = crewData.filter(crew => crew.staffNumber === languageQueues[lang][0])
+            if (crew.length > 0) {
+                crew[0].doingPA[i] ? crew[0].doingPA[i].push(lang) : crew[0].doingPA[i] = [lang]
+            } else {
+                errorHandler(`Not enough ${lang} language speakers`, "error")
+            }
         })
         //Move the queue
         Object.keys(languageQueues).forEach(lang => {

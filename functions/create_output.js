@@ -9,23 +9,23 @@ export function createOutput(crewList, numberOfSectors, hasBreak, doPositions) {
 
     let positionsHeaders = '';
     for (let k=0; k< numberOfSectors; k++){
-        positionsHeaders +="<th>Position</th>";
-        if (hasBreak[k]) positionsHeaders += "<th>Break</th>"
+        positionsHeaders +=`<th class="crewTableHeader" group="position${k+1}">Position</th>`;
+        if (hasBreak[k]) positionsHeaders += `<th class="crewTableHeader" group="break${k+1}">Break</th>`
     }
     const header = `
         <table style="border-collapse:collapse;">  
             <tr>
-                <th>Grade</th>
-                <th>Nickname</th>
+                <th class="crewTableHeader" group="grade">Grade</th>
+                <th class="crewTableHeader" group="nickname">Nickname</th>
                 ${positionsHeaders}
-                <th>Full name</th>
-                <th style="font-size:smaller;">Staff number</th>
-                <th>Nationality</th>
-                <th>Languages</th>
-                <th>Time in grade</th>
-                <th>Badges</th>
-                <th>Flown</th>
-                <th>Comment</th>
+                <th class="crewTableHeader" group="fullName">Full name</th>
+                <th class="crewTableHeader" style="font-size:smaller;" group="staffNumber">Staff number</th>
+                <th class="crewTableHeader" group="nationality">Nationality</th>
+                <th class="crewTableHeader" group="languages">Languages</th>
+                <th class="crewTableHeader" group="timeInGrade">Time in grade</th>
+                <th class="crewTableHeader" group="badges">Badges</th>
+                <th class="crewTableHeader" group="flown">Flown</th>
+                <th class="crewTableHeader" group="comment">Comment</th>
             </tr>`;
     const footer = `</table><div>*Positions may be adjusted to accommodate MFP2.0 or other operational requirements</div>
     <div>⚠️ To change you comment click <a href="${urls.updateComment}">here</a> and then press "Edit"</div>
@@ -69,24 +69,33 @@ export function createOutput(crewList, numberOfSectors, hasBreak, doPositions) {
                     break;
             }
         }
-        fileContent += `<tr><td class="centerCell">${item.originalGrade}</td>
-                            <td>${item.nickname}</td>`;
+        fileContent += `<tr><td class="centerCell" group="grade">${item.originalGrade}</td>
+                            <td group="nickname">${item.nickname}</td>`;
         for (let i = 0; i < numberOfSectors; i++) {
-            fileContent += `<td class="centerCell showBadgeButton ${settings.break_auto_correction && hasBreak[i] ? "autoBreaks" : ""} ${settings.repeated_positions_highlight ? "repeatHighlight" : ""}" contenteditable>${doPositions ? item[`position${i}`] : ""}
+            fileContent += `<td group="position${i+1}" class="centerCell showBadgeButton ${settings.break_auto_correction && hasBreak[i] ? "autoBreaks" : ""} ${settings.repeated_positions_highlight ? "repeatHighlight" : ""}" contenteditable>${doPositions ? item[`position${i}`] : ""}
                 ${item.doingDF && doPositions ? ` <span class="badge badge-ir" title="Retail operator" onclick="badgeMenu(event)">IR</span>` : ""}
                 ${settings.languages_and_PAs && item.doingPA[i] ? `<span class="badge badge-pa" title="`+item.doingPA[i].join(", ")+`" onclick="badgeMenu(event)">PA</span>` : ""}
                 ${settings.positions_badges ? `<span style="diplay:none" contenteditable="false"> </span><span class="invisible badgeButton" onclick="badgeMenu(event, false)">+</span>` : ""}
                 </td>`; /* Перший це заглушка */
-            if (hasBreak[i]) fileContent += `<td class="centerCell" contenteditable>${doPositions ? item[`break${i}`] : ""}</td>`
+            if (hasBreak[i]) fileContent += `<td group="break${i+1}" class="centerCell" contenteditable>${doPositions ? item[`break${i}`] : ""}</td>`
         }
-        fileContent += `<td>${item.fullname}</td>
-                        <td class="centerCell">${item.staffNumber}</td>
-                        <td><img src="../src/flags/${item.flag}.png"> ${item.nationality}</td>
-                        <td>${languageHighlight(item.languages)}</td>
-                        <td class="centerCell" style="font-size:smaller;">${item.timeInGrade}</td>
-                        <td class="centerCell">${item.ratingIR < 21 ? item.ratingIR < 10 ? `<span class="badge badge-ir" title="Duty free rating" style="padding: 0 0.4rem">${item.ratingIR}</span>` : `<span class="badge badge-ir" title="Duty free rating">${item.ratingIR}</span>` : ""} ${badges(item.badges)}</td>
-                        <td class="centerCell">${Object.keys(item.destinationExperience).length > 1 ? JSON.stringify(item.destinationExperience).replaceAll(/[{}"]/g,"").replaceAll(","," ") : item.destinationExperience[Object.keys(item.destinationExperience)[0]]}</td>
-                        <td title="${item.comment}">${item.comment.length <= 40 ? item.comment : item.comment.slice(0, 39) + "..."}</td></tr>`;
+        fileContent += `<td group="fullName">${item.fullname}</td>
+                        <td group="staffNumber" class="centerCell">${item.staffNumber}</td>
+                        <td group="nationality"><img src="../src/flags/${item.flag}.png"> ${item.nationality}</td>
+                        <td group="languages">${languageHighlight(item.languages)}</td>
+                        <td group="timeInGrade" class="centerCell" style="font-size:smaller;">${item.timeInGrade}</td>
+                        <td group="badges" class="centerCell">${item.ratingIR < 21 ? item.ratingIR < 10 ? `<span class="badge badge-ir" title="Duty free rating" style="padding: 0 0.4rem">${item.ratingIR}</span>` : `<span class="badge badge-ir" title="Duty free rating">${item.ratingIR}</span>` : ""} ${badges(item.badges)}</td>
+                        <td group="flown" class="centerCell">${Object.keys(item.destinationExperience).length > 1 ? JSON.stringify(item.destinationExperience).replaceAll(/[{}"]/g,"").replaceAll(","," ") : item.destinationExperience[Object.keys(item.destinationExperience)[0]]}</td>
+                        <td group="comment" title="${item.comment}">${item.comment.length <= 40 ? item.comment : item.comment.slice(0, 39) + "..."}</td></tr>`;
         lastGrade = item.grade;
     }  
+
+    if (settings.clickable_headers) {
+        const crewTableHeaders = document.querySelectorAll(".crewTableHeader");
+        for (let header of crewTableHeaders){
+            header.addEventListener("click", hideColumn)
+        }
+    }
+    const showButton = document.querySelector("#buttonShowHiddenCells")
+    if (!showButton.classList.contains("hidden")) showButton.classList.add("hidden")
 }

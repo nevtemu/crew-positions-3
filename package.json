@@ -1,0 +1,13 @@
+{
+    "name": "crew-app",
+    "version": "0.900",
+    "author": "Artem Soroka <artem.soroka@hotmail.com>",
+    "description": "Purser's helper to allocate crew positions",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/nevtemu/crew-positions-3.git"
+    },
+    "keywords": ["cabin crew", "positions", "pre-flight", "purser"],
+    "license": "MIT",
+    "main": "script.js"
+}

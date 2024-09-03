@@ -45,7 +45,7 @@ window.addEventListener("message", (receivedData) => {
   createSettings(settings);
 
   renderer([document.querySelector("#tripsTable")],[document.querySelector("#fetchTable")]);
-  createTrips(dataPool);
+  createTrips();
   window.opener.postMessage("Thank you", "*");
 });
 

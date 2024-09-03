@@ -40,3 +40,25 @@ export function hideGUI() {
     }
     document.querySelectorAll(".UIhood").forEach((element) => element.classList.remove("hidden"));
 }
+
+export function showHiddenCells () {
+    const showButton = document.querySelector("#buttonShowHiddenCells")
+    showButton.classList.add("hidden")
+    const group = document.querySelectorAll(".hiddenCell")
+    for (let cell of group) {
+        cell.classList.remove("hidden")
+        cell.classList.remove("hiddenCell")
+    }
+}
+
+export function hideColumn (e) {
+    const showButton = document.querySelector("#buttonShowHiddenCells")
+    if (showButton.classList.contains("hidden")) showButton.classList.remove("hidden")
+    const groupName = e.srcElement.attributes.group.value;
+    console.log(e.srcElement.attributes.group.value);
+    const group = document.querySelectorAll(`[group|=${groupName}]`)
+    for (let cell of group) {
+        cell.classList.add("hidden")
+        cell.classList.add("hiddenCell")
+    }
+}

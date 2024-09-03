@@ -1,5 +1,9 @@
 export function birthday_check(crewData, specificFlightData) {
 
+    if (!specificFlightData.flightData.FlightData[0].hasOwnProperty("DepartureDate")) {
+        return; //exit if no flight dates available
+    }
+
     let flightDates = [
         new Date(convertDate(specificFlightData.flightData.FlightData[0].DepartureDate)),
         new Date(convertDate(specificFlightData.flightData.FlightData[specificFlightData.flightData.FlightData.length - 1].DepartureDate))

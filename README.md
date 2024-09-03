@@ -241,11 +241,25 @@ If you need help setting it up, reach me out 😊. Or let me know your feedback,
 > Added effective dates for all additional information
 > ![Effective dates](screenshots/scr23.png)
 
-> Added support for B773 4 class aircraft. For A350 still waiting for more information. This incuded updates to: fleet, aircraft types, VCM rules, breaks, positions.
+> Added support for B773 4 class aircraft. For A350 still waiting for more information. This incudes updates to: fleet, aircraft types, VCM rules, breaks, positions.
 
 > Updated upgrade pricelist.
 
 > Renamed "premium economy" to "premium". I think, it's a recent trend.
+
+19.08.2024
+> Updated upgrade pricelist.
+
+30.08.2024
+> Added package.json
+
+> Fixed bug in add_aircraft_registration manually in rare case when FlightData not received at all. create-trips does not required input any more as DataPool is now global variable.
+> Added guard to birthday_check for rare case when FlightData not received at all (flight dates are unknown).
+
+> Added guard for selectPA for case when no language speakers available.
+
+> Clicking on column header now hides the column. This feature is requested by Fady. You can now hide/remove certain information from crew.
+> ![Clickable headers](screenshots/scr24.gif)
 
 ## Known issues
 
