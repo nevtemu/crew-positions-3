@@ -1,6 +1,7 @@
 export function vcmRules(vcm, p, aircraftType, isULR) {
     switch (aircraftType) {
         // B777-300 3 class
+        // TO DO: handling of extra Gr1 (R5C)
         case 1:
         case 2:
         case 3:

@@ -15,6 +15,15 @@ export function loadPositions(crewData, registration, isULR) {
                               [12].includes(fleet[registration]) && isULR /* Check if it is B773 4 class ULR */ ? positions[97] : 
                               positions[fleet[registration]]
                               ));
+
+    // Temp rule: B773 4th Gr1 added in stages 2024
+    if([1, 2, 3, 6, 12, 97, 98].includes(fleet[registration]) && crewData.filter((crew) => crew.grade == "GR1").length  === 4){
+      let n = thisFlightPositions.EXTRA.indexOf("R5C")
+      thisFlightPositions.EXTRA.slice(n, n+1)
+      thisFlightPositions.GR1.remain.push("R5C")
+    }
+    // End of temp rule
+
     let requiredCrew = requiredCrewNumber (fleet[registration]);
     let vcm = crewData.length - requiredCrew;
     //Check VCM by grades

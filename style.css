@@ -277,3 +277,8 @@ input:checked + .slider:before {
 .lang-third {
     color:deeppink
 }
+
+
+.smaller {
+    font-size:x-small;
+}

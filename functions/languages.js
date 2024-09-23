@@ -14,6 +14,8 @@ export function languageHighlight (langList) {
 }
 
 export function filterLanguages (destinations) {
+    thirdLanguages = [];
+    requiredLanguages = [];
     destinations.forEach (destination => {
         if(Object.keys(languages[destination])) requiredLanguages = requiredLanguages.concat(Object.keys(languages[destination]))
         if(languagesPA[destination]) thirdLanguages =thirdLanguages.concat(languagesPA[destination])
@@ -31,7 +33,7 @@ export function languagesCount (crew, dest) {
             output += `<tr><td rowspan="${Object.keys(languages[d]).length + 1}">${d}:</td>${langSubOutput(crew, d)}</tr>`
     }
     return output += `</table>
-                    <div class="upg-block">Updated ${effectiveDate}</div>
+                    <div class="upg-block smaller">Updated ${effectiveDate}</div>
                     </div>`;
 }
 

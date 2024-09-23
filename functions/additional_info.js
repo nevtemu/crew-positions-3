@@ -33,7 +33,7 @@ export function additional_info(info) {
             output += `<tr><td>${target}: </td><td>${targetsDF[target]}</td></tr>`
         }
         return output += `</table>
-                        <div class="upg-block">Updated ${DFEffectiveDate}</div>
+                        <div class="upg-block smaller">Updated ${DFEffectiveDate}</div>
                         </div>`;
     }
 
@@ -47,7 +47,7 @@ export function additional_info(info) {
             output += `<tr><td rowspan="7">${sector}:</td>${upgSubOutput(upgrades[sector])}</tr>`
         }
         return output += `</table>
-                            <div class="upg-block">Pricelist version ${version} (${effectiveDate})</div>
+                            <div class="upg-block smaller">Pricelist version ${version} (${effectiveDate})</div>
                             </div>`;
     }
 
