@@ -43,7 +43,6 @@ export const fleet = {
     "A6EQE": 2,
     "A6EQF": 2,
     "A6EQG": 2,
-    "A6EQI": 3,
     "A6EQJ": 3,
     "A6EQK": 3,
     "A6EQL": 3,
@@ -252,7 +251,8 @@ export const fleet = {
     "A6EUG": 11,
     "A6EUR": 11,
     "A6EUT": 11,
-    "A6EQH": 12
+    "A6EQH": 12,
+    "A6EQI": 12,
 }
 
 /*

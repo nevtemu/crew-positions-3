@@ -54,7 +54,7 @@ export function vcmRules(vcm, p, aircraftType, isULR) {
             } else break;
             if (vcm < -2) {
                 p.CSV.only.splice(p.CSV.only.indexOf("R1A"), 1);
-                p.GR2.remain.splice(p.GR2.main.indexOf("R2"), 1);
+                p.GR2.remain.splice(p.GR2.remain.indexOf("R2"), 1);
                 p.CSV.only.push("R2 (R1A)");
             } else break;
             if (vcm < -3) {

@@ -68,7 +68,7 @@ Added MR4A for A380-800 2 class (Serve better changes)
 
 Station information link now opens in new tab
 
-Added registration EPP. Registration EUE, EUH, EUJ, EUK, EUL refitted into 4 class.
+Added registration EPP. Registration EUE, EUH, EUJ, EUK, EUL retrofitted into 4 class.
 
 Fixed bug in load_positions function
 
@@ -231,3 +231,9 @@ Added caution "When W crew manually selected the order of crew in table will be 
 Fixed bug, when required language list was not updated after previous duty if this duty crashed with error.
 
 ---
+
+## 12.10.2024
+
+Fixed bug in B772 VCM rules.
+
+Updated fleet (EQI retrofited to 4 class)
