@@ -1,11 +1,10 @@
 import {typesOfAircraft} from '../data/aircraft_type.js';
 import {fleet} from '../data/fleet.js';
 import {errorHandler} from '../functions/error_handler.js'
-import {breaks} from '../data/breaks.js';
 import {createLanguageQueues} from '../functions/languages.js';
 
 
-export function generatePositions(crewData, positions, registration, numberOfDuties = 1, hasBreaks) {
+export function generatePositions(crewData, positions, breaks, registration, numberOfDuties = 1, hasBreaks) {
     let languageQueues = createLanguageQueues(crewData)
 
     for (let i = 0; i < numberOfDuties; i++) {
@@ -113,8 +112,8 @@ export function generatePositions(crewData, positions, registration, numberOfDut
 
         //Select breaks
         if (hasBreaks[i]) {
-            crewData.forEach((crew) => (crew[`break${i}`] = breaks[fleet[registration]].hasOwnProperty(crew[`position${i}`]) ?
-                breaks[fleet[registration]][crew[`position${i}`]] : "")
+            crewData.forEach((crew) => (crew[`break${i}`] = breaks.hasOwnProperty(crew[`position${i}`]) ?
+                breaks[crew[`position${i}`]] : "")
             );
         }
 

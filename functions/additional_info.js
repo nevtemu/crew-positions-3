@@ -13,10 +13,17 @@ export function additional_info(info) {
     stations.delete("DXB")
     stations = Array.from(stations)
 
-    const numberOfDifferentUpgradePrices = info.sectors % 2 === 0 ? Math.ceil(info.sectors) / 2 : info.sectors
-    for (let i = 0; i < numberOfDifferentUpgradePrices; i++) {
-        let pair = `${info.flightLegs[i]}-${info.flightLegs[i + 1]}`;
-        upgrades[pair] = prices[pair]
+    // const numberOfDifferentUpgradePrices = info.sectors % 2 === 0 ? Math.ceil(info.sectors) / 2 : info.sectors
+    let legs_for_upgrade = [...info.flightLegs, "DXB"]
+    for (let i = 0; i < legs_for_upgrade.length -1; i++) { 
+        // // For all upgrade prices
+        // let pair = `${legs_for_upgrade[i]}-${legs_for_upgrade[i + 1]}`;
+        // upgrades[pair] = prices[pair]
+
+        // For unique upgrade prices
+        let pair = `${legs_for_upgrade[i]}-${legs_for_upgrade[i + 1]}`;
+        let reverse_pair = `${legs_for_upgrade[i+1]}-${legs_for_upgrade[i]}`
+        if (!upgrades.hasOwnProperty(reverse_pair || reverse_pair) && prices.hasOwnProperty(pair)) {upgrades[pair] = prices[pair]}
     }
     for (let j = 0; j < 2; j++) { //Maximum 2 flight numbers (going, return): multiple sectors fall within same flight number
         let flightNumberInt = parseInt(info.flightNumber) + j;

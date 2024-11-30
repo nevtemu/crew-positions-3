@@ -59,13 +59,14 @@ export function createTrips() {
         output += `<td id="rest${index}">${createBreaks(dataPool[item].shortInfo.durations, dataPool[item].shortInfo.sectorsPerDuty)}</td>`;
         output += `<td id="aircraftRegistration${index}">${registration === "NA" ? "" : registration}</td>`;
         output += `<td id="aircraftDescription${index}" style="${registrationMismatch ? 'color:red' : ""}">${description}</td>`;
-        output += `<td id="aircraftAge${index}">${age.slice(-4)}</td>`;
+        output += `<td id="aircraftAge${index}">${age ? age.slice(-4) : ''}</td>`;
         output += `<td id="crc${index}">${crc != "" ? crc == 1 ? "Yes" : crc == 2 ? "LD" : crc == 3 ? "MD" : "No" : ""}</td>`;
         let crewNumber, vcm;
         crewNumber = vcm = "";
         if ("crewData" in dataPool[item] && hasRegistration) {
             crewNumber = dataPool[item].crewData.length;
-            vcm = requiredCrewNumber(fleet[registration]);
+            // vcm = requiredCrewNumber(fleet[registration]);
+            vcm = requiredCrewNumber(dataPool[item].crewData, registration, Math.max(...dataPool[item].shortInfo.durations) >= 9.5 ? true : false );
         }
         let vcm_output = vcm - crewNumber === 0 ? "" : (vcm - crewNumber) * -1 < 0 ? (vcm - crewNumber) * -1 : "+" + (vcm - crewNumber) * -1;
         output += `<td id="crewNumber${index}">${vcm !== "" ? crewNumber + "/" + vcm : ""}</td>`;

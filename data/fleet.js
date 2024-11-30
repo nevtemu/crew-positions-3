@@ -43,13 +43,9 @@ export const fleet = {
     "A6EQE": 2,
     "A6EQF": 2,
     "A6EQG": 2,
-    "A6EQJ": 3,
-    "A6EQK": 3,
-    "A6EQL": 3,
+
     "A6EQM": 3,
-    "A6EQN": 3,
-    "A6EQO": 3,
-    "A6EQP": 3,
+
     "A6EWA": 4,
     "A6EWB": 4,
     "A6EWC": 4,
@@ -145,6 +141,7 @@ export const fleet = {
     "A6EUZ": 7,
     "A6EVA": 7,
     "A6EVB": 7,
+
     "A6EDF": 8,
     "A6EDG": 8,
     "A6EDH": 8,
@@ -170,13 +167,11 @@ export const fleet = {
     "A6EEN": 8,
     "A6EER": 8,
     "A6EES": 8,
-    "A6EEW": 8,
     "A6EEX": 8,
     "A6EEY": 8,
     "A6EEZ": 8,
     "A6EOA": 8,
     "A6EOB": 8,
-    "A6EOI": 8,
     "A6EOJ": 8,
     "A6EOK": 8,
     "A6EOO": 8,
@@ -189,7 +184,6 @@ export const fleet = {
     "A6EUB": 8,
     "A6EUC": 8,
     "A6EUD": 8,
-    "A6EUM": 8,
     "A6EDC": 9,
     "A6EDD": 9,
     "A6EDE": 9,
@@ -226,7 +220,9 @@ export const fleet = {
     "A6EUJ": 10,
     "A6EUK": 10,
     "A6EUL": 10,
+    "A6EUR": 11,
     "A6EUS": 10,
+    "A6EUT": 11,
     "A6EUU": 10,
     "A6EUV": 10,
     "A6EUW": 10,
@@ -247,15 +243,29 @@ export const fleet = {
     "A6EVQ": 10,
     "A6EVR": 10,
     "A6EVS": 10,
+
+    "A6EEW": 10,
+    "A6EUM": 10,
+    "A6EOI": 10,
+
     "A6EUF": 11,
     "A6EUG": 11,
-    "A6EUR": 11,
-    "A6EUT": 11,
+
     "A6EQH": 12,
     "A6EQI": 12,
+    "A6EQJ": 12,
+    "A6EQK": 12,
+    "A6EQL": 12,
+    "A6EQN": 12,
+    "A6EQO": 12,
+    "A6EQP": 12,
+
+    "A6EXA": 13,
+    "A6EXB": 13,
+    "A6EXC": 13,
 }
 
 /*
 12 - B773 4 class
+EPE - the only retrofitted 2 class
 */
-// Moved EUI to 4 class according to crewPulse, but in manual still 3 class

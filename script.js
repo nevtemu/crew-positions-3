@@ -97,13 +97,13 @@ if ([10,12,13].includes(fleet[registration])){
 }
 
   localStorage.setItem("crewData", JSON.stringify(crewData));
-  let thisTripPositions = []
   if (doPositions) { // Runs only if generating positions (does not run for "List only" option)
-    thisTripPositions = loadPositions(crewData, registration, isULR);
+    let {thisFlightPositions, thisFlightBreaks} = loadPositions(crewData, registration, isULR, false); // False is important to switch mode of load_position function (with false it will run through vcm also)
     console.warn("Positions loaded successfully");
-    generatePositions(crewData, thisTripPositions, registration, numberOfDuties, hasBreak);
+    localStorage.setItem("thisTripPositions", JSON.stringify(thisFlightPositions));
+    localStorage.setItem("thisTripBreaks", JSON.stringify(thisFlightBreaks));
+    generatePositions(crewData, thisFlightPositions, thisFlightBreaks, registration, numberOfDuties, hasBreak);
   } 
-  localStorage.setItem("thisTripPositions", JSON.stringify(thisTripPositions));
   localStorage.setItem("registration", registration);
   localStorage.setItem("numberOfDuties", numberOfDuties);
   localStorage.setItem("hasBreak", hasBreak);

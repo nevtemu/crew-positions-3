@@ -6,7 +6,7 @@ export function vcmRules(vcm, p, aircraftType, isULR) {
         case 2:
         case 3:
         case 6:
-        case 98:
+        case 901:
             if (vcm < 0) {
                 p.GR2.remain.splice(p.GR2.remain.indexOf("L5A"), 1);
             }
@@ -44,6 +44,7 @@ export function vcmRules(vcm, p, aircraftType, isULR) {
             break;
         // B777-200 2 class
         case 4:
+        case 904:
             if (vcm < 0) {
                 p.GR2.remain.splice(p.GR2.remain.indexOf("L4A"), 1);
             } else break;
@@ -52,10 +53,14 @@ export function vcmRules(vcm, p, aircraftType, isULR) {
                 p.GR2.df.splice(p.GR2.df.indexOf("L2"), 1);
                 p.GR1.galley.push("L2 (L1A)");
             } else break;
-            if (vcm < -2) {
+            if (vcm < -2 && aircraftType === 904) {
                 p.CSV.only.splice(p.CSV.only.indexOf("R1A"), 1);
                 p.GR2.remain.splice(p.GR2.remain.indexOf("R2"), 1);
                 p.CSV.only.push("R2 (R1A)");
+            } else if (vcm < -2 && aircraftType === 4) {
+                p.GR1.remain.splice(p.GR1.remain.indexOf("R1A"), 1);
+                p.GR2.remain.splice(p.GR2.remain.indexOf("R2"), 1);
+                p.GR1.remain.push("R2 (R1A)");
             } else break;
             if (vcm < -3) {
                 p.GR1.remain.splice(p.GR1.remain.indexOf("L1"), 1);
@@ -98,7 +103,7 @@ export function vcmRules(vcm, p, aircraftType, isULR) {
         case 8:
         case 9:
         case 11:
-        case 99:
+        case 908:
             if (vcm < 0) {
                 p.GR2.remain.splice(p.GR2.remain.indexOf("ML4"), 1);
                 p.GR1.df.splice(p.GR1.df.indexOf("ML4A"), 1);
@@ -191,7 +196,7 @@ export function vcmRules(vcm, p, aircraftType, isULR) {
             break;
         // B773 4 class
         case 12:
-        case 97:
+        case 912:
             if (vcm < 0) {
                 p.GR2.remain.splice(p.GR2.remain.indexOf("L5A"), 1);
             }

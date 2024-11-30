@@ -237,3 +237,25 @@ Fixed bug, when required language list was not updated after previous duty if th
 Fixed bug in B772 VCM rules.
 
 Updated fleet (EQI retrofited to 4 class)
+
+---
+
+## 30.11.2024
+
+Updated all fleet age. Fleet age header tab is now visible.
+
+Updated upgrade prices.
+
+Updates to fleet: many aircraft retrofitted to 4 class. One B773 retrofitted 2 class, but I kept it in 2 class group.
+
+Updated breaks: changes to A380 2 class (addition of MR4A), B772 now ULR (with CSV in J) and non-ULR (with Gr1) handled separately. Entire breaks updated.
+
+Fixed bug with fleet age: error handling if fleet age is not found.
+
+Fixed bug in positions type selector in load_positions: in rare case for ULR B773 trips positions were treated non-ULR. This also affected required_crew_number and create_trips functions.
+
+Fixed bug in additional_info: corrected upgrade prices selection for multisector journeys, filtering only unique sectors.
+
+Fixed major bug: breaks were taken from wrong operation type.
+
+Added support for B772 ULR and non-ULR trips: now handled separately. New VCM rules added.
