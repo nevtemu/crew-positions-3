@@ -259,3 +259,27 @@ Fixed bug in additional_info: corrected upgrade prices selection for multisector
 Fixed major bug: breaks were taken from wrong operation type.
 
 Added support for B772 ULR and non-ULR trips: now handled separately. New VCM rules added.
+
+---
+
+## 09.12.2024
+
+Updated prices.
+
+---
+
+## 29.12.2024
+
+Fixed bug when app was selecting wrong positions type for trips with mixed ULR/non-ULR duties (for example ATH-EWR)
+
+Updated flag for Syria.
+
+Updated prices.
+
+Fully implemented A350 support (positions, breaks, fleet, VCM), however, still no info on extra jumpseats layout, no crew rest strategy. Will update once more information available.
+
+Implemented extra fg1 for full B773 turnarounds (L1A).
+
+Updated positions for all B777 operation type: corrections to extra positions (L1A, R5C etc.).
+
+---

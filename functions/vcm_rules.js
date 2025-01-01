@@ -237,6 +237,30 @@ export function vcmRules(vcm, p, aircraftType, isULR) {
                 console.error("Less than minimum crew requirement to operate");
             }
             break;
+
+        //A350 3 class
+        // R5A, L5A, R2A to R3, L1A to L3
+        case 13:
+            if (vcm < 0) {
+                p.GR2.remain.splice(p.GR2.remain.indexOf("R4A"), 1);
+            }
+            if (vcm < -1) {
+                p.GR2.remain.splice(p.GR2.remain.indexOf("L4A"), 1);
+            } else break;
+            if (vcm < -2) {
+                p.GR2.df.splice(p.GR2.df.indexOf("R3"), 1);
+                p.GR1.remain.splice(p.GR1.remain.indexOf("R2A"), 1);
+                p.GR1.remain.push("R2A (R3)");
+            } else break;
+            if (vcm < -3) {
+                p.GR2.galley.splice(p.GR2.galley.indexOf("L3"), 1);
+                p.GR1.galley.splice(p.GR1.galley.indexOf("L1A"), 1);
+                p.GR1.galley.push("L1A (L3)");
+            } else break;
+            if (vcm < -4) {
+                console.error("Less than minimum crew requirement to operate");
+            }
+            break;
         default:
             console.error("Aircraft type not found!");
     }

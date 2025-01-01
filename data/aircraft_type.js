@@ -12,5 +12,5 @@ export const typesOfAircraft = {
     11: {typesOfAircraftIndex: 11, crc: 2, aircraftModel: "A380", classes: 3, description: "A380 3 class", fullDescription: "A380 3 class (with LD-CRC)"}, 
     // 12: {typesOfAircraftIndex: 12, crc: 2, aircraftModel: "A380", classes: 3, description: "A380 3 class (New lounge)", fullDescription: "A380 3 class (with LD-CRC, New lounge)"} //seems like all of these are retrofitted into 4 class A380 (type 10 in my script)
     12: {typesOfAircraftIndex: 12, crc: 1, aircraftModel: "B773", classes: 4, description: "B773 4 class (Game changer)", fullDescription: "B773 4 class (with CRC, Game changer)"}, 
-    13: {typesOfAircraftIndex: 13, crc: 1, aircraftModel: "A350", classes: 3, description: "A350", fullDescription: "A350"}, 
+    13: {typesOfAircraftIndex: 13, crc: -1, aircraftModel: "A350", classes: 3, description: "A350 3 class (no F)", fullDescription: "A350 3 class (no CRC, no first class)"}, 
   };
