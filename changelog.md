@@ -212,6 +212,7 @@ Added guard to birthday_check for rare case when FlightData not received at all 
 Added guard for selectPA for case when no language speakers available.
 
 Clicking on column header now hides the column. This feature is requested by Fady. You can now hide/remove certain information from crew.
+
 ![Clickable headers](screenshots/scr24.gif)
 
 ---
@@ -296,6 +297,10 @@ Prices update.
 
 Added fleet age for A350s.
 
+---
+
+## 17.02.2025
+
 Updated Ramadan information 2025: added handling for F scenarios separately (now F and other cabins scenario can differ), wrote script to convert ramadan information into JSON.
 
 Re-arranged additional info layout to make room for Ramadan info.
@@ -303,5 +308,3 @@ Re-arranged additional info layout to make room for Ramadan info.
 Fixed rare bug with A380 4 class positions, when W crew is a top seller.
 
 ---
-
-##
