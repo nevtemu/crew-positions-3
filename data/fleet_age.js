@@ -259,7 +259,7 @@ export const fleetAge = {
   A6EQP: "11/30/2018",
   A6EZA: 'Order',
   A6EXA: '25/11/2024',
-  A6EXB: 'Order',
+  A6EXB: '31/12/2024',
   A6EXC: 'Order',
   A6EFH: "09/28/2012",
   A6EFI: "11/29/2012",

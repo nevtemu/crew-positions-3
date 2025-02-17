@@ -283,3 +283,25 @@ Implemented extra fg1 for full B773 turnarounds (L1A).
 Updated positions for all B777 operation type: corrections to extra positions (L1A, R5C etc.).
 
 ---
+
+## 05.01.2025
+
+Added exception for case, when A380 operates mom-ULR, but 3 CSV rostered.
+
+Fixed bug in temp rules for additional Gr1 and Fg1 on B773.
+
+Fixed major bug in VCM calculation for trips table: sometimes this prevented app from generating positions.
+
+Prices update.
+
+Added fleet age for A350s.
+
+Updated Ramadan information 2025: added handling for F scenarios separately (now F and other cabins scenario can differ), wrote script to convert ramadan information into JSON.
+
+Re-arranged additional info layout to make room for Ramadan info.
+
+Fixed rare bug with A380 4 class positions, when W crew is a top seller.
+
+---
+
+##

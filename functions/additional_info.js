@@ -1,7 +1,7 @@
 import {targets, effectiveDate as DFEffectiveDate} from '../data/duty_free_targets.js'; // Few errors due to duplicates in company files
 import {prices, version, effectiveDate} from '../data/upgrade_prices.js';
 import {urls} from '../data/urls.js';
-import {ramadan} from '../data/ramadan.js'; // Few errors due to duplicates in company files
+import {ramadan, effectiveDate as REffectiveDate} from '../data/ramadan.js'; // Few errors due to duplicates in company files
 
 export function additional_info(info) {
     let upgrades = {}
@@ -60,14 +60,18 @@ export function additional_info(info) {
 
     function ramadanOutput(ramadanService) {
         if (ramadanService.length < 1) {
-            return `<div><div class="upg-wrapper">🌙 Ramadan service:<div class="upg-block">No specific ramadan service set for the flight</div></div></div> `
+            return `<div><div class="upg-wrapper">🌙 Ramadan service:<div class="upg-block">No specific ramadan service set for the flight</div>
+                    <div class="upg-block smaller">Updated ${REffectiveDate}</div>
+                    </div></div> `
         }
         let output = `<div class="upg-wrapper"><span>🌙 Ramadan service:</span><table class="ramadan-table upg-block"><tr>
-                                <th class="invisible"></th><th>Catering information</th><th>Scenario</th></tr>`;
+                                <th class="invisible"></th><th>Catering information</th><th>Scenario</th><th>F</th></tr>`;
         ramadanService.forEach(flight => {
-            output += `<tr><td>${flight.sector}: </td><td>${flight.info}</td><td><a href="${urls.ramadan+(flight.scenario + 11)}">${flight.scenario}</a></td></tr>`
+            output += `<tr><td>${flight.sector}: </td><td>${flight.info}</td><td><a href="${flight.scenario > 0 ? urls.ramadan+(flight.scenario + 14) : '#'}" target="_blank">${flight.scenario > 0 ? flight.scenario : ''}</a></td><td><a href="${flight.scenarioF > 0 ? urls.ramadan+(flight.scenarioF + 14) : '#'}" target="_blank">${flight.scenarioF > 0 ? flight.scenarioF : ''}</a></td></tr>`
         })
-        return output += "</table></div>";
+        return output += `</table>
+                        <div class="upg-block smaller">Updated ${REffectiveDate}</div>
+                        </div>`;
     }
 
     function stationInfoOutput(stations) {
