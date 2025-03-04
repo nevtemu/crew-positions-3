@@ -305,6 +305,28 @@ Updated Ramadan information 2025: added handling for F scenarios separately (now
 
 Re-arranged additional info layout to make room for Ramadan info.
 
+Before:
+![Additional info rework](screenshots/scr28.png)
+After:
+![Additional info rework](screenshots/scr29.png)
+
 Fixed rare bug with A380 4 class positions, when W crew is a top seller.
+
+---
+
+## 28.02.2025
+
+Major rework of additional info: now upgrade prices for multisectors shown in row (previously in column) and take less space; ramadan scenarios reworked (first class scenario no longer separate column and only shown if different from other cabins scenario).
+
+Before:
+![Additional info rework](screenshots/scr29.png)
+After:
+![Additional info rework](screenshots/scr27.png)
+
+Corrected ramadan scenario links.
+
+Corrected fleet chart. We got new aircraft types: A380 4 class with MD CRC and without CRC. I implemented handling for them, updated crew rest strategies.
+
+Improved upgrade prices logic: now script will compare prices for each sector and mention both going and return flights if prices are not same. If prices are same, only one sector will be displayed.
 
 ---

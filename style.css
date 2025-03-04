@@ -145,7 +145,7 @@ button, .showBadgeButton span{
 .upg-j{background-color:#2c3ed6}
 .upg-w{background-color:#a01ee2}
 .upg-y{background-color:#1d9d66}
-.upg-table td:nth-child(2),.upg-table td:nth-child(3){
+.upg-table td:nth-child(n+2) {
     text-align: right;
 }
 .df-table td:nth-child(2){

@@ -23,7 +23,8 @@ export function additional_info(info) {
         // For unique upgrade prices
         let pair = `${legs_for_upgrade[i]}-${legs_for_upgrade[i + 1]}`;
         let reverse_pair = `${legs_for_upgrade[i+1]}-${legs_for_upgrade[i]}`
-        if (!upgrades.hasOwnProperty(reverse_pair || reverse_pair) && prices.hasOwnProperty(pair)) {upgrades[pair] = prices[pair]}
+        if (JSON.stringify(prices[pair]) !== JSON.stringify(prices[reverse_pair]) || !upgrades.hasOwnProperty(reverse_pair)) {upgrades[pair] = prices[pair]}
+        // if (!upgrades.hasOwnProperty(reverse_pair) && prices.hasOwnProperty(pair)) {upgrades[pair] = prices[pair]}
     }
     for (let j = 0; j < 2; j++) { //Maximum 2 flight numbers (going, return): multiple sectors fall within same flight number
         let flightNumberInt = parseInt(info.flightNumber) + j;
@@ -48,12 +49,21 @@ export function additional_info(info) {
         if (!upgrades) {
             return `<div class="upg-wrapper">Upgrade prices not found for the flight</div>`
         }
-
-        let output = `<div class="upg-wrapper"><span>💵 Upgrade prices:</span><table class="upg-table upg-block"><tr><th class="invisible"></th><th class="invisible"></th><th>AED</th><th>USD</th></tr>`;
+        let output = `<div class="upg-wrapper"><span>💵 Upgrade prices:</span><table class="upg-table upg-block">`;
+        let headerRow1 =`<tr><th rowspan="2" class="invisible"></th>`;
+        let headerRow2 = `<tr>`;
+        let body = upgHeaderOutput(Object.values(upgrades)[0])
         for (let sector in upgrades) {
-            output += `<tr><td rowspan="7">${sector}:</td>${upgSubOutput(upgrades[sector])}</tr>`
+            headerRow1+=`<th colspan="2">${sector}</th>`;
+            headerRow2+=`<th>AED</th><th>USD</th>`;
+            for (let type in upgrades[sector]) {
+                body[type] += `<td>${upgrades[sector][type][0]}</td><td>${upgrades[sector][type][1]}</td>`
+            }
         }
-        return output += `</table>
+        headerRow1+=`</tr>`
+        headerRow2+=`</tr>`
+        Object.values(body).forEach(row => {row += `</tr>`})
+        return output += `${headerRow1+headerRow2+Object.values(body).join('')}</table>
                             <div class="upg-block smaller">Pricelist version ${version} (${effectiveDate})</div>
                             </div>`;
     }
@@ -65,9 +75,14 @@ export function additional_info(info) {
                     </div></div> `
         }
         let output = `<div class="upg-wrapper"><span>🌙 Ramadan service:</span><table class="ramadan-table upg-block"><tr>
-                                <th class="invisible"></th><th>Catering information</th><th>Scenario</th><th>F</th></tr>`;
+                                <th class="invisible"></th><th>Catering information</th><th>Scenario</th></tr>`;
         ramadanService.forEach(flight => {
-            output += `<tr><td>${flight.sector}: </td><td>${flight.info}</td><td><a href="${flight.scenario > 0 ? urls.ramadan+(flight.scenario + 14) : '#'}" target="_blank">${flight.scenario > 0 ? flight.scenario : ''}</a></td><td><a href="${flight.scenarioF > 0 ? urls.ramadan+(flight.scenarioF + 14) : '#'}" target="_blank">${flight.scenarioF > 0 ? flight.scenarioF : ''}</a></td></tr>`
+            let scenarioF = !flight.scenario3inF ? 
+                            '' :
+                            flight.scenario ?
+                            `<span>  (<span><a href="${urls.ramadan+19}" target="_blank">3</a><span> in F)<span>`:
+                            `<span>  Only <span><a href="${urls.ramadan+19}" target="_blank">3</a><span> in F</span>`;
+            output += `<tr><td>${flight.sector}: </td><td>${flight.info}</td><td><a href="${flight.scenario > 0 ? urls.ramadan+(flight.scenario + 16) : '#'}" target="_blank">${flight.scenario > 0 ? flight.scenario : ''}</a>${scenarioF}</td></tr>`
         })
         return output += `</table>
                         <div class="upg-block smaller">Updated ${REffectiveDate}</div>
@@ -85,12 +100,10 @@ export function additional_info(info) {
         return output += "</div>";
     }
 
-    function upgSubOutput(upg) {
-        let subOutput = "";
+    function upgHeaderOutput(upg) {
+        let subOutput = {};
         for (let type in upg) {
-            subOutput += `<tr><td>${upgReplaceName(type)}</td>
-                    <td>${upg[type][0]}</td>
-                    <td>${upg[type][1]}</td></tr>`
+            subOutput[type]=`<tr><td>${upgReplaceName(type)}</td>`
         }
         return subOutput;
     }

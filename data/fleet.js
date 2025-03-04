@@ -31,7 +31,7 @@ export const fleet = {
     "A6EGF": 1,
     "A6EGH": 1,
     "A6EGI": 1,
-    "A6EPV": 2,
+
     "A6EPW": 2,
     "A6EPX": 2,
     "A6EPY": 2,
@@ -56,6 +56,7 @@ export const fleet = {
     "A6EWH": 4,
     "A6EWI": 4,
     "A6EWJ": 4,
+
     "A6ECY": 5,
     "A6ECZ": 5,
     "A6ENA": 5,
@@ -73,6 +74,7 @@ export const fleet = {
     "A6EPQ": 5,
     "A6EPR": 5,
     "A6EPT": 5,
+
     "A6EBK": 6,
     "A6EBM": 6,
     "A6EGD": 6,
@@ -126,6 +128,7 @@ export const fleet = {
     "A6EPP": 6,
     "A6EPS": 6,
     "A6EPU": 6,
+
     "A6EOP": 7,
     "A6EOQ": 7,
     "A6EOR": 7,
@@ -184,6 +187,7 @@ export const fleet = {
     "A6EUB": 8,
     "A6EUC": 8,
     "A6EUD": 8,
+
     "A6EDC": 9,
     "A6EDD": 9,
     "A6EDE": 9,
@@ -208,21 +212,23 @@ export const fleet = {
     "A6EOC": 9,
     "A6EOD": 9,
     "A6EOE": 9,
-    "A6EOF": 9,
     "A6EOG": 9,
     "A6EOH": 9,
     "A6EOL": 9,
     "A6EOM": 9,
     "A6EON": 9,
+
+    "A6EOF": 15, 
+
     "A6EUE": 10,
     "A6EUH": 10,
     "A6EUI": 10,
     "A6EUJ": 10,
     "A6EUK": 10,
     "A6EUL": 10,
-    "A6EUR": 11,
+    "A6EUR": 10,
     "A6EUS": 10,
-    "A6EUT": 11,
+    "A6EUT": 10,
     "A6EUU": 10,
     "A6EUV": 10,
     "A6EUW": 10,
@@ -244,9 +250,9 @@ export const fleet = {
     "A6EVR": 10,
     "A6EVS": 10,
 
-    "A6EEW": 10,
-    "A6EUM": 10,
-    "A6EOI": 10,
+    "A6EEW": 14,
+    "A6EUM": 14,
+    "A6EOI": 14,
 
     "A6EUF": 11,
     "A6EUG": 11,
@@ -259,6 +265,7 @@ export const fleet = {
     "A6EQN": 12,
     "A6EQO": 12,
     "A6EQP": 12,
+    "A6EPV": 12,
 
     "A6EXA": 13,
     "A6EXB": 13,
