@@ -12,7 +12,7 @@ export function loadPositions(crewData, registration, isULR, forTripsTable = tru
                         [11, 9, 8].includes(fleet[registration]) && isULR /* Check if it is A380 ULR */ ? 908 :
                         [11, 9, 8].includes(fleet[registration]) && !isULR && crewData.filter((crew) => crew.grade === "CSV" || crew.OperationGrade == 'CSV').length > 2 && crewData.filter((crew) => crew.grade === "GR2").length < 9 /* Check if it is A380 non-ULR but with 3 CSV */ ? 908 :
                         [1, 2, 3, 6].includes(fleet[registration]) && isULR && crewData.filter((crew) => crew.grade === "FG1" || crew.OperationGrade == 'FG1').length > 2 /* Check if it is B773 3 class ULR */ ? 901 : 
-                        [12].includes(fleet[registration]) && crewData.filter((crew) => crew.grade === "FG1" || crew.OperationGrade == 'FG1').length > 2 && isULR /* Check if it is B773 4 class ULR */ ? 912 : 
+                        [12, 16].includes(fleet[registration]) && crewData.filter((crew) => crew.grade === "FG1" || crew.OperationGrade == 'FG1').length > 2 && isULR /* Check if it is B773 4 class ULR */ ? 912 : 
                         [4].includes(fleet[registration]) && isULR /* Check if it is B772 2 class ULR */ ? 904 : 
                         fleet[registration]
 
@@ -20,7 +20,7 @@ export function loadPositions(crewData, registration, isULR, forTripsTable = tru
   const thisFlightBreaks = structuredClone(breaks[operationType])
 
     // Temp rule: B773 4th Gr1 added in stages 2024
-    if([1, 2, 3, 6, 12, 912, 901].includes(operationType) && crewData.filter((crew) => crew.grade == "GR1" || crew.OperationGrade == 'GR1').length  === 4){
+    if([1, 2, 3, 6, 12, 16, 912, 901].includes(operationType) && crewData.filter((crew) => crew.grade == "GR1" || crew.OperationGrade == 'GR1').length  === 4){
       let n = thisFlightPositions.EXTRA.only.indexOf("R5C")
       if (n) thisFlightPositions.EXTRA.only.slice(n, n+1)
       thisFlightPositions.GR1.remain.push("R5C")
@@ -28,7 +28,7 @@ export function loadPositions(crewData, registration, isULR, forTripsTable = tru
     // End of temp rule
 
     // Temp rule: B773 3rd Fg1 added for full turnarounds 2024
-    if([1, 2, 3, 6, 12].includes(operationType) && crewData.filter((crew) => crew.grade == "FG1" || crew.OperationGrade == 'FG1').length  === 3){
+    if([1, 2, 3, 6, 12, 16].includes(operationType) && crewData.filter((crew) => crew.grade == "FG1" || crew.OperationGrade == 'FG1').length  === 3){
       let n = thisFlightPositions.EXTRA.only.indexOf("L1A")
       if (n) thisFlightPositions.EXTRA.only.slice(n, n+1)
       thisFlightPositions.FG1.remain.push("L1A")
@@ -53,7 +53,7 @@ export function loadPositions(crewData, registration, isULR, forTripsTable = tru
     });
     //End of VCM check by grades
     if (Object.keys(variations).length !== 0) {
-      errorHandler(`VCM ${vcm}. Crew differences by grades: ${JSON.stringify(variations).replaceAll(/["{}]/gm, "")}`, "error");
+      errorHandler(`VCM ${vcm}. Crew differences by grades: ${JSON.stringify(variations).replaceAll(/["{}]/gm, "")}. Use "Show positions" to adjust positions manually`, "error");
       thisFlightPositions = vcm < 0 ? vcmRules(vcm, thisFlightPositions, fleet[registration], isULR) : extraRules(thisFlightPositions, variations);
     }
     return {thisFlightPositions, thisFlightBreaks};

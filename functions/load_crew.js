@@ -1,6 +1,34 @@
 import {qualifications} from '../data/qualifications.js';
 import {errorHandler} from '../functions/error_handler.js'
 
+// const names = [
+//     "Robert Downey Jr.",
+//     "Al Pacino",
+//     "Hugh Jackman",
+//     "Robert Pattinson",
+//     "Keanu Reeves",
+//     "Chris Evans",
+//     "Dwayne Johnson",
+//     "Tom Hanks",
+//     "Johnny Depp",
+//     "Morgan Freeman",
+//     "Zac Efron",
+//     "Bradley Cooper",
+//     "Jackie Chan",
+//     "Will Smith",
+//     "Tom Cruise",
+//     "Denzel Washington",
+//     "Robert De Niro",
+//     "Leonardo DiCaprio",
+//     "Nicolas Cage",
+//     "Marlon Brando",
+//     "Jack Nicholson",
+//     "Christian Bale",
+//     "Anthony Hopkins",
+//     "Julia Roberts",
+//     "Natalie Portman"
+//     ]
+
 export function loadCrew(inputData) {
     let crewData = [];
     const indexModifier = {PUR: 0, CSV: 10, FG1: 20, GR1:30, W:40, GR2:50, CSA:70}
@@ -35,8 +63,13 @@ export function loadCrew(inputData) {
             lastPosition: ["PUR", "CSA"].includes(crew.OperationGrade) ? [] : ["GR1", "FG1", "CSV"].includes(crew.OperationGrade) ? [""] : ["", ""],
             comment: "SocialStatus" in crew && crew.SocialStatus !== null ? crew.SocialStatus.replaceAll("'", "&apos;").replaceAll("\"", "&quot;") : "",
             staffNumber: crew.StaffID,
-            nickname: "NickName" in crew && crew.NickName !== "" ? crew.NickName : crew.FirstName.split(" ")[0],
             fullname: crew.FirstName + " " + crew.LastName,
+            nickname: "NickName" in crew && crew.NickName !== "" ? crew.NickName : crew.FirstName.split(" ")[0],
+
+            // fullname: names[index],
+            // staffNumber: Math.floor(Math.random() * (599998)) + 100000,
+            // nickname: names[index].split(" ")[0],
+
             destinationExperience,
             nationality: crew.Nationality.replace("Korea, Republic Of", "Korea") //Replace few official countries names for easy reading
                 .replace("Moldova, Republic Of", "Moldova")

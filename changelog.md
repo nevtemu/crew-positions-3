@@ -330,3 +330,17 @@ Corrected fleet chart. We got new aircraft types: A380 4 class with MD CRC and w
 Improved upgrade prices logic: now script will compare prices for each sector and mention both going and return flights if prices are not same. If prices are same, only one sector will be displayed.
 
 ---
+
+## 10.03.2025
+
+New feature!
+Manual positions adjustment tool. You can simply drag positions into desired blocks now or remove them by adding to extra positions. This should help you with non-standard operation cases. Here a quick look:
+![Manual positions](screenshots/scr30.gif)
+
+Added yet another aircraft type: I've discovered that we have B773 4 class, but not "Game changer".
+
+UI changes: made control buttons larger and more distinct for iPad users.
+
+Ramadan guide has been updated with many changes.
+
+---

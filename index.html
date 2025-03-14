@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script type="module">
       import { start } from "./script.js";
-      import { showRegistrationInputField ,hideErrors, back, copyTable, hideGUI, showHiddenCells, hideColumn} from "/functions/renderer.js";
+      import { showRegistrationInputField ,hideErrors, back, copyTable, hideGUI, showHiddenCells, hideColumn, showPositions, hidePositions} from "/functions/renderer.js";
       import { changeSettings } from "/functions/change_settings.js";
       import { showSettings } from "/functions/show_settings.js";
       import { addAircraftRegistrationManually } from "/functions/add_aircraft_registration_manually.js";
@@ -32,8 +32,10 @@
       window.changeSettings = changeSettings;
       window.showHiddenCells = showHiddenCells;
       window.hideColumn = hideColumn;
+      window.showPositions = showPositions;
+      window.hidePositions = hidePositions;
     </script>
-    <script type="module"src="script.js" defer></script>
+    <script type="module" src="script.js" defer></script>
     <link rel="stylesheet" href="style.css" />
     <link href="./src/favicon.ico" rel="icon" type="image/x-icon" />
     <title>Crew positions</title>
@@ -78,17 +80,27 @@
 
     <section id="crewTable" class="hidden">
       <div class="UIhood" id="crewControls">
-        <button onclick="back()">Back to trips</button>
-        <button id="buttonRestart" onclick="restart(event)">Generate again</button>
-        <button id="buttonCopy" onclick="copyTable()">Copy table</button>
-        <button id="buttonHide" onclick="hideGUI()">Hide controls</button>
-        <button id="buttonShowHiddenCells" onclick="showHiddenCells()" class="hidden">Show hidden columns</button>
+        <button onclick="back()" class="control-button-blue">Back to trips</button>
+        <button id="buttonRestart" onclick="restart(event)" class="control-button-blue">Generate again</button>
+        <button id="buttonCopy" onclick="copyTable()" class="control-button-blue">Copy table</button>
+        <button id="buttonHide" onclick="hideGUI()" class="control-button-blue">Hide controls</button>
+        <button id="buttonShowHiddenCells" onclick="showHiddenCells()" class="hidden control-button-blue">Show hidden columns</button>
+        <button id="showPositions" onclick="showPositions()" class="control-button-blue">Show positions</button>
       </div>
-      <div id="crewOutput"></div>
+      <section class="horizontal-flex">
+        <div id="crewOutput"></div>
+        <div id="positions" class="UIhood hidden">
+          <div id="positionsOutput"></div>
+          <div>
+              <button id="apply" class="control-button-blue">Apply</button>
+              <button id="close" onclick="hidePositions()" class="control-button-blue">Close</button> 
+          </div>
+        </div>
+      </section>
     </section>
     <section id="errorTable" class="UIhood hidden">
       <div id="errorOutput"></div>
-      <button onclick="hideErrors()">Ok Close</button>
+      <button onclick="hideErrors()" class="control-button-blue">Ok Close</button>
     </section>
     <section id="flightInfo" class="hidden">
       <div class="horizontal-flex">

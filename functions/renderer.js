@@ -20,7 +20,7 @@ export function showRegistrationInputField(event, n) {
 }
 
 export function back() {
-    renderer([document.querySelector("#tripsTable"), document.querySelector("#settings-wrapper")],[document.querySelector("#crewTable"),document.querySelector("#flightInfo"),document.querySelector("#errorTable"),document.querySelector("#keyBind"),],true);
+    renderer([document.querySelector("#showPositions"), document.querySelector("#tripsTable"), document.querySelector("#settings-wrapper")],[document.querySelector("#crewTable"),document.querySelector("#flightInfo"),document.querySelector("#errorTable"),document.querySelector("#keyBind"),document.querySelector("#positions")],true);
 }
 
 export function copyTable () {
@@ -61,4 +61,15 @@ export function hideColumn (e) {
         cell.classList.add("hidden")
         cell.classList.add("hiddenCell")
     }
+}
+
+import {drawPositions} from './show_positions.js'
+const positionsTag = document.querySelector("#positions")
+const positionsButton = document.querySelector("#showPositions")
+export function showPositions () {
+    drawPositions()
+    renderer([positionsTag], [positionsButton])
+}
+export function hidePositions () {
+    renderer([positionsButton], [positionsTag])
 }

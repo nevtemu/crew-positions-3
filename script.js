@@ -92,10 +92,11 @@ if (settings.additional_info){
   stationTag.innerHTML = "";
 }
 
-if ([10,12,13,14,15].includes(fleet[registration])){
+if ([10,12,13,14,15,16].includes(fleet[registration])){
   W_selector(crewData, positions);
 }
 
+  localStorage.setItem("registration", registration); //must be before generate_positions
   localStorage.setItem("crewData", JSON.stringify(crewData));
   if (doPositions) { // Runs only if generating positions (does not run for "List only" option)
     let {thisFlightPositions, thisFlightBreaks} = loadPositions(crewData, registration, isULR, false); // False is important to switch mode of load_position function (with false it will run through vcm also)
@@ -104,7 +105,6 @@ if ([10,12,13,14,15].includes(fleet[registration])){
     localStorage.setItem("thisTripBreaks", JSON.stringify(thisFlightBreaks));
     generatePositions(crewData, thisFlightPositions, thisFlightBreaks, registration, numberOfDuties, hasBreak);
   } 
-  localStorage.setItem("registration", registration);
   localStorage.setItem("numberOfDuties", numberOfDuties);
   localStorage.setItem("hasBreak", hasBreak);
   localStorage.setItem("doPositions", doPositions);

@@ -130,7 +130,7 @@ export const breaks = {
     ])
   ),
   ...Object.fromEntries(
-    [12, 912].map((x) => [
+    [12, 16, 912].map((x) => [
       x,
       {
         L1: 1,

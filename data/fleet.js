@@ -33,7 +33,7 @@ export const fleet = {
     "A6EGI": 1,
 
     "A6EPW": 2,
-    "A6EPX": 2,
+    // "A6EPX": 2,
     "A6EPY": 2,
     "A6EPZ": 2,
     "A6EQA": 2,
@@ -218,8 +218,6 @@ export const fleet = {
     "A6EOM": 9,
     "A6EON": 9,
 
-    "A6EOF": 15, 
-
     "A6EUE": 10,
     "A6EUH": 10,
     "A6EUI": 10,
@@ -250,10 +248,6 @@ export const fleet = {
     "A6EVR": 10,
     "A6EVS": 10,
 
-    "A6EEW": 14,
-    "A6EUM": 14,
-    "A6EOI": 14,
-
     "A6EUF": 11,
     "A6EUG": 11,
 
@@ -270,9 +264,17 @@ export const fleet = {
     "A6EXA": 13,
     "A6EXB": 13,
     "A6EXC": 13,
+
+    "A6EEW": 14,
+    "A6EUM": 14,
+    "A6EOI": 14,
+
+    "A6EOF": 15, 
+
+    "A6EPX": 16,
 }
 
 /*
 12 - B773 4 class
-EPE - the only retrofitted 2 class
+EPE - the only retrofitted 2 class, but did not want to add it to separate type
 */

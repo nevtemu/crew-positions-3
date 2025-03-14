@@ -16,6 +16,8 @@ export const typesOfAircraft = {
     
     14: {typesOfAircraftIndex: 14, crc: -1, aircraftModel: "A380", classes: 4, description: "A380 4 class", fullDescription: "A380 4 class (no CRC)"}, 
     15: {typesOfAircraftIndex: 15, crc: 3, aircraftModel: "A380", classes: 4, description: "A380 4 class", fullDescription: "A380 4 class (MD-CRC)"}, 
+    16: {typesOfAircraftIndex: 16, crc: 1, aircraftModel: "B773", classes: 4, description: "B773 4 class (non-game changer)", fullDescription: "B773 4 class (with CRC, 8 suits in F)"}, 
+
   };
 
 /*
