@@ -410,3 +410,13 @@ overflow:hidden;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
 }
+
+
+
+/* Modal */
+dialog {
+    position: fixed;
+    top: calc((100vh - 240px)/2);
+    left: calc((100vw - 270px)/2);
+    padding: 20px;
+}

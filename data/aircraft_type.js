@@ -20,10 +20,54 @@ export const typesOfAircraft = {
 
   };
 
-/*
+  /*
   CRC:
   -1 - no CRC
   1 - B773 CRC
   2 - LD CRC
   3 - MD CRC 
+*/
+
+/*
+4: B772 2 class (with CRC, JC Falcon seats)
+
+5: B773 2 class (no CRC)
+6: B773 3 class (no CRC)
+1: B773 3 class (with CRC)
+2: B773 3 class (with CRC, JC Falcon seats)
+3: B773 3 class (with CRC, Game changer)
+12: B773 4 class (with CRC, Game changer)
+16: B773 4 class (with CRC, 8 suits in F)
+
+7: A380 2 class (no CRC)
+8: A380 3 class (no CRC)
+14: A380 4 class (no CRC)
+9: A380 3 class (with MD-CRC)
+15: A380 4 class (with MD-CRC)
+11: A380 3 class (with LD-CRC)
+10: A380 4 class (with LD-CRC)
+
+13: A350 3 class (no CRC, no first class)
+*/
+
+
+/*
+1: B773 3 class (with CRC)
+2: B773 3 class (with CRC, JC Falcon seats)
+3: B773 3 class (with CRC, Game changer)
+4: B772 2 class (with CRC, JC Falcon seats)
+5: B773 2 class (no CRC)
+6: B773 3 class (no CRC)
+
+7: A380 2 class (no CRC)
+8: A380 3 class (no CRC)
+9: A380 3 class (with MD-CRC)
+10: A380 4 class (with LD-CRC)
+11: A380 3 class (with LD-CRC)
+
+12: B773 4 class (with CRC, Game changer)
+13: A350 3 class (no CRC, no first class)
+14: A380 4 class (no CRC)
+15: A380 4 class (MD-CRC)
+16: B773 4 class (with CRC, 8 suits in F)
 */

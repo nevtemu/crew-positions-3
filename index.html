@@ -91,6 +91,7 @@
         <div id="crewOutput"></div>
         <div id="positions" class="UIhood hidden">
           <div id="positionsOutput"></div>
+          <div>* Do not leave retail positions empty. <br>** Make sure you know what you're doing before manually adjusting positions as it may break entire algorithm! </div>
           <div>
               <button id="apply" class="control-button-blue">Apply</button>
               <button id="close" onclick="hidePositions()" class="control-button-blue">Close</button> 
@@ -122,7 +123,7 @@
   <dialog>
     <section>
       <div class="smaller">⚠️ When W crew manually selected <br> the order of crew in table will be different from VR1!</div>
-      <div>Select your W crew (maximum 2):</div>
+      <div id="w_manual_alert">Select your W crew (maximum 2):</div>
       <ul id="crewList"></ul>
     </section>
     <section>

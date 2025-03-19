@@ -19,7 +19,7 @@ export const drawPositions = () => {
         }
         output += `</div></div>`
     }
-    positionsOutput.innerHTML = output + `<div>* Do not leave retail positions empty. <br>** Make sure you know what you're doing before manually adjusting positions as it may break entire algorithm! </div>`
+    positionsOutput.innerHTML = output;
     document.querySelector("#apply").addEventListener("click", apply);
 
     //Draggable elements
@@ -27,10 +27,12 @@ export const drawPositions = () => {
     const gradeContainers = document.querySelectorAll(".landing");
     positionsElements.forEach(y => {
         y.addEventListener("dragstart", (e) => {
-            e.dataTransfer.setData("text/plain", e.target.id);
-            setTimeout(() => {
-                e.target.style.opacity = "0.5"; // Makes dragged element semi-transparent
-            }, 0);
+            //For iPad
+            e.dataTransfer.setData("text/plain", e.target.id); 
+            e.dataTransfer.dropEffect = 'move';
+            e.stopPropagation(); 
+
+            e.target.style.opacity = "0.5"; // Makes dragged element semi-transparent
         });
 
         y.addEventListener("dragend", (e) => {
@@ -40,15 +42,24 @@ export const drawPositions = () => {
 
     gradeContainers.forEach(x => {
         x.addEventListener("dragover", (e) => {
-            e.preventDefault(); // Allows drop
+            e.preventDefault(); // Allows drop. Required by iPad
+            e.target.setAttribute('DragOver',true);
+            e.stopPropagation();    //  let child accept and don't pass up to parent element   //  ios to accept drop
+            e.dataTransfer.dropEffect = 'copy';//   move has no icon? adding copy shows +
         });
 
         x.addEventListener("drop", (e) => {
-            e.preventDefault();
+            e.preventDefault(); // for iPad
+            e.stopPropagation();
             const draggedElement = document.querySelector(".position[style*='opacity: 0.5']");
             if (draggedElement) {
                 x.appendChild(draggedElement); // Move the element to the new container
             }
+            e.target.removeAttribute('DragOver');
+        });
+
+        x.addEventListener("dragleave", (e) => {
+            e.target.removeAttribute('DragOver');
         });
     });
 }
@@ -76,7 +87,7 @@ const apply = (e) => {
             })
         }
     })
-    // console.log(positions)
+    console.log(positions)
     localStorage.setItem("thisTripPositions", JSON.stringify(positions));
     restart()
 }

@@ -344,3 +344,17 @@ UI changes: made control buttons larger and more distinct for iPad users.
 Ramadan guide has been updated with many changes.
 
 ---
+
+## 19.03.2025
+
+Fixed styles for modal window (select W manually).
+
+For manual W selector added condition to prevent selection of more than 2 crew.
+
+Fixed bug, where due to VCM extra positions like R5C may be duplicated.
+
+Corrected manual positions DOM structure. This was causing issue when generating new positions object.
+
+Fixed issue with draggable positions in "manual positions" for tablets. I know many of you are iPad users, but I prefer PC so can only do limited testing on ipadOS. The issue was with difference how click and touch events are handled by WebKit.
+
+---

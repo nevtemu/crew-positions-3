@@ -30,17 +30,27 @@ export function selectWManually(e) {
   submitButton.addEventListener("click", submitWManually);
 
   function submitWManually() {
-    const userSelection = crewListTag.querySelectorAll("input");
-    userSelection.forEach((element) => {
-      if (element.checked)
-        dataPool[n].crewData.find(
-          (crew) => crew.StaffID === element.id
-        ).OperationGrade = "W";
-      else
-        dataPool[n].crewData.find(
-          (crew) => crew.StaffID === element.id
-        ).OperationGrade = "GR2";
-    });
-    dialog.close();
+    //Prevent user from selecting more than 2 crew
+    const numberSelected = crewListTag.querySelectorAll('input:checked').length
+    if (numberSelected > 2) {
+      const alertTag = document.querySelector("#w_manual_alert");
+      alertTag.innerHTML = `Select your W crew <span style='color:red'>(maximum 2)</span>:`
+    }
+
+    // Update data
+    else {
+      const userSelection = crewListTag.querySelectorAll("input");
+      userSelection.forEach((element) => {
+        if (element.checked)
+          dataPool[n].crewData.find(
+            (crew) => crew.StaffID === element.id
+          ).OperationGrade = "W";
+        else
+          dataPool[n].crewData.find(
+            (crew) => crew.StaffID === element.id
+          ).OperationGrade = "GR2";
+      });
+      dialog.close();
+    }
   }
 }
