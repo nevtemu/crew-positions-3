@@ -28,8 +28,8 @@ export function createOutput(crewList, numberOfSectors, hasBreak, doPositions) {
                 <th class="crewTableHeader" group="comment">Comment</th>
             </tr>`;
     const footer = `</table><div>*Positions may be adjusted to accommodate MFP2.0 or other operational requirements</div>
-    <div>⚠️ To change you comment click <a href="${urls.updateComment}">here</a> and then press "Edit"</div>
-    <div> 👍 If you like this app, find the source code <a href="${urls.sourceCode}" target="_blank">here</a></div>`;
+    <div>⚠️ To change you comment click <a href="${urls.updateComment}">here</a> and then press "Edit"</div>`;
+    //    <div> 👍 If you like this app, find the source code <a href="${urls.sourceCode}" target="_blank">here</a></div>
     let lastGrade = "";
     let fileContent = "";
     crewList.sort((a, b) => a.index - b.index) // Ascending. Required due to manual selection of W so crew can shuffle around their grades
@@ -81,7 +81,7 @@ export function createOutput(crewList, numberOfSectors, hasBreak, doPositions) {
         }
         fileContent += `<td group="fullName">${item.fullname}</td>
                         <td group="staffNumber" class="centerCell">${item.staffNumber}</td>
-                        <td group="nationality"><img src="../src/flags/${item.flag}.png"> ${item.nationality}</td>
+                        <td group="nationality"><img class="mini-flag" src="../src/flags/${item.flag}.png"> ${item.nationality}</td>
                         <td group="languages">${languageHighlight(item.languages)}</td>
                         <td group="timeInGrade" class="centerCell" style="font-size:smaller;">${item.timeInGrade}</td>
                         <td group="badges" class="centerCell">${item.ratingIR < 21 ? item.ratingIR < 10 ? `<span class="badge badge-ir" title="Duty free rating" style="padding: 0 0.4rem">${item.ratingIR}</span>` : `<span class="badge badge-ir" title="Duty free rating">${item.ratingIR}</span>` : ""} ${badges(item.badges)}</td>

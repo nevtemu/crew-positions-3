@@ -1,4 +1,3 @@
-const crewApp = window.open("http://127.0.0.1:5500/index.html","_blank");
 let userStaffNumber = localStorage.getItem("CurrentStaffNo");
 let crewDataKey = Object.keys(localStorage).filter(k => k.startsWith("Crew_") && !k.endsWith("TimeOut"));
 let rosterKey = Object.keys(localStorage).filter(k => k.startsWith("Roster_"+userStaffNumber) && !k.endsWith("TimeOut") && !k.endsWith("Destination"));
@@ -59,3 +58,22 @@ function convertDate(stringDate) {
     let rest = stringDate.split(" ")[1]
     return [parseInt(month), day, year].join("/") + " " + rest;
 }
+
+async function copyToClipboard(info) {
+    try {
+        //await navigator.clipboard.writeText(JSON.stringify(info, null, 2)); // This more modern API did not work cause window keeps loosing focus
+
+        const data = document.createElement("textarea");
+        data.value = JSON.stringify(info, null, 2);
+        document.body.appendChild(data);
+        data.select();
+        document.execCommand("copy");
+
+        console.log("Data copied to clipboard!");
+    } catch (err) {
+        console.error("Failed to copy: ", err);
+    }
+};
+
+copyToClipboard(dataToGo); 
+const crewApp = window.open(`http://127.0.0.1:5501/index.html`,"_blank");

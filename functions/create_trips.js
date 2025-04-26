@@ -16,7 +16,8 @@ export function createTrips() {
         let flightLegs = dataPool[item].shortInfo.flightLegs.join("-").replace("DXB-", "");
         let sectors = dataPool[item].shortInfo.sectors;
         // let hasRest = Math.max(...dataPool[item].shortInfo.durations) >= 9.5 ? true : false;
-        let flightDate = dataPool[item].shortInfo.flightDate.toLocaleDateString("en-GB").replaceAll("/",".");
+        //let flightDate = dataPool[item].shortInfo.flightDate.toLocaleDateString("en-GB").replaceAll("/",".");
+        let flightDate = new Date(dataPool[item].shortInfo.flightDate).toLocaleDateString("en-GB").replaceAll("/", "."); // Due to iPad fix date is passed as string now and must be converted first
         let registration = "", description = "", crc = "", typeOfOperation = "", age = "", classes = "", aircraftModel = "";
         let registrationMismatch = false;
         let hasRegistration = "flightData" in dataPool[item] && dataPool[item].flightData.FlightData[0].AircraftTail != null; //For reserve trips and trips that were long time ago portal returns null for aircraft registration (AircraftTail)

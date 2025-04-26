@@ -2,6 +2,10 @@
 
 Allocating crew positions before the flight can be a challenging and time consuming task due to number of regulations and requirements involved in the process. It saved hours of time for me, when making pre-flight emails. I hope you will find it useful too.
 
+>
+> [!CAUTION]
+> Recent iPad update broke the app on some devices. Please read [changelog](./changelog.md "changelog") for update.
+
 Here is a quick look:
 
 ![Preview](screenshots/scr10.gif)

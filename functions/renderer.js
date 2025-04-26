@@ -73,3 +73,11 @@ export function showPositions () {
 export function hidePositions () {
     renderer([positionsButton], [positionsTag])
 }
+
+export function hideFlags () {
+    const flags = document.querySelectorAll(".mini-flag")
+    console.log(flags)
+    for (let flag of flags) {
+        flag.classList.toggle("hidden")
+    }
+}

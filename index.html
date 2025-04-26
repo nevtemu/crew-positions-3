@@ -3,46 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script type="module">
-      import { start } from "./script.js";
-      import { showRegistrationInputField ,hideErrors, back, copyTable, hideGUI, showHiddenCells, hideColumn, showPositions, hidePositions} from "/functions/renderer.js";
-      import { changeSettings } from "/functions/change_settings.js";
-      import { showSettings } from "/functions/show_settings.js";
-      import { addAircraftRegistrationManually } from "/functions/add_aircraft_registration_manually.js";
-      import { badgeMenu, deleteBadge, addBadge, replaceBadge, closeBadgeMenu } from "/functions/badge_menu.js";
-      import { selectWManually } from "/functions/W_selector_manually.js";
-      import { changeNumberOfDuties } from "/functions/change_number_of_duties.js";
-      import { restart } from "/functions/create_output_restart.js";
-      window.start = start;
-      window.restart = restart;
-      window.showRegistrationInputField = showRegistrationInputField;
-      window.addAircraftRegistrationManually = addAircraftRegistrationManually;
-      window.selectWManually = selectWManually;
-      window.changeNumberOfDuties = changeNumberOfDuties;
-      window.badgeMenu = badgeMenu;
-      window.closeBadgeMenu = closeBadgeMenu;
-      window.addBadge = addBadge;
-      window.deleteBadge = deleteBadge;
-      window.replaceBadge = replaceBadge;
-      window.hideErrors = hideErrors;
-      window.hideGUI = hideGUI;
-      window.back = back;
-      window.copyTable = copyTable;
-      window.showSettings = showSettings;
-      window.changeSettings = changeSettings;
-      window.showHiddenCells = showHiddenCells;
-      window.hideColumn = hideColumn;
-      window.showPositions = showPositions;
-      window.hidePositions = hidePositions;
-    </script>
-    <script type="module" src="script.js" defer></script>
-    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="./script.js" defer></script>
+    <link rel="stylesheet" href="./style.css" />
     <link href="./src/favicon.ico" rel="icon" type="image/x-icon" />
     <title>Crew positions</title>
   </head> 
   <body>
-    <section id="fetchTable" class="hidden">
-      <div id="fetchMessage">&#9888; Data is not received from portal</div>
+    <section id="fetchTable">
+      <div id="fetchMessage" class="hidden">&#9888; Data was not copied properly from portal</div>
+      <button id="buttonStart" onclick="showTrips()" class="control-button-blue">Show trips</button>
     </section>
     <section id="tripsTable" class="hidden">
       <div>Select trip:</div>
@@ -69,20 +38,21 @@
       </table>
     </section>
 
-    <section id="settings-wrapper">
-    <button class="settings" onclick="showSettings(event)"></button>
-    <settings id="settings" class="hidden">
-      <div>Settings</div>
-      <table id="settings-output">
-      </table>
-    </settings>
-  </section>
+    <section id="settings-wrapper" class="hidden">
+      <button class="settings" onclick="showSettings(event)"></button>
+      <settings id="settings" class="hidden">
+        <div>Settings</div>
+        <table id="settings-output">
+        </table>
+      </settings>
+    </section>
 
     <section id="crewTable" class="hidden">
       <div class="UIhood" id="crewControls">
         <button onclick="back()" class="control-button-blue">Back to trips</button>
         <button id="buttonRestart" onclick="restart(event)" class="control-button-blue">Generate again</button>
         <button id="buttonCopy" onclick="copyTable()" class="control-button-blue">Copy table</button>
+        <button id="buttonFlags" onclick="hideFlags()" class="control-button-blue">Hide/show flags</button>
         <button id="buttonHide" onclick="hideGUI()" class="control-button-blue">Hide controls</button>
         <button id="buttonShowHiddenCells" onclick="showHiddenCells()" class="hidden control-button-blue">Show hidden columns</button>
         <button id="showPositions" onclick="showPositions()" class="control-button-blue">Show positions</button>

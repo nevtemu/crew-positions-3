@@ -12,27 +12,67 @@ import {loadCrew} from './functions/load_crew.js'
 import {loadPositions} from './functions/load_positions.js'
 import {generatePositions} from './functions/generate_positions.js'
 import {createTrips} from './functions/create_trips.js'
-import {renderer, hideGUI} from './functions/renderer.js'
+import {renderer} from './functions/renderer.js'
 import {createOutput} from './functions/create_output.js'
 import {createSettings} from './functions/create_settings.js'
 import {filterLanguages, languagesCount} from './functions/languages.js'
 
-let dataPool; // To store data from portal
 
-// Connection
-window.onload = function () {
-  if (window.opener !== null) {
-    renderer([document.querySelector("#fetchTable")]);
-    window.opener.postMessage("Ready to receive", "*");
-    console.warn("Request for data sent to portal");
-  }
-};
+import { showRegistrationInputField, hideErrors, back, copyTable, hideGUI, showHiddenCells, hideColumn, showPositions, hidePositions, hideFlags } from './functions/renderer.js';
+import { changeSettings } from './functions/change_settings.js';
+import { showSettings } from './functions/show_settings.js';
+import { addAircraftRegistrationManually } from './functions/add_aircraft_registration_manually.js';
+import { badgeMenu, deleteBadge, addBadge, replaceBadge, closeBadgeMenu } from './functions/badge_menu.js';
+import { selectWManually } from './functions/W_selector_manually.js';
+import { changeNumberOfDuties } from './functions/change_number_of_duties.js';
+import { restart } from './functions/create_output_restart.js';
 
-window.addEventListener("message", (receivedData) => {
-  dataPool = receivedData.data;
-  window.dataPool = dataPool; // Global variable required for some functions (add registration manually etc.)
-  console.warn("Data received from portal");
-  console.log(dataPool);
+window.start = start;
+window.restart = restart;
+window.showRegistrationInputField = showRegistrationInputField;
+window.addAircraftRegistrationManually = addAircraftRegistrationManually;
+window.selectWManually = selectWManually;
+window.changeNumberOfDuties = changeNumberOfDuties;
+window.badgeMenu = badgeMenu;
+window.closeBadgeMenu = closeBadgeMenu;
+window.addBadge = addBadge;
+window.deleteBadge = deleteBadge;
+window.replaceBadge = replaceBadge;
+window.hideErrors = hideErrors;
+window.hideGUI = hideGUI;
+window.back = back;
+window.copyTable = copyTable;
+window.showSettings = showSettings;
+window.changeSettings = changeSettings;
+window.showHiddenCells = showHiddenCells;
+window.hideColumn = hideColumn;
+window.showPositions = showPositions;
+window.hidePositions = hidePositions;
+window.hideFlags = hideFlags;
+
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+if (isIOS) {
+  console.warn("OMG! It is iPad");
+} else {
+  // Automatic connection
+  window.onload = function () {
+    if (window.opener !== null) {
+      renderer([document.querySelector("#fetchTable")]);
+      window.opener.postMessage("Ready to receive", "*");
+      console.warn("Request for data sent to portal");
+    }
+  };
+
+  window.addEventListener("message", (receivedData) => {
+    window.dataPool = receivedData.data; // Global variable required for some functions (add registration manually etc.)
+    console.warn("Data received from portal");
+    console.log(dataPool);
+    renderer([document.querySelector("#tripsTable"), document.querySelector("#settings-wrapper")],[document.querySelector("#fetchTable")]);
+    createTrips();
+  
+    window.opener.postMessage("Thank you", "*");
+  });
+}
 
   //Settings
   let settings;
@@ -43,11 +83,6 @@ window.addEventListener("message", (receivedData) => {
   else settings = defaultSettings;
   localStorage.setItem("settings", JSON.stringify(settings));
   createSettings(settings);
-
-  renderer([document.querySelector("#tripsTable")],[document.querySelector("#fetchTable")]);
-  createTrips();
-  window.opener.postMessage("Thank you", "*");
-});
 
 // Crew table
 export function start(event, n, doPositions) {
@@ -68,33 +103,35 @@ export function start(event, n, doPositions) {
   breakNodes.forEach(node => hasBreak.push(node.checked))
 
   let settings = JSON.parse(localStorage.getItem("settings"))
-//Upgrades and DF targets output
-const dfTag = document.querySelector("#dfOutput");
-const upgTag = document.querySelector("#upgOutput");
-const stationTag = document.querySelector("#stationInfoOutput");
-const langTag = document.querySelector("#langOutput");
-const ramadanTag = document.querySelector("#ramadanOutput");
-if (settings.additional_info){
-  const extra_info = additional_info(specificFlightData.shortInfo);
-  dfTag.innerHTML = extra_info.targetsDF;
-  upgTag.innerHTML = extra_info.upgrades;
-  stationTag.innerHTML = extra_info.stationInfo;
-  if(settings.languages_and_PAs) langTag.innerHTML = languagesCount(crewData, specificFlightData.shortInfo.flightLegs.slice(1));
-  else langTag.innerHTML = "";
-  if(settings.ramadan){
-    ramadanTag.innerHTML = extra_info.ramadan;
+  //Upgrades and DF targets output
+  const dfTag = document.querySelector("#dfOutput");
+  const upgTag = document.querySelector("#upgOutput");
+  const stationTag = document.querySelector("#stationInfoOutput");
+  const langTag = document.querySelector("#langOutput");
+  const ramadanTag = document.querySelector("#ramadanOutput");
+  if (settings.additional_info){
+    const extra_info = additional_info(specificFlightData.shortInfo);
+    dfTag.innerHTML = extra_info.targetsDF;
+    upgTag.innerHTML = extra_info.upgrades;
+    stationTag.innerHTML = extra_info.stationInfo;
+    if(settings.languages_and_PAs) langTag.innerHTML = languagesCount(crewData, specificFlightData.shortInfo.flightLegs.slice(1));
+    else langTag.innerHTML = "";
+    if(settings.ramadan){
+      ramadanTag.innerHTML = extra_info.ramadan;
+    } else {
+      ramadanTag.innerHTML = ""
+    }
   } else {
+    dfTag.innerHTML = "";
+    upgTag.innerHTML = "";
+    stationTag.innerHTML = "";
+    langTag.innerHTML = "";
     ramadanTag.innerHTML = ""
   }
-} else {
-  dfTag.innerHTML = "";
-  upgTag.innerHTML = "";
-  stationTag.innerHTML = "";
-}
 
-if ([10,12,13,14,15,16].includes(fleet[registration])){
-  W_selector(crewData, positions);
-}
+  if ([10,12,13,14,15,16].includes(fleet[registration])){
+    W_selector(crewData, positions);
+  }
 
   localStorage.setItem("registration", registration); //must be before generate_positions
   localStorage.setItem("crewData", JSON.stringify(crewData));
@@ -117,3 +154,35 @@ document.addEventListener("keydown", function (event) {
     hideGUI()
   }
 });
+
+//For iOS show trips manually (from clipboard). This works on desktop as well if automatic fails
+const showTrips = async () => {
+  let text = null;
+  if(/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) { //Safari
+    const info = document.createElement("textarea");
+    document.body.appendChild(info);
+    info.focus();
+    const success = document.execCommand("paste");
+    text = info.value;
+    document.body.removeChild(info);
+  } else { //non-Safari
+    text = await navigator.clipboard.readText();
+  }
+  try {
+    const parsed = JSON.parse(text);
+    if (typeof parsed === "object" && parsed !== null) {
+      window.dataPool = parsed;
+      console.warn("Data received from clipboard");
+      console.log(window.dataPool)
+      createTrips()
+      renderer([document.querySelector("#tripsTable"), document.querySelector("#settings-wrapper")],[document.querySelector("#fetchTable")]);
+      return;
+    }
+  }
+  catch (error) {
+    console.error("Invalid JSON data in clipboard:", error);
+    renderer([document.querySelector("#fetchMessage")],[]);
+    return;
+  }
+}
+window.showTrips = showTrips;

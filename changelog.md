@@ -364,3 +364,25 @@ Fixed issue with draggable positions in "manual positions" for tablets. I know m
 Pricelist update.
 
 ---
+
+## 26.04.2025
+
+I'm well aware that recent iPad update broke the app on some devices. I fixed modules and path for Safari browsers. Now it works on desktop Safari and pre-update tablets with Safari.
+However, this iPad update caused bigger issue: due to stricter security rules I cannot pass data between tabs in browser as they are cross-origin and CORS restriction applies (this safety measure protects you credit card information from one tab to be stolen by malicious software from another tab). Due to cross-origin I cannot use localStorage to pass data as well.
+The best way will be to pass roster data as URL parameter, but the data is too large (like 4–5KB+) and resulting URL becomes too long. Browsers have different restriction on this, but maximum safe limit is about 2000 characters (not enough) especially if you load data for multiple flights at once.
+Second best way will be to do it via backend, but i cannot store confidential data on third party server without permission from company. This is still possible, but has legal restrictions.
+The previous solution via postMessage API as not working only on iPads: tablets have stricter security limitations and both window.open and window.opener are nullified.
+Next solution will be to use clipboard as a bridge to transfer data. But iPad restricts the copy action if it is not triggered by a user gesture (like a button click or touch). So i updated iOS shortcut itself and it will allow passing data even cross-browser. Just be mindful that pasting data from clipboard may also ask you permission in browser like this.
+![Clipboard](screenshots/scr33.png)
+Now if you on desktop you will have experience as previously. But if you on iPad you will see a button that prompts you to start/"Show trips". This also works a back up for desktop if automatic connection fails.
+![Show trips button](screenshots/scr32.png)
+Another nice side-effect of this that you will be able even to refresh crewApp page without restarting the snippet/shortcut as long as you don't overwrite info in clipboard. I still recommend to use non-Safari browser like Google Chrome.
+
+Removed link to app's source code.
+
+Fixed "language info" still showing when settings for "additional info" were off.
+
+By request of one of our pursers added feature to hide flags, when they do not load correctly (you can just leave nationality text).
+![Hide flags button](screenshots/scr31.png)
+
+---
