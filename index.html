@@ -10,7 +10,10 @@
   </head> 
   <body>
     <section id="fetchTable">
-      <div id="fetchMessage" class="hidden">&#9888; Data was not copied properly from portal</div>
+      <div id="fetchMessage" class="hidden">
+        <div>&#9888; Data was not copied properly from portal</div>
+        <input id="dataInput" type="text" placeholder="Paste data here" />
+      </div>
       <button id="buttonStart" onclick="showTrips()" class="control-button-blue">Show trips</button>
     </section>
     <section id="tripsTable" class="hidden">

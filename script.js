@@ -157,19 +157,18 @@ document.addEventListener("keydown", function (event) {
 
 //For iOS show trips manually (from clipboard). This works on desktop as well if automatic fails
 const showTrips = async () => {
-  let text = null;
-  if(/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) { //Safari
-    const info = document.createElement("textarea");
-    document.body.appendChild(info);
-    info.focus();
-    const success = document.execCommand("paste");
-    text = info.value;
-    document.body.removeChild(info);
-  } else { //non-Safari
+  let text = "";
+  const dataTag = document.querySelector("#dataInput");
+  if (dataTag.value.length > 0) { // Check if any data in input field
+    text = dataTag.value;
+  } else if (navigator.clipboard){ //Check if any data in clipboard
     text = await navigator.clipboard.readText();
+  } else {
+    renderer([document.querySelector("#fetchMessage")],[]);
   }
   try {
     const parsed = JSON.parse(text);
+    dataTag.value = "";
     if (typeof parsed === "object" && parsed !== null) {
       window.dataPool = parsed;
       console.warn("Data received from clipboard");
@@ -186,3 +185,6 @@ const showTrips = async () => {
   }
 }
 window.showTrips = showTrips;
+
+//console.log (window.location.protocol)
+//console.log (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') 

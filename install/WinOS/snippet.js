@@ -61,13 +61,14 @@ function convertDate(stringDate) {
 
 async function copyToClipboard(info) {
     try {
-        //await navigator.clipboard.writeText(JSON.stringify(info, null, 2)); // This more modern API did not work cause window keeps loosing focus
+        await navigator.clipboard.writeText(JSON.stringify(info, null, 2)); // This more modern API did not work cause window keeps loosing focus
+        const crewApp = window.open(`http://127.0.0.1:5501/index.html`,"_blank");
 
-        const data = document.createElement("textarea");
+        /*const data = document.createElement("textarea");
         data.value = JSON.stringify(info, null, 2);
         document.body.appendChild(data);
         data.select();
-        document.execCommand("copy");
+        document.execCommand("copy");*/
 
         console.log("Data copied to clipboard!");
     } catch (err) {
@@ -76,4 +77,3 @@ async function copyToClipboard(info) {
 };
 
 copyToClipboard(dataToGo); 
-const crewApp = window.open(`http://127.0.0.1:5501/index.html`,"_blank");
