@@ -87,11 +87,6 @@ export function createOutput(crewList, numberOfSectors, hasBreak, doPositions) {
         fileContent += `<tr><td class="centerCell" group="grade">${item.originalGrade}</td>
                             <td group="nickname">${item.nickname}</td>`;
         for (let i = 0; i < numberOfSectors; i++) {
-            console.log(item[`position${i}`] in positionsW[aircraftType])
-            console.log(item[`position${i}`])
-            console.log(positionsW[aircraftType])
-
-
             fileContent += `<td group="position${i+1}" class="centerCell showBadgeButton ${settings.break_auto_correction && hasBreak[i] ? "autoBreaks" : ""} ${settings.repeated_positions_highlight ? "repeatHighlight" : ""}" contenteditable>${doPositions ? item[`position${i}`] : ""}
                 ${item.doingDF && doPositions ? ` <span class="badge badge-ir" title="Retail operator" onclick="badgeMenu(event)">IR</span>` : ""}
                 ${settings.languages_and_PAs && item.doingPA[i] ? `<span class="badge badge-pa" title="`+item.doingPA[i].join(", ")+`" onclick="badgeMenu(event)">PA</span>` : ""}
