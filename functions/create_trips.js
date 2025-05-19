@@ -3,7 +3,6 @@ import {typesOfAircraft} from '../data/aircraft_type.js';
 import {fleet} from '../data/fleet.js';
 
 import {requiredCrewNumber} from './required_crew_number.js'
-import {selectWManually} from './W_selector_manually.js'
 import {errorHandler} from './error_handler.js'
 import {renderer, showRegistrationInputField} from './renderer.js'
 
@@ -73,7 +72,7 @@ export function createTrips() {
         output += `<td id="crewNumber${index}">${vcm !== "" ? crewNumber + "/" + vcm : ""}</td>`;
         output += `<td id="VCM${index}" style=${crewNumber - vcm < 0 ? "color:red" : crewNumber - vcm > 0 ? "color:darkgreen" : ""}>${vcm_output}</td>`;
         output += "crewData" in dataPool[item] ? hasRegistration /* Could have another check here for type of operation `&& typeOfOperation === "Passenger flight"` but information from portal was inconsistent */ ?
-                    `<td style="border:none;background:white;"><button id="buttonList${index}" onclick="start(event, ${index}, ${false})">List only</button><button id="buttonGenerate${index}" onclick="start(event, ${index}, ${true})">Generate</button>${(parseInt(classes) === 4 || aircraftModel === 'A350' ) && settings.select_W_manually ? '<button onclick="selectWManually(event)" value=' + item + ">Select W</button>" : ""}</td>` /* Renders if all dataPool is available */ :
+                    `<td style="border:none;background:white;"><button id="buttonList${index}" onclick="start(event, ${index}, ${false})">List only</button><button id="buttonGenerate${index}" onclick="start(event, ${index}, ${true})">Generate</button></td>` /* Renders if all dataPool is available */ :
                     `<td style="border:none;background:white;""><button id="buttonList${index}" onclick="start(event, ${index}, ${false})">List only</button><button id="buttonRegistration${index}" onclick="showRegistrationInputField(event, ${index})">Add registration</button><span id="registrField${index}" class="hidden"><input id="registrInput${index}" type=text value="A6E" maxlength="5" size="5" onkeypress="return /[0-9a-zA-Z]/i.test(event.key)" style="text-transform:uppercase"/><button id="buttonOK${index}" onclick="addAircraftRegistrationManually(${index})">OK</button></span></td>` /* Renders if only crew dataPool is available */ :
             "";
         output += `</tr>`;

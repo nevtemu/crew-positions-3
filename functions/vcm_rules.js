@@ -164,9 +164,9 @@ export function vcmRules(vcm, p, aircraftType, isULR) {
         //A380-300 4 class
         case 10:
             if (vcm < 0) {
-                p.W.galley.splice(p.W.galley.indexOf("MR3A"), 1);
+                p.GR2.galley.splice(p.GR2.galley.indexOf("MR3A"), 1);
                 p.GR2.remain.splice(p.GR2.remain.indexOf("MR2"), 1);
-                p.W.galley.push("MR2 (MR3A)");
+                p.GR2.galley.push("MR2 (MR3A)");
             }
             if (vcm < -1) {
                 p.GR2.remain.splice(p.GR2.remain.indexOf("ML4"), 1);
@@ -218,18 +218,18 @@ export function vcmRules(vcm, p, aircraftType, isULR) {
             } else break;
             if (vcm < -4 && isULR) {
                 p.FG1.remain.splice(p.FG1.remain.indexOf("L1A"), 1);
-                p.W.df.splice(p.W.df.indexOf("R3"), 1);
+                p.GR2.remain.splice(p.GR2.remain.indexOf("R3"), 1);
                 p.FG1.remain.push("R3 (L1A)");
             } else if (vcm < -4) {
                 p.FG1.df.splice(p.FG1.df.indexOf("R1"), 1);
-                p.W.df.splice(p.W.df.indexOf("R3"), 1);
+                p.GR2.remain.splice(p.GR2.remain.indexOf("R3"), 1);
                 p.PUR.only.splice(p.PUR.only.indexOf("PUR"), 1);
                 p.FG1.df.push("R3 (R1)");
                 p.PUR.only.push("L1 (PUR)");
             } else break;
             if (vcm < -5 && isULR) {
                 p.FG1.df.splice(p.FG1.df.indexOf("R1"), 1);
-                p.W.galley.splice(p.W.galley.indexOf("L3"), 1);
+                p.GR2.galley.splice(p.GR2.galley.indexOf("L3"), 1);
                 p.PUR.only.splice(p.PUR.only.indexOf("PUR"), 1);
                 p.FG1.df.push("L3 (R1)");
                 p.PUR.only.push("L1 (PUR)");

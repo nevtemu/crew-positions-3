@@ -29,6 +29,12 @@ export const typesOfAircraft = {
 */
 
 /*
+Aircraft with W;
+10,12,13,14,15,16
+*/
+
+
+/*
 4: B772 2 class (with CRC, JC Falcon seats)
 
 5: B773 2 class (no CRC)

@@ -405,3 +405,9 @@ Added fallback to input field if the app hosted on non-SSL source.
 Updated pricelist.
 
 ---
+
+## 13.05.2025
+
+Our pursers informed me that there is no more required to keep same Gr2s in W on both sectors so all Y crew are in one list now. You can use W badges to identify W crew if you'd like to (the app will do it automatically when generating positions).
+
+---

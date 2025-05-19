@@ -7,7 +7,6 @@ import {positions} from './data/positions.js';
 // Functions
 import {additional_info} from './functions/additional_info.js'
 import {birthday_check} from './functions/birthday_check.js'
-import {W_selector} from './functions/W_selector.js'
 import {loadCrew} from './functions/load_crew.js'
 import {loadPositions} from './functions/load_positions.js'
 import {generatePositions} from './functions/generate_positions.js'
@@ -23,7 +22,6 @@ import { changeSettings } from './functions/change_settings.js';
 import { showSettings } from './functions/show_settings.js';
 import { addAircraftRegistrationManually } from './functions/add_aircraft_registration_manually.js';
 import { badgeMenu, deleteBadge, addBadge, replaceBadge, closeBadgeMenu } from './functions/badge_menu.js';
-import { selectWManually } from './functions/W_selector_manually.js';
 import { changeNumberOfDuties } from './functions/change_number_of_duties.js';
 import { restart } from './functions/create_output_restart.js';
 
@@ -31,7 +29,6 @@ window.start = start;
 window.restart = restart;
 window.showRegistrationInputField = showRegistrationInputField;
 window.addAircraftRegistrationManually = addAircraftRegistrationManually;
-window.selectWManually = selectWManually;
 window.changeNumberOfDuties = changeNumberOfDuties;
 window.badgeMenu = badgeMenu;
 window.closeBadgeMenu = closeBadgeMenu;
@@ -127,10 +124,6 @@ export function start(event, n, doPositions) {
     stationTag.innerHTML = "";
     langTag.innerHTML = "";
     ramadanTag.innerHTML = ""
-  }
-
-  if ([10,12,13,14,15,16].includes(fleet[registration])){
-    W_selector(crewData, positions);
   }
 
   localStorage.setItem("registration", registration); //must be before generate_positions

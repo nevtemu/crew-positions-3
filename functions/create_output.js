@@ -3,9 +3,24 @@ import {autoCorrectBreaks} from '../functions/auto_correct_breaks.js'
 import {repeatHighlight} from '../functions/repeat_highlights.js'
 import {badges} from '../functions/badges.js'
 import {languageHighlight} from '../functions/languages.js'
+import {fleet} from '../data/fleet.js';
+
+const positionsW = {
+    //A380
+    10: ["MR3A", "MR2 (MR3A)", "MR1"], 
+    14: ["MR3A", "MR2 (MR3A)", "MR1"],
+    15: ["MR3A", "MR2 (MR3A)", "MR1"],
+    //B777
+    12: ["L3", "R3"],
+    16: ["L3", "R3"],
+    //A350
+    13: ["L2", "R2"]
+}
 
 export function createOutput(crewList, numberOfSectors, hasBreak, doPositions) {
     const settings = JSON.parse(localStorage.getItem('settings'));
+    const aircraftType = fleet[localStorage.getItem('registration')];
+    console.log(aircraftType)
 
     let positionsHeaders = '';
     for (let k=0; k< numberOfSectors; k++){
@@ -72,11 +87,17 @@ export function createOutput(crewList, numberOfSectors, hasBreak, doPositions) {
         fileContent += `<tr><td class="centerCell" group="grade">${item.originalGrade}</td>
                             <td group="nickname">${item.nickname}</td>`;
         for (let i = 0; i < numberOfSectors; i++) {
+            console.log(item[`position${i}`] in positionsW[aircraftType])
+            console.log(item[`position${i}`])
+            console.log(positionsW[aircraftType])
+
+
             fileContent += `<td group="position${i+1}" class="centerCell showBadgeButton ${settings.break_auto_correction && hasBreak[i] ? "autoBreaks" : ""} ${settings.repeated_positions_highlight ? "repeatHighlight" : ""}" contenteditable>${doPositions ? item[`position${i}`] : ""}
                 ${item.doingDF && doPositions ? ` <span class="badge badge-ir" title="Retail operator" onclick="badgeMenu(event)">IR</span>` : ""}
                 ${settings.languages_and_PAs && item.doingPA[i] ? `<span class="badge badge-pa" title="`+item.doingPA[i].join(", ")+`" onclick="badgeMenu(event)">PA</span>` : ""}
+                ${[10,12,13,14,15,16].includes(aircraftType) && positionsW[aircraftType].includes(item[`position${i}`]) ? `<span class="badge badge-w" onclick="badgeMenu(event)">W</span>` : ""}
                 ${settings.positions_badges ? `<span style="diplay:none" contenteditable="false"> </span><span class="invisible badgeButton" onclick="badgeMenu(event, false)">+</span>` : ""}
-                </td>`; /* Перший це заглушка */
+                </td>`; /* Перший span це заглушка */
             if (hasBreak[i]) fileContent += `<td group="break${i+1}" class="centerCell" contenteditable>${doPositions ? item[`break${i}`] : ""}</td>`
         }
         fileContent += `<td group="fullName">${item.fullname}</td>
