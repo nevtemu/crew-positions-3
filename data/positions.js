@@ -83,7 +83,7 @@ export const positions = {
     ),
     //B773 4 class nonULR
     ...Object.fromEntries(
-      [12, 16].map((z) => [z,{
+      [12, 16, 17].map((z) => [z,{
           PUR: { only: ["PUR"] },
           CSV: { only: ["L5", "R2A"] },
           FG1: { galley: ["L1"], df: ["R1"], remain: [] },

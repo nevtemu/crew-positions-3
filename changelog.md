@@ -411,3 +411,9 @@ Updated pricelist.
 Our pursers informed me that there is no more required to keep same Gr2s in W on both sectors so all Y crew are in one list now. You can use W badges to identify W crew if you'd like to (the app will do it automatically when generating positions).
 
 ---
+
+## 30.05.2025
+
+Many updates related to fleet: got 3 new A350, refurbished 12 B773. Got new aircraft type B773 4 class without CRC.
+
+---

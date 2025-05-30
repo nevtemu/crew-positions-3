@@ -16,7 +16,8 @@ export const typesOfAircraft = {
     
     14: {typesOfAircraftIndex: 14, crc: -1, aircraftModel: "A380", classes: 4, description: "A380 4 class", fullDescription: "A380 4 class (no CRC)"}, 
     15: {typesOfAircraftIndex: 15, crc: 3, aircraftModel: "A380", classes: 4, description: "A380 4 class", fullDescription: "A380 4 class (MD-CRC)"}, 
-    16: {typesOfAircraftIndex: 16, crc: 1, aircraftModel: "B773", classes: 4, description: "B773 4 class (non-game changer)", fullDescription: "B773 4 class (with CRC, 8 suits in F)"}, 
+    16: {typesOfAircraftIndex: 16, crc: 1, aircraftModel: "B773", classes: 4, description: "B773 4 class", fullDescription: "B773 4 class (non-Game changer)"}, 
+    17: {typesOfAircraftIndex: 17, crc: -1, aircraftModel: "B773", classes: 4, description: "B773 4 class", fullDescription: "B773 4 class (no-CRC)"}, 
 
   };
 
@@ -30,7 +31,7 @@ export const typesOfAircraft = {
 
 /*
 Aircraft with W;
-10,12,13,14,15,16
+10,12,13,14,15,16,17
 */
 
 
@@ -59,7 +60,7 @@ Aircraft with W;
 
 /*
 1: B773 3 class (with CRC)
-2: B773 3 class (with CRC, JC Falcon seats)
+2: B773 3 class (with CRC, JC Falcon seats) all changed to 4 class (type 16)
 3: B773 3 class (with CRC, Game changer)
 4: B772 2 class (with CRC, JC Falcon seats)
 5: B773 2 class (no CRC)

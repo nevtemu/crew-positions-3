@@ -197,6 +197,7 @@ export function vcmRules(vcm, p, aircraftType, isULR) {
         // B773 4 class
         case 12:
         case 16:
+        case 17:
         case 912:
             if (vcm < 0) {
                 p.GR2.remain.splice(p.GR2.remain.indexOf("L5A"), 1);

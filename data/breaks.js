@@ -177,7 +177,10 @@ export const breaks = {
     R4: 4,
     L2: 4,
   },
-  6: {
+...Object.fromEntries(
+    [6, 17].map((n) => [
+      n,
+      {
     L1: 1,
     R2: 1,
     R5A: 1,
@@ -195,7 +198,9 @@ export const breaks = {
     L2: 4,
     L3: 4,
     R4: 4,
-  },
+      },
+    ])
+  ),
   14: {
     UR1: 1,
     ML3: 1,
