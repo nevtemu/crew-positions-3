@@ -20,16 +20,15 @@ export function loadPositions(crewData, registration, isULR, forTripsTable = tru
   const thisFlightBreaks = structuredClone(breaks[operationType])
 
     // Temp rule: B773 4th Gr1 added in stages 2024
-    if([1, 2, 3, 6, 12, 16, 912, 901].includes(operationType) && crewData.filter((crew) => crew.grade == "GR1" || crew.OperationGrade == 'GR1').length  === 4){
+    if([1, 2, 3, 6, 12, 16, 17, 912, 901].includes(operationType) && crewData.filter((crew) => crew.grade == "GR1" || crew.OperationGrade == 'GR1').length  === 4){
       let n = thisFlightPositions.EXTRA.only.indexOf("R5C")
-      console.log(n)
       if (n) thisFlightPositions.EXTRA.only.splice(n, 1)
       thisFlightPositions.GR1.remain.push("R5C")
     }
     // End of temp rule
 
     // Temp rule: B773 3rd Fg1 added for full turnarounds 2024
-    if([1, 2, 3, 6, 12, 16].includes(operationType) && crewData.filter((crew) => crew.grade == "FG1" || crew.OperationGrade == 'FG1').length  === 3){
+    if([1, 2, 3, 6, 12, 16, 17].includes(operationType) && crewData.filter((crew) => crew.grade == "FG1" || crew.OperationGrade == 'FG1').length  === 3){
       let n = thisFlightPositions.EXTRA.only.indexOf("L1A")
       if (n) thisFlightPositions.EXTRA.only.slice(n, n+1)
       thisFlightPositions.FG1.remain.push("L1A")

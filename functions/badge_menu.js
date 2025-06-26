@@ -1,4 +1,4 @@
-const badges = ["W", "IR", "MFP", "PA"]
+const badges = ["W", "IR", "MFP", "PA", "UD"]
 
 export function badgeMenu (e, hasDelete = true) {
     //remove all previous badge menus

@@ -417,3 +417,13 @@ Our pursers informed me that there is no more required to keep same Gr2s in W on
 Many updates related to fleet: got 3 new A350, refurbished 12 B773. Got new aircraft type B773 4 class without CRC.
 
 ---
+
+## 26.06.2025
+
+Fixed issue with Czech language: in portal's qualifications system it is written with mistake Czec.
+
+Temporary added UD badge for 2 class A380 to indicate UD crew. Only use it if you like to.
+
+Updated pricelist.
+
+---
