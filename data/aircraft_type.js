@@ -60,8 +60,8 @@ Aircraft with W;
 
 /*
 1: B773 3 class (with CRC)
-2: B773 3 class (with CRC, JC Falcon seats) all changed to 4 class (type 16)
-3: B773 3 class (with CRC, Game changer)
+- 2: B773 3 class (with CRC, JC Falcon seats) all changed to 4 class (type 16)
+- 3: B773 3 class (with CRC, Game changer) all changed to type 12
 4: B772 2 class (with CRC, JC Falcon seats)
 5: B773 2 class (no CRC)
 6: B773 3 class (no CRC)
@@ -77,4 +77,5 @@ Aircraft with W;
 14: A380 4 class (no CRC)
 15: A380 4 class (MD-CRC)
 16: B773 4 class (with CRC, 8 suits in F)
+17: B773 4 class (no CRC)
 */

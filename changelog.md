@@ -427,3 +427,9 @@ Temporary added UD badge for 2 class A380 to indicate UD crew. Only use it if yo
 Updated pricelist.
 
 ---
+
+## 05.07.2025
+
+Fleet updates.
+
+---
