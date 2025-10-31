@@ -4,7 +4,7 @@ Allocating crew positions before the flight can be a challenging and time consum
 
 >
 > [!CAUTION]
-> Guys I made light version of the app (without upgrade price and retail targets data), so it require less maintenance.
+> Guys I made lite version of the app (without upgrade price and retail targets data), so it require less maintenance.
 
 Here is a quick look:
 
