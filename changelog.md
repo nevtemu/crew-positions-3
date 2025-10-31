@@ -433,3 +433,15 @@ Updated pricelist.
 Fleet updates.
 
 ---
+
+## 31.10.2025
+
+Massive fleet updates. New aircraft type (A350 with CRC).
+
+Optimized logic for 4 class positions.
+
+One user brought rare bug to my attention, when TripData is received from portal but it is empty. I added fix for that case.
+
+Added breaks for A350 aircraft type.
+
+---

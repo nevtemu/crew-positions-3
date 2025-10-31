@@ -4,7 +4,7 @@ Allocating crew positions before the flight can be a challenging and time consum
 
 >
 > [!CAUTION]
-> Recent iPad update broke the app on some devices. Please read [changelog](./changelog.md "changelog") for update.
+> Guys I made light version of the app (without upgrade price and retail targets data), so it require less maintenance.
 
 Here is a quick look:
 

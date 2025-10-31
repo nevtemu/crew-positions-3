@@ -92,7 +92,7 @@ export function start(event, n, doPositions) {
 
   birthday_check(crewData, specificFlightData);
 
-  let registration = specificFlightData.flightData.FlightData[0].AircraftTail;
+  let registration = specificFlightData.flightData.FlightData ? specificFlightData.flightData.FlightData[0].AircraftTail : null;
   let numberOfDuties = document.querySelector(`#sectors${n}`).value; //These values taken from page as user may change number of positions/breaks desired
   
   let hasBreak = []

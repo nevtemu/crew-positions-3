@@ -91,7 +91,7 @@ export function createOutput(crewList, numberOfSectors, hasBreak, doPositions) {
             fileContent += `<td group="position${i+1}" class="centerCell showBadgeButton ${settings.break_auto_correction && hasBreak[i] ? "autoBreaks" : ""} ${settings.repeated_positions_highlight ? "repeatHighlight" : ""}" contenteditable>${doPositions ? item[`position${i}`] : ""}
                 ${item.doingDF && doPositions ? ` <span class="badge badge-ir" title="Retail operator" onclick="badgeMenu(event)">IR</span>` : ""}
                 ${settings.languages_and_PAs && item.doingPA[i] ? `<span class="badge badge-pa" title="`+item.doingPA[i].join(", ")+`" onclick="badgeMenu(event)">PA</span>` : ""}
-                ${[10,12,13,14,15,16].includes(aircraftType) && positionsW[aircraftType].includes(item[`position${i}`]) ? `<span class="badge badge-w" onclick="badgeMenu(event)">W</span>` : ""}
+                ${Object.keys(positionsW).includes(""+aircraftType) && positionsW[aircraftType].includes(item[`position${i}`]) ? `<span class="badge badge-w" onclick="badgeMenu(event)">W</span>` : ""}
                 ${settings.positions_badges ? `<span style="diplay:none" contenteditable="false"> </span><span class="invisible badgeButton" onclick="badgeMenu(event, false)">+</span>` : ""}
                 </td>`; /* Перший span це заглушка */
             if (hasBreak[i]) fileContent += `<td group="break${i+1}" class="centerCell" contenteditable>${doPositions ? item[`break${i}`] : ""}</td>`

@@ -1,17 +1,17 @@
 export const fleet = {
-    "A6EBQ": 1,
+    "A6EBQ": 1, //retired?
     "A6EBR": 1,
     "A6EBU": 1,
-    "A6EBW": 1,
+    "A6EBW": 1, //retired?
     "A6EBY": 1,
     "A6ECA": 1,
-    "A6ECC": 1, //retired??
-    "A6ECD": 1,
+    "A6ECC": 1, //retired?
+    "A6ECD": 1, //retired?
     "A6ECE": 1,
     "A6ECF": 1,
     "A6ECG": 1,
     "A6ECH": 1,
-    "A6ECI": 1,
+    "A6ECI": 1, 
     "A6ECJ": 1,
     "A6ECK": 1,
     "A6ECM": 1,
@@ -92,16 +92,7 @@ export const fleet = {
     "A6ENP": 6,
     "A6ENQ": 6,
     "A6ENR": 6,
-    "A6ENT": 6,
-    "A6ENU": 6,
     "A6ENZ": 6,
-    "A6EPC": 6,
-    "A6EPF": 6,
-    "A6EPJ": 6,
-    "A6EPK": 6,
-    "A6EPL": 6,
-    "A6EPM": 6,
-    "A6EPN": 6,
     "A6EPO": 6,
     "A6EPP": 6,
     "A6EPS": 6,
@@ -160,7 +151,6 @@ export const fleet = {
     "A6EOW": 8,
     "A6EOZ": 8,
     "A6EUA": 8,
-    "A6EUB": 8,
     "A6EUC": 8,
     "A6EUD": 8,
 
@@ -183,15 +173,17 @@ export const fleet = {
     "A6EEP": 9,
     "A6EEQ": 9,
     "A6EET": 9,
-    "A6EEU": 9,
+ 
     "A6EEV": 9,
     "A6EOE": 9,
     "A6EOG": 9,
     "A6EOH": 9,
     "A6EOL": 9,
-    "A6EOM": 9,
+
 
     "A6EUE": 10,
+    "A6EUF": 10,
+    "A6EUG": 10,
     "A6EUH": 10,
     "A6EUI": 10,
     "A6EUJ": 10,
@@ -221,9 +213,6 @@ export const fleet = {
     "A6EVR": 10,
     "A6EVS": 10,
 
-    "A6EUF": 11,
-    "A6EUG": 11,
-
     "A6EQH": 12,
     "A6EQI": 12,
     "A6EQJ": 12,
@@ -243,16 +232,20 @@ export const fleet = {
     "A6EXG": 13,
     "A6EXH": 13,
     "A6EXI": 13,
+    "A6EXJ": 13,
 
     "A6EEW": 14,
     "A6EEX": 14,
-    "A6EUM": 14,
+    "A6EUM": 14, //retired?
     "A6EOI": 14,
+    "A6EUB": 14,
 
     "A6EOC": 15,
     "A6EOD": 15,
     "A6EOF": 15, 
     "A6EON": 15,
+    "A6EEU": 15,
+    "A6EOM": 15,
 
     "A6EPV": 16,
     "A6EPW": 16,
@@ -268,15 +261,26 @@ export const fleet = {
     "A6EQG": 16,
 
     "A6ENS": 17,
+    "A6ENT": 17,
+    "A6ENU": 17,
     "A6ENV": 17,
     "A6ENX": 17,
     "A6EPA": 17,
     "A6EPB": 17,
+    "A6EPC": 17,
     "A6EPD": 17,
+    "A6EPF": 17,
     "A6EPH": 17,
     "A6EPI": 17,
+    "A6EPJ": 17,
+    "A6EPK": 17, 
+    "A6EPL": 17,
+    "A6EPM": 17,
+    "A6EPN": 17,
     "A6EPU": 17,
 
+    "A6EXK": 18,
+    "A6EXM": 18,
 
 }
 

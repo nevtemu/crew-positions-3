@@ -108,6 +108,14 @@ export const positions = {
       GR2: { galley: ["L3", "R4", "L2"], df: ["R3"], remain: ["R2", "L4A", "R4A"] },
       EXTRA: { only: ["L2A"] },
     } /* No proper jumpseat diagram at the moment */,
+    //A350 ULR
+    18: {
+      PUR: { only: ["PUR"] },
+      CSV: { only: ["L4"] },
+      GR1: { galley: ["L1A"], df: ["R1"], remain: ["L1", "R2A"] },
+      GR2: { galley: ["L3", "R4", "L2"], df: ["R3"], remain: ["R2", "L4A", "R4A"] },
+      EXTRA: { only: ["L2A"] },
+    } /* No proper jumpseat diagram at the moment */,
   };
 
 //U2 do inboard seats, U3 do window seats

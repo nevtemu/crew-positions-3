@@ -19,7 +19,7 @@ export function createTrips() {
         let flightDate = new Date(dataPool[item].shortInfo.flightDate).toLocaleDateString("en-GB").replaceAll("/", "."); // Due to iPad fix date is passed as string now and must be converted first
         let registration = "", description = "", crc = "", typeOfOperation = "", age = "", classes = "", aircraftModel = "";
         let registrationMismatch = false;
-        let hasRegistration = "flightData" in dataPool[item] && dataPool[item].flightData.FlightData[0].AircraftTail != null; //For reserve trips and trips that were long time ago portal returns null for aircraft registration (AircraftTail)
+        let hasRegistration = "flightData" in dataPool[item] && dataPool[item].flightData.FlightData !== null && dataPool[item].flightData.FlightData[0].AircraftTail != null; //For reserve trips and trips that were long time ago portal returns null for aircraft registration (AircraftTail)
         if ("flightData" in dataPool[item] && !hasRegistration) errorHandler(`Flight ${flightNumber} on ${flightDate} missing dataPool from portal`, "error");
         if (hasRegistration) {
             registration = dataPool[item].flightData.FlightData[0].AircraftTail;

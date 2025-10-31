@@ -17,8 +17,10 @@ export function filterLanguages (destinations) {
     thirdLanguages = [];
     requiredLanguages = [];
     destinations.forEach (destination => {
-        if(Object.keys(languages[destination])) requiredLanguages = requiredLanguages.concat(Object.keys(languages[destination]))
-        if(languagesPA[destination]) thirdLanguages =thirdLanguages.concat(languagesPA[destination])
+        //if(Object.keys(languages[destination])) requiredLanguages = requiredLanguages.concat(Object.keys(languages[destination]))
+        //if(languagesPA[destination]) thirdLanguages =thirdLanguages.concat(languagesPA[destination])
+        if(languages.hasOwnProperty(destination)) requiredLanguages = requiredLanguages.concat(Object.keys(languages[destination]))
+        if(languagesPA.hasOwnProperty(destination)) thirdLanguages = thirdLanguages.concat(languagesPA[destination])
     });
     requiredLanguages = [...new Set(requiredLanguages)]; //remove duplicates
     requiredLanguages = requiredLanguages.filter(lang => lang !== "Arabic")

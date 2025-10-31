@@ -1,6 +1,6 @@
 export function birthday_check(crewData, specificFlightData) {
 
-    if (!specificFlightData.flightData.FlightData[0].hasOwnProperty("DepartureDate")) {
+    if (!specificFlightData.flightData.FlightData || !specificFlightData.flightData.FlightData[0].hasOwnProperty("DepartureDate")) {
         return; //exit if no flight dates available
     }
 
